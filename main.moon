@@ -18,26 +18,6 @@ class Object
 		t[#t+1] = data
 		@body\setUserData(t) 		
 
--- I am a ...
-lssx.categories = {
-	["Player"]:     1,
-	["Projectile"]: 2,
-	["Ship"]:       3,
-}
-
--- I will collide with a...
-lssx.masks = {
-	["Player"]: {
-		lssx.categories["Projectile"]
-		lssx.categories["Asteroid"]
-		lssx.categories["AI"]
-	}
-}
-
-lssx.groupIndices = {
-	["FriendlyFire"]: 1
-}
-
 class PhysicsObject extends Object 
 	-- world, 10, 20, "dynamic"
 	new: (world, @x, @y, @type) =>
@@ -54,11 +34,6 @@ class PhysicsObject extends Object
 		super\remove()
 		Physics.addToBuffer ->
 			@body\destroy()	
-
-
-Physics.beginContact(a, b, coll)
- lssx.objects[a\getUserData().hash]\beginContact(b)
- lssx.objects[b\getUserData().hash]\beginContact(a)
 
 Physics = {}
 
@@ -85,6 +60,14 @@ Physics.runBuffer = () ->
 		  Physics.buffer[i]()
 		  table.remove(Physics.buffer, i)
 
+Physics.beginContact(a, b, coll)
+	-- Get the fixture userdata and call the objects collision callback
+	if lssx.objects[a\getUserData().hash] !+ nil  
+		lssx.objects[a\getUserData().hash]\beginContact(b)
+
+	if lssx.objects[b\getUserData().hash] !+ nil  
+		lssx.objects[b\getUserData().hash]\beginContact(a)
+
 Player.beginContact = (otherFixture) ->
 	otherHash = otherFixture\getUserData().hash -- returns table, {hash=self.hash}
 	other =  lssx.objects[otherHash]
@@ -94,3 +77,35 @@ Player.beginContact = (otherFixture) ->
 		when "Bullet"
 			@takeDamage(other.dmg)
 			other\destroy()
+
+lssx = {}
+-- I am a ...
+lssx.categories = {
+	["Player"]:     1,
+	["Projectile"]: 2,
+	["Ship"]:       3,
+}
+
+-- I will collide with a...
+lssx.masks = {
+	["Player"]: {
+		lssx.categories["Projectile"]
+		lssx.categories["Asteroid"]
+		lssx.categories["AI"]
+	}
+}
+
+lssx.groupIndices = {
+	["FriendlyFire"]: 1
+}
+
+love.load = () ->
+	Physics.load()
+
+love.update = (dt) ->
+	for k, object in pairs(lssx.objects) do 
+		object\update(dt)
+
+love.draw = () ->
+	for k, object in pairs(lssx.objects) do 
+		object\draw()
