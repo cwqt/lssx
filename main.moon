@@ -48,6 +48,11 @@ class PhysicsObject extends Object
 		super\remove()
 		@body\destroy()	
 
+
+Physics.beginContact(a, b, coll)
+ lssx.objects[a\getUserData().hash]\beginContact(b)
+ lssx.objects[b\getUserData().hash]\beginContact(a)
+
 Physics = {}
 
 Physics.load = () ->
@@ -72,3 +77,12 @@ Physics.runBuffer = () ->
 	  Physics.buffer[i]()
 	  table.remove(Physics.buffer, i)
 
+Player.beginContact = (otherFixture) ->
+	otherHash = otherFixture\getUserData().hash -- returns table, {hash=self.hash}
+	other =  lssx.objects[otherHash]
+	switch other.__class.__name
+		when "Asteroid"
+			print "Ouch"
+		when "Bullet"
+			@takeDamage(other.dmg)
+			other\destroy()
