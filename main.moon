@@ -1,8 +1,14 @@
 class Object
 	new: () =>
-		-- hash the time, insert into table
-		@hash = lssx.hashFunc(love.timer.getTime())		
-		lssx.objects[@hash] = self
+		-- Recursive check if our current hash is empty in the table
+		-- If not, redo the hash with a new time
+		local reHash = () ->
+			hash - lssx.hashFunc(love.timer.getTime())
+			if lssx.objects[hash] != nil then
+				reHash()
+			else
+				@hash = hash
+				lssx.objects[@hash] = self
 
 	remove: () =>
 		table.remove(lssx.objects, @hash)
@@ -28,25 +34,26 @@ lssx.masks = {
 	}
 }
 
-lssx.groupIndexes = {
+lssx.groupIndices = {
 	["FriendlyFire"]: 1
 }
 
 class PhysicsObject extends Object 
 	-- world, 10, 20, "dynamic"
-	new: (world, @x, @y, @type, @isSensor) =>
+	new: (world, @x, @y, @type) =>
 		@body = love.physics.newBody(world, @x, @y, @type)
 		-- Leave a reference to the table key (for collision data) 
 		@body\setUserData({hash = @hash})
-		if @isSensor
-			@body\setSensor(true)
 
 	update: (dt) =>
 		@x, @y = @body\getPosition()
 
 	remove: () =>
+		-- Remove self from global table
+		-- Box2D destroy self
 		super\remove()
-		@body\destroy()	
+		Physics.addToBuffer ->
+			@body\destroy()	
 
 
 Physics.beginContact(a, b, coll)
@@ -73,9 +80,10 @@ Physics.addToBuffer = (func) ->
 	Physics.buffer[#Physics.buffer+1] = func
 
 Physics.runBuffer = () ->
-	for i = #Physics.buffer, 1, -1  do
-	  Physics.buffer[i]()
-	  table.remove(Physics.buffer, i)
+	if #Physics.buffer > 0
+		for i = #Physics.buffer, 1, -1  do
+		  Physics.buffer[i]()
+		  table.remove(Physics.buffer, i)
 
 Player.beginContact = (otherFixture) ->
 	otherHash = otherFixture\getUserData().hash -- returns table, {hash=self.hash}
