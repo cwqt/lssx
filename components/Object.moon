@@ -1,7 +1,7 @@
 class Object
   new: () =>
-    @creationTime = love.timer.getTime()
-    @hash = tostring((@creationTime - lssx.INIT_TIME))\gsub('%.', '')
+    @creationTime = love.timer.getTime() - lssx.INIT_TIME
+    @hash = tostring((@creationTime))\gsub('%.', '')
     lssx.objects[@hash] = self
 
   appendUserData: (key, data) =>

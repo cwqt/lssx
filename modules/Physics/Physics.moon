@@ -2,6 +2,8 @@ Physics = {}
 
 Physics.load = () ->
   lssx.world = love.physics.newWorld(0, 0, true)
+  lssx.world\setCallbacks(beginContact, endContact, preSolve, postSolve)
+
   -- Debugger.log("Created Box2D " .. tostring(lssx.world))
 
   -- Prevent erroneous errors on startup.

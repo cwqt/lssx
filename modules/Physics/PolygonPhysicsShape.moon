@@ -5,6 +5,7 @@ class PolygonPhysicsShape extends PhysicsObject
     @fixture = love.physics.newFixture(@body, @shape, density)
 
   update: (dt) =>
+    super\update(dt)
 
   draw: () =>
     love.graphics.polygon("line", @body\getWorldPoints(@shape\getPoints()))

@@ -16,4 +16,4 @@ class PhysicsObject extends Object
 
   beginContact: (other) =>
     other_object = lssx.objects[other\getBody()\getUserData().hash]
-    print "I collided with object " .. other_object.__class.__name
+    print "I collided with object " .. other_object.__class.__name .. " with key " .. other\getBody()\getUserData().hash

@@ -23,23 +23,20 @@ lssx.masks = {
 	}
 }
 
-export Physics             = require("Physics")
+export Object              = require("components/Object")
 
-export Object              = require("Object")
-export PhysicsObject       = require("PhysicsObject")
-export PolygonPhysicsShape = require("PolygonPhysicsShape")
+export Physics             = require("modules/Physics/Physics")
+export PhysicsObject       = require("modules/Physics/PhysicsObject")
+export PolygonPhysicsShape = require("modules/Physics/PolygonPhysicsShape")
 
 love.load = () ->
   Physics.load()
-  lssx.world\setCallbacks(beginContact, endContact, preSolve, postSolve)
 
-  export Test = PolygonPhysicsShape({10, 20, 30, 40, 40, 80}, 0.1, lssx.world, 10, 20, "dynamic")
+  export Test = PolygonPhysicsShape({10, 20, 30, 40, 40, 80}, 0.1, lssx.world, 10, 60, "dynamic")
   Test.body\applyForce(10000,0)
-
-  export Test4 = PolygonPhysicsShape({10, 20, 30, 40, 40, 40, 200, -100}, 0.1, lssx.world, 100, 20, "dynamic")
-  -- export Test = PhysicsObject(lssx.world, 10, 20, "dynamic")
-  -- export Test2 = PhysicsObject(lssx.world, 50, 20, "dynamic")
-  -- print Test.body\getUserData().hash
+  Test.type = "memer"
+  Test\appendUserData("help", "Memes")
+  Test4 = PolygonPhysicsShape({10, 20, 30, 40, 40, 40, 200, -100}, 0.1, lssx.world, 100, 60, "dynamic")
 
 love.update = (dt) ->
   Physics.update(dt)
@@ -52,6 +49,7 @@ love.draw = () ->
   	object\draw()
 
 export beginContact = (a, b, coll) ->
+  print "contact"
   lssx.objects[a\getBody()\getUserData().hash]\beginContact(b)
   lssx.objects[b\getBody()\getUserData().hash]\beginContact(a)
 

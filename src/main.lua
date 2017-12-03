@@ -19,13 +19,12 @@ lssx.masks = {
     lssx.categories["AI"]
   }
 }
-Physics = require("Physics")
-Object = require("Object")
-PhysicsObject = require("PhysicsObject")
-PolygonPhysicsShape = require("PolygonPhysicsShape")
+Object = require("components/Object")
+Physics = require("modules/Physics/Physics")
+PhysicsObject = require("modules/Physics/PhysicsObject")
+PolygonPhysicsShape = require("modules/Physics/PolygonPhysicsShape")
 love.load = function()
   Physics.load()
-  lssx.world:setCallbacks(beginContact, endContact, preSolve, postSolve)
   Test = PolygonPhysicsShape({
     10,
     20,
@@ -33,9 +32,11 @@ love.load = function()
     40,
     40,
     80
-  }, 0.1, lssx.world, 10, 20, "dynamic")
+  }, 0.1, lssx.world, 10, 60, "dynamic")
   Test.body:applyForce(10000, 0)
-  Test4 = PolygonPhysicsShape({
+  Test.type = "memer"
+  Test:appendUserData("help", "Memes")
+  local Test4 = PolygonPhysicsShape({
     10,
     20,
     30,
@@ -44,7 +45,7 @@ love.load = function()
     40,
     200,
     -100
-  }, 0.1, lssx.world, 100, 20, "dynamic")
+  }, 0.1, lssx.world, 100, 60, "dynamic")
 end
 love.update = function(dt)
   Physics.update(dt)
@@ -59,6 +60,7 @@ love.draw = function()
   end
 end
 beginContact = function(a, b, coll)
+  print("contact")
   lssx.objects[a:getBody():getUserData().hash]:beginContact(b)
   return lssx.objects[b:getBody():getUserData().hash]:beginContact(a)
 end
