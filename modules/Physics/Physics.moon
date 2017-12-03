@@ -2,14 +2,12 @@ Physics = {}
 
 Physics.load = () ->
   lssx.world = love.physics.newWorld(0, 0, true)
+  Debugger.log("Created Box2D " .. tostring(lssx.world))
   lssx.world\setCallbacks(beginContact, endContact, preSolve, postSolve)
-
-  -- Debugger.log("Created Box2D " .. tostring(lssx.world))
-
   -- Prevent erroneous errors on startup.
-  -- Timer.after 1, ->
-    -- Debugger.log("Collision callbacks active")
-    -- lssx.world\setCallbacks(beginContact, endContact, preSolve, postSolve)  
+  Timer.after 1, ->
+    lssx.world\setCallbacks(Physics.beginContact, Physics.endContact, Physics.preSolve, Physics.postSolve)
+    Debugger.log("Collision callbacks active")
 
 Physics.update = (dt) ->
   lssx.world\update(dt)
@@ -25,23 +23,12 @@ Physics.runBuffer = () ->
       Physics.buffer[i]()
       table.remove(Physics.buffer, i)
 
--- Physics.beginContact = (a, b, coll) ->
---   print a\getUserData()[hash]
-  -- Get the fixture userdata and call the objects collision callback
-  -- if lssx.objects[a\getUserData()[hash]] != nil
-    -- lssx.objects[a\getUserData().hash]\beginContact(b)
+Physics.beginContact = (a, b, coll) ->
+  lssx.objects[a\getBody()\getUserData().hash]\beginContact(b)
+  lssx.objects[b\getBody()\getUserData().hash]\beginContact(a)
 
-  -- if lssx.objects[b\getUserData().hash] != nil
-  --   lssx.objects[b\getUserData().hash]\beginContact(a)
-
--- Player.beginContact = (otherFixture) ->
---   otherHash = otherFixture\getUserData().hash -- returns table, {hash=self.hash}
---   other =  lssx.objects[otherHash]
---   switch other.__class.__name
---     when "Asteroid"
---       print "Ouch"
---     when "Bullet"
---       @takeDamage(other.dmg)
---       other\destroy()
+Physics.endContact = (a, b, coll) ->
+Physics.preSolve = (a, b, coll) ->
+Physics.postSolve = (a, b, coll, normalimpulse, tangentimpulse) ->
 
 return Physics

@@ -1,3 +1,18 @@
 [submodule "libs/lovebird"]
 	path = libs/lovebird
 	url = https://github.com/rxi/lovebird.git
+[submodule "libs/hump"]
+	path = libs/hump
+	url = https://github.com/vrld/hump
+[submodule "libs/flux"]
+	path = libs/flux
+	url = https://github.com/rxi/flux.git
+[submodule "libs/moonshine"]
+	path = libs/moonshine
+	url = https://github.com/vrld/moonshine.git
+[submodule "libs/shadows"]
+	path = libs/shadows
+	url = https://github.com/matiasah/shadows.git
+[submodule "libs/STALKER-X"]
+	path = libs/STALKER-X
+	url = https://github.com/SSYGEN/STALKER-X.git

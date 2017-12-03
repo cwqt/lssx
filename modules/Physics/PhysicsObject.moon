@@ -3,10 +3,18 @@ class PhysicsObject extends Object
     super()
     @body = love.physics.newBody(world, @x, @y, bodyType)
     -- Leave a reference to the table key (for collision data)
-    @body\setUserData({hash: @hash})
+    @body\setUserData({["hash"]: @hash})
 
   update: (dt) =>
     @x, @y = @body\getPosition()
+
+  appendUserData: (key, data) =>
+    t = @body\getUserData()
+    old = t[key]
+    t[key] = data
+    new = t[key]
+    @body\setUserData(t)
+    Debugger.log("Updated userData " .. key .. " from " .. old .. " to " .. new)
 
   remove: () =>
     -- Remove self from global table, Box2D destroy self
