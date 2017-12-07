@@ -17,6 +17,10 @@ export Physics             = require("modules/Physics/Physics")
 export PhysicsObject       = require("modules/Physics/PhysicsObject")
 export PolygonPhysicsShape = require("modules/Physics/PolygonPhysicsShape")
 export CirclePhysicsShape  = require("modules/Physics/CirclePhysicsShape")
+export CameraManager       = require("modules/CameraManager")
+export GlobalResSetter     = require("modules/GlobalResSetter")
+export Background          = require("modules/Background")
+export Particle            = require("modules/Particle")
 
 export Entity              = require("components/Entity")
 export Ship                = require("components/Ship")
@@ -30,7 +34,11 @@ export Player              = require("components/Player")
 love.load = () ->
   Debugger.load()
   Physics.load()
-  Player(100, 100)
+  Background.load()
+  player = Player(100, 100)
+  CameraManager.load(130, 100)
+  CameraManager.setLockTarget(player)
+  -- GlobalResSetter.load()
 
 love.update = (dt) ->
   for k, object in pairs(lssx.objects) do
@@ -38,11 +46,18 @@ love.update = (dt) ->
   Timer.update(dt)
   Debugger.update(dt)
   Physics.update(dt)
+  CameraManager.update(dt)
   flux.update(dt)
 
 love.draw = () ->
+  CameraManager.attach()
+  Background.draw()
+  -- GlobalResSetter.attach()
+  love.graphics.setColor(255,255,255)
   for k, object in pairs(lssx.objects) do
     object\draw()
+  -- GlobalResSetter.detach()
+  CameraManager.detach()
 
   Debugger.draw()
 
@@ -109,3 +124,6 @@ love.run = () ->
       love.graphics.present()
 
     if love.timer then love.timer.sleep(0.0001)
+
+math.dist = (x1,y1, x2,y2) -> return (((x2)-(x1))^2+((y2)-(y1))^2)^0.5
+math.clamp = (low, n, high) -> return math.min(math.max(n, low), high)

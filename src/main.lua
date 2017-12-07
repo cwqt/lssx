@@ -15,13 +15,20 @@ Physics = require("modules/Physics/Physics")
 PhysicsObject = require("modules/Physics/PhysicsObject")
 PolygonPhysicsShape = require("modules/Physics/PolygonPhysicsShape")
 CirclePhysicsShape = require("modules/Physics/CirclePhysicsShape")
+CameraManager = require("modules/CameraManager")
+GlobalResSetter = require("modules/GlobalResSetter")
+Background = require("modules/Background")
+Particle = require("modules/Particle")
 Entity = require("components/Entity")
 Ship = require("components/Ship")
 Player = require("components/Player")
 love.load = function()
   Debugger.load()
   Physics.load()
-  return Player(100, 100)
+  Background.load()
+  local player = Player(100, 100)
+  CameraManager.load(130, 100)
+  return CameraManager.setLockTarget(player)
 end
 love.update = function(dt)
   for k, object in pairs(lssx.objects) do
@@ -30,12 +37,17 @@ love.update = function(dt)
   Timer.update(dt)
   Debugger.update(dt)
   Physics.update(dt)
+  CameraManager.update(dt)
   return flux.update(dt)
 end
 love.draw = function()
+  CameraManager.attach()
+  Background.draw()
+  love.graphics.setColor(255, 255, 255)
   for k, object in pairs(lssx.objects) do
     object:draw()
   end
+  CameraManager.detach()
   return Debugger.draw()
 end
 love.keypressed = function(key)
@@ -116,4 +128,10 @@ love.run = function()
       love.timer.sleep(0.0001)
     end
   end
+end
+math.dist = function(x1, y1, x2, y2)
+  return (((x2) - (x1)) ^ 2 + ((y2) - (y1)) ^ 2) ^ 0.5
+end
+math.clamp = function(low, n, high)
+  return math.min(math.max(n, low), high)
 end

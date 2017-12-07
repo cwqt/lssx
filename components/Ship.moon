@@ -13,13 +13,15 @@ class Ship extends PolygonPhysicsShape
     Debugger.log("Spawned Ship at " .. @x .. ", " .. @y, "spawn")
 
   update: (dt) =>
+    super\update(dt)
     for _, component in pairs(@components) do
       component\update(dt)
 
     -- @components["Emitter"].x, @components["Emitter"].y = @body\getPosition()
 
   draw: () =>
-    love.graphics.polygon("fill", @body\getWorldPoints(@shape\getPoints()))
+    love.graphics.setLineStyle("rough")
+    love.graphics.polygon("line", @body\getWorldPoints(@shape\getPoints()))
     for _, component in pairs(@components) do
       component\draw()
 

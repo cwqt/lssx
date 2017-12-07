@@ -5,7 +5,7 @@ Physics.load = () ->
   Debugger.log("Created Box2D " .. tostring(lssx.world))
   lssx.world\setCallbacks(beginContact, endContact, preSolve, postSolve)
   -- Prevent erroneous errors on startup.
-  Timer.after 1, ->
+  Timer.after 0.5, ->
     lssx.world\setCallbacks(Physics.beginContact, Physics.endContact, Physics.preSolve, Physics.postSolve)
     Debugger.log("Collision callbacks active")
 
