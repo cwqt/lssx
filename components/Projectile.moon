@@ -1,4 +1,10 @@
-class Projectile
+class Projectile extends PolygonPhysicsShape
   new: (@lifetime, ...) =>
+    super(...)
+    @body\isBullet(true)
 
-  update: () =>
+  update: (dt) =>
+    super\update(dt)
+
+  draw: () =>
+    super\draw()

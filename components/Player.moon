@@ -10,6 +10,8 @@ class Player extends Entity
     @ammo = 50
     @boost = 10
 
+    @ship.components["Emitter"] = Emitter!
+
   update: (dt) =>
     super\update(dt)
     @ship\update(dt)
@@ -65,7 +67,13 @@ class Player extends Entity
     super\draw()
     @ship\draw()
 
+  takeDamage: (amount) =>
+    super\takeDamage(amount)
+
   die: () =>
+    lx, ly = @ship.body\getWorldCenter()
+    for i=1, 100 do
+      Particle({255,255,0}, lx, ly, math.random(-10, 10)+lx, math.random(-10, 10)+ly, 5, math.random(5), love.math.random(4)*0.1)
     @ship\remove()
     super\die()
 
@@ -76,3 +84,8 @@ class Player extends Entity
 
   draw_UI: () =>
     love.graphics.print("fuel: " .. @fuel, 10, 20)
+
+  keypressed: (key) =>
+    -- switch key
+    --   when "w"
+        -- @ship.components["Emitter"]\emit("Bullet", @ship.x, @ship.y, 10, 10, 0.1, @ship.body\getLinearVelocity())

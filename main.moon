@@ -26,13 +26,9 @@ export Entity              = require("components/Entity")
 export Ship                = require("components/Ship")
 export Player              = require("components/Player")
 export Asteroid            = require("components/Asteroid")
+export Projectile          = require("components/Projectile")
 export Bullet              = require("components/Bullet")
 export Emitter             = require("components/Emitter")
-
--- export SPFX        = require("modules/SPFX")
--- export Background  = require("modules/Background")
--- export Particle    = require("modules/Particle")
--- export Text        = require("modules/Text")
 
 love.load = () ->
   Debugger.load()

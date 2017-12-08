@@ -18,13 +18,10 @@ Physics.addToBuffer = (func) ->
   Physics.buffer[#Physics.buffer+1] = func
 
 Physics.runBuffer = () ->
-  for k, command in ipairs(Physics.buffer) do
-    command()
-    table.remove(Physics.buffer, k)
-  -- if #Physics.buffer > 0
-  --   for i = #Physics.buffer, 1, -1  do
-  --     Physics.buffer[i]()
-  --     table.remove(Physics.buffer, i)
+  if #Physics.buffer > 0
+    for i = #Physics.buffer, 1, -1  do
+      Physics.buffer[i]()
+      table.remove(Physics.buffer, i)
 
 Physics.beginContact = (a, b, coll) ->
   Debugger.log("beginContact() triggered", "important")

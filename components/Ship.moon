@@ -14,7 +14,7 @@ class Ship extends PolygonPhysicsShape
     super\update(dt)
     for _, component in pairs(@components) do
       component\update(dt)
-
+      component.x, component.y = @x, @y
     -- @components["Emitter"].x, @components["Emitter"].y = @body\getPosition()
 
   draw: () =>
