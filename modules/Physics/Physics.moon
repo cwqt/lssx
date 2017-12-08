@@ -5,7 +5,7 @@ Physics.load = () ->
   Debugger.log("Created Box2D " .. tostring(lssx.world))
   lssx.world\setCallbacks(beginContact, endContact, preSolve, postSolve)
   -- Prevent erroneous errors on startup.
-  Timer.after 0.5, ->
+  Timer.after 0.2, ->
     lssx.world\setCallbacks(Physics.beginContact, Physics.endContact, Physics.preSolve, Physics.postSolve)
     Debugger.log("Collision callbacks active")
 
@@ -18,17 +18,23 @@ Physics.addToBuffer = (func) ->
   Physics.buffer[#Physics.buffer+1] = func
 
 Physics.runBuffer = () ->
-  if #Physics.buffer > 0
-    for i = #Physics.buffer, 1, -1  do
-      Physics.buffer[i]()
-      table.remove(Physics.buffer, i)
+  for k, command in ipairs(Physics.buffer) do
+    command()
+    table.remove(Physics.buffer, k)
+  -- if #Physics.buffer > 0
+  --   for i = #Physics.buffer, 1, -1  do
+  --     Physics.buffer[i]()
+  --     table.remove(Physics.buffer, i)
 
 Physics.beginContact = (a, b, coll) ->
+  Debugger.log("beginContact() triggered", "important")
   lssx.objects[a\getBody()\getUserData().hash]\beginContact(b)
   lssx.objects[b\getBody()\getUserData().hash]\beginContact(a)
 
 Physics.endContact = (a, b, coll) ->
+
 Physics.preSolve = (a, b, coll) ->
+
 Physics.postSolve = (a, b, coll, normalimpulse, tangentimpulse) ->
 
 return Physics

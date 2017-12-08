@@ -1,10 +1,16 @@
 class Object
-  new: () =>
+  new: (customHash) =>
     @creationTime = love.timer.getTime() - lssx.INIT_TIME
-    @hash = tostring((@creationTime))\gsub('%.', '')
+    if customHash != nil then
+      @hash = tostring(customHash)
+    else
+      @hash = tostring((@creationTime))\gsub('%.', '')
 
     if @isOwnObject == (false or nil)
       lssx.objects[@hash] = self
+
+    if @@.__name != "Particle"
+      Debugger.log("Spawned " .. @@.__name, "spawn")
 
   remove: () =>
     lssx.objects[@hash] = nil

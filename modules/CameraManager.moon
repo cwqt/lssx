@@ -5,15 +5,16 @@ CameraManager.load = (x, y) ->
   lssx.camera\setFollowLerp(0.1)
   lssx.camera\setFollowLead(20)
   lssx.camera\setFollowStyle('LOCKON')
-  -- lssx.camera.x, lssx.camera.y = x, y
-  Debugger.log("Camera started, looking at " .. x .. ", " .. y)
+  Debugger.log("CameraManager created")
 
 CameraManager.update = (dt) ->
   lssx.camera\update(dt)
-  if CameraManager.lockTarget != nil
-    cx, cy = CameraManager.lockTarget.ship.body\getPosition()
-    lssx.camera\follow(cx, cy)
-    lssx.camera.scale = lssx.CAMERA_ZOOM-math.clamp(0, math.abs(CameraManager.lockTarget.ship.body\getLinearVelocity()/1000), 0.5)
+  if lssx.objects[CameraManager.lockTarget] != nil
+    if not lssx.world\isLocked()
+      cx, cy = lssx.objects[CameraManager.lockTarget].ship.body\getPosition()
+      v = lssx.objects[CameraManager.lockTarget].ship.body\getLinearVelocity()
+      lssx.camera\follow(cx, cy)
+      lssx.camera.scale = lssx.CAMERA_ZOOM-math.clamp(0, math.abs(v/1000), 0.5)
 
 CameraManager.attach = () ->
   lssx.camera\attach()
@@ -23,7 +24,7 @@ CameraManager.detach = () ->
   lssx.camera\draw()
 
 CameraManager.setLockTarget = (object) ->
-  CameraManager.lockTarget = object
-  Debugger.log("Changed camera lock target")
+  CameraManager.lockTarget = object.hash
+  Debugger.log("Camera setLockTarget -> " .. object.hash)
 
 return CameraManager

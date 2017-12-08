@@ -16,3 +16,6 @@
 [submodule "libs/STALKER-X"]
 	path = libs/STALKER-X
 	url = https://github.com/SSYGEN/STALKER-X.git
+[submodule "libs/light_world.lua"]
+	path = libs/light_world.lua
+	url = https://github.com/tanema/light_world.lua.git

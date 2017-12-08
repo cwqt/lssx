@@ -1,7 +1,6 @@
 io.stdout\setvbuf("no")
 require("moonscript")
 require("imgui")
-require("lssx")
 
 export fluids              = require("libs/fluids")
 export flux                = require("libs/flux/flux")
@@ -10,6 +9,7 @@ export Gamestate           = require("libs/hump/gamestate")
 export Timer               = require("libs/hump/timer")
 export Camera              = require("libs/STALKER-X/Camera")
 export moonshine           = require("libs/moonshine")
+require("lssx")
 
 export Object              = require("components/Object")
 export Debugger            = require("modules/Debugger")
@@ -18,13 +18,16 @@ export PhysicsObject       = require("modules/Physics/PhysicsObject")
 export PolygonPhysicsShape = require("modules/Physics/PolygonPhysicsShape")
 export CirclePhysicsShape  = require("modules/Physics/CirclePhysicsShape")
 export CameraManager       = require("modules/CameraManager")
-export GlobalResSetter     = require("modules/GlobalResSetter")
 export Background          = require("modules/Background")
 export Particle            = require("modules/Particle")
+export SPFX                = require("modules/SPFX")
 
 export Entity              = require("components/Entity")
 export Ship                = require("components/Ship")
 export Player              = require("components/Player")
+export Asteroid            = require("components/Asteroid")
+export Bullet              = require("components/Bullet")
+export Emitter             = require("components/Emitter")
 
 -- export SPFX        = require("modules/SPFX")
 -- export Background  = require("modules/Background")
@@ -35,10 +38,13 @@ love.load = () ->
   Debugger.load()
   Physics.load()
   Background.load()
-  player = Player(100, 100)
+  Player(Ship(lssx.world, 10, 10, "dynamic"), 10, "Player")
   CameraManager.load(130, 100)
-  CameraManager.setLockTarget(player)
-  -- GlobalResSetter.load()
+  CameraManager.setLockTarget(lssx.objects["Player"])
+
+  Asteroid(100, 200, "CustomHash")
+  Bullet(10, 10, 10, 1, 1, 2)
+  Emitter(10, 20)
 
 love.update = (dt) ->
   for k, object in pairs(lssx.objects) do
@@ -52,11 +58,9 @@ love.update = (dt) ->
 love.draw = () ->
   CameraManager.attach()
   Background.draw()
-  -- GlobalResSetter.attach()
   love.graphics.setColor(255,255,255)
   for k, object in pairs(lssx.objects) do
     object\draw()
-  -- GlobalResSetter.detach()
   CameraManager.detach()
 
   Debugger.draw()

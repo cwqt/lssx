@@ -5,6 +5,7 @@ class Particle extends Object
     @dir = math.atan2(( @dy - @y ), ( @dx - @x ))
     @xv, @yv = @v * math.cos(@dir), @v * math.sin(@dir)
 
+    @s = math.random(@s)
     @w, @h = math.random(1)*@s, math.random(1)*@s
     @opacity = 255
     @opacityStep = 255/@life

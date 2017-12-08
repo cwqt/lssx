@@ -10,8 +10,6 @@ class Ship extends PolygonPhysicsShape
 
     @components = {}
 
-    Debugger.log("Spawned Ship at " .. @x .. ", " .. @y, "spawn")
-
   update: (dt) =>
     super\update(dt)
     for _, component in pairs(@components) do

@@ -28,6 +28,7 @@ Debugger.load = () ->
   --   imgui.Text(love.report or "Please wait...")
   -- profiler = fluids.Window("profiler", profileData, {0, love.graphics.getHeight()-200, love.graphics.getWidth(), 200}, {"NoTitleBar"})
 
+  CONSOLE_WIDTH = 350
   console = () ->
     dbg.consoleEntered, dbg.currentCommand = imgui.InputText("", dbg.currentCommand, 200, {"EnterReturnsTrue"})
     imgui.SetKeyboardFocusHere(-1)
@@ -47,15 +48,17 @@ Debugger.load = () ->
           Debugger.execute(dbg.currentCommand)
       dbg.currentCommand = ""
     imgui.BeginChild(1,imgui.GetWindowWidth(),imgui.GetWindowHeight()-60)
+    imgui.PushTextWrapPos(CONSOLE_WIDTH-10)
     for k, value in pairs(dbg.print) do
       if value[2] ~= nil
         imgui.TextColorHex(value[2], value[1])
       else
         imgui.Text(value[1])
     imgui.SetScrollHere()
+    imgui.PopTextWrapPos()
     imgui.EndChild()
 
-  fluids.Window("Console", console, {love.graphics.getWidth()-400, 0, 400, love.graphics.getHeight()-200})
+  fluids.Window("Console", console, {love.graphics.getWidth()-CONSOLE_WIDTH, 0, CONSOLE_WIDTH, love.graphics.getHeight()})
 
 Debugger.update = (dt) ->
   lovebird.update()
@@ -84,8 +87,12 @@ Debugger.log = (msg, classification) ->
       export color = "ffd27f"
     when "death"
       export color = "ff3232"
+    when "important"
+      export color = "ff3232"
     when "inherit"
       export color = "46df46"
+    when "collision"
+      export color = "c382ff"
     else
       classification = "game"
 

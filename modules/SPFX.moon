@@ -1,0 +1,3 @@
+SPFX = {}
+
+return SPFX

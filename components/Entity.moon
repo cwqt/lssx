@@ -1,12 +1,11 @@
 class Entity extends Object
-  new: (hp) =>
-    super()
+  new: (hp, ...) =>
+    super(...)
     hp = hp or 100
     @initalHP = hp
     @HP = hp
 
   update: (dt) =>
-    if @HP <= 0 @die()
 
   draw: () =>
 

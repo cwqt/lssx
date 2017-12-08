@@ -1,7 +1,7 @@
 class Player extends Entity
-  new: (x, y, ...) =>
+  new: (@ship, ...) =>
     super(...)
-    @ship = Ship(lssx.world, x, y, "dynamic")
+    --Reference ship to top-level player
     @ship.hash = @hash
     @ship\appendUserData("hash", @hash)
 
@@ -9,8 +9,6 @@ class Player extends Entity
     @fuel = 100
     @ammo = 50
     @boost = 10
-
-    Debugger.log("Player spawned.", "spawn")
 
   update: (dt) =>
     super\update(dt)
@@ -61,7 +59,20 @@ class Player extends Entity
       @hp -= 0.1
       @oxygen = 0
 
+    if @HP <= 0 @die()
 
   draw: () =>
     super\draw()
     @ship\draw()
+
+  die: () =>
+    @ship\remove()
+    super\die()
+
+  -- We're not a physics object, but we should pass
+  -- on our data to our ship which is
+  beginContact: (other) =>
+    @ship\beginContact(other)
+
+  draw_UI: () =>
+    love.graphics.print("fuel: " .. @fuel, 10, 20)
