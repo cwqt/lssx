@@ -9,11 +9,11 @@ class Object
     if @isOwnObject == (false or nil)
       lssx.objects[@hash] = self
 
-    if @@.__name != "Particle"
-      Debugger.log("Spawned " .. @@.__name, "spawn")
+    if @@.__name != "Particle" Debugger.log("Spawned " .. @@.__name, "spawn")
 
   remove: () =>
     lssx.objects[@hash] = nil
+    if @@.__name != "Particle" Debugger.log("Object " .. @hash .. " removed", "important")
 
   @__inherited: (child) =>
     Debugger.log("#{@__name} was inherited by #{child.__name}", "inherit")
