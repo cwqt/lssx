@@ -7,7 +7,9 @@ export lssx = {
     ["Ship"]:       3,
   }
   groupIndices: {
-    ["FriendlyFire"]: 1
+    ["Friendly"]: 1
+    ["Enemy"]: 2
+    ["Neutral"]: 3
   }
 
   INIT_TIME: love.timer.getTime()
@@ -19,9 +21,9 @@ export lssx = {
 -- I will collide with a...
 lssx.masks = {
   ["Player"]: {
-    lssx.categories["Projectile"]
-    lssx.categories["Asteroid"]
-    lssx.categories["AI"]
+    lssx.categories["Projectile"],
+    lssx.categories["Asteroid"],
+    lssx.categories["AI"],
   }
 }
 

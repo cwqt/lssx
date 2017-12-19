@@ -14,8 +14,7 @@ class Ship extends PolygonPhysicsShape
     super\update(dt)
     for _, component in pairs(@components) do
       component\update(dt)
-      component.x, component.y = @x, @y
-    -- @components["Emitter"].x, @components["Emitter"].y = @body\getPosition()
+      -- component.x, component.y = @x, @y
 
   draw: () =>
     love.graphics.setLineStyle("rough")
@@ -23,5 +22,11 @@ class Ship extends PolygonPhysicsShape
     for _, component in pairs(@components) do
       component\draw()
 
-  -- fire: (dx, dy) =>
-  --   @components["Emitter"]\emit(dx, dy)
+  remove: () =>
+    for k, component in pairs(@components) do
+      component\remove()
+    super\remove()
+
+
+  fire: (object, dx, dy, v) =>
+    @components["Emitter"]\emit(object, @x, @y, dx, dy, v, {@body\getLinearVelocity()})

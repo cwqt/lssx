@@ -38,9 +38,10 @@ love.load = () ->
   CameraManager.load(130, 100)
   CameraManager.setLockTarget(lssx.objects["Player"])
 
-  Asteroid(100, 200, "CustomHash")
-  -- Bullet(10, 10, 10, 1, 1, 2)
-  -- Emitter(10, 20)
+  Asteroid(100, 200)
+
+  Emitter(10, 20)
+
 
 love.update = (dt) ->
   for k, object in pairs(lssx.objects) do

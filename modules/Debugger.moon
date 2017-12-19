@@ -34,6 +34,8 @@ Debugger.load = () ->
     imgui.SetKeyboardFocusHere(-1)
     imgui.SameLine()
     imgui.Text("FPS " .. love.timer.getFPS())
+    -- imgui.SameLine()
+    -- imgui.Text("O: " .. #lssx.objects)
     imgui.Separator()
     if dbg.consoleEntered
       switch dbg.currentCommand

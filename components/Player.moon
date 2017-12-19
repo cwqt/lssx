@@ -86,6 +86,7 @@ class Player extends Entity
     love.graphics.print("fuel: " .. @fuel, 10, 20)
 
   keypressed: (key) =>
-    -- switch key
-    --   when "w"
-        -- @ship.components["Emitter"]\emit("Bullet", @ship.x, @ship.y, 10, 10, 0.1, @ship.body\getLinearVelocity())
+    switch key
+      when "w"
+        -- lx, ly = @ship.body\getWorldPoints(50, 50)
+        @ship\fire("Bullet", 50, 50, 2)

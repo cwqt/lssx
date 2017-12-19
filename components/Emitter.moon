@@ -1,18 +1,23 @@
 class Emitter extends Object
-  new: (...) =>
+  new: (@accuracy, ...) =>
     super(...)
-    -- Timer.every 0.1, -> @emit("Bullet", 20, 40, 1)
+    @accuracy = @accuracy or 0
+    -- Timer.every 0.5, -> @emit("Bullet", math.random(10), math.random(10), 10, 10, 1)
 
   update: (dt) =>
 
   draw: () =>
 
-  emit: (object, x, y, dx, dy, v, vextra) =>
-    vextra = vextra or 0
-    vextra = math.abs(vextra)
+  emit: (object, x, y, dx, dy, v, lv) =>
+    lv = lv or {}
+    lv[1] = lv[1] or 0
+    lv[2] = lv[2] or 0
 
-    dir = math.atan2((dy - y), (dx - x))
-    fx, fy = (v+vextra)*math.cos(dir), (v+vextra)*math.sin(dir)
+    angle = math.atan2((dy - y), (dx - x))
+    fx, fy = v*math.cos(angle), v*math.sin(angle)
     switch object
       when "Bullet"
-        Bullet(2, x, y, fx, fy, 1)
+        b = Bullet(x, y, 1, 5)
+        b.body\setLinearVelocity(lv[1], lv[2])
+        b.body\applyLinearImpulse(fx, fy)
+
