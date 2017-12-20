@@ -29,6 +29,7 @@ export Asteroid            = require("components/Asteroid")
 export Projectile          = require("components/Projectile")
 export Bullet              = require("components/Bullet")
 export Emitter             = require("components/Emitter")
+export Shield              = require("components/Shield")
 
 love.load = () ->
   Debugger.load()
@@ -41,6 +42,10 @@ love.load = () ->
   Asteroid(100, 200)
 
   Emitter(10, 20)
+
+  Shield(10, 10, 10)
+
+
 
 
 love.update = (dt) ->

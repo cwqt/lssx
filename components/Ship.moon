@@ -28,5 +28,5 @@ class Ship extends PolygonPhysicsShape
     super\remove()
 
 
-  fire: (object, dx, dy, v) =>
-    @components["Emitter"]\emit(object, @x, @y, dx, dy, v, {@body\getLinearVelocity()})
+  fire: (object, dx, dy, v, groupIndex) =>
+    @components["Emitter"]\emit(object, @x, @y, dx, dy, v, {@body\getLinearVelocity()}, groupIndex)

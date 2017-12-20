@@ -8,7 +8,7 @@ class Emitter extends Object
 
   draw: () =>
 
-  emit: (object, x, y, dx, dy, v, lv) =>
+  emit: (object, x, y, dx, dy, v, lv, groupIndex) =>
     lv = lv or {}
     lv[1] = lv[1] or 0
     lv[2] = lv[2] or 0
@@ -20,4 +20,5 @@ class Emitter extends Object
         b = Bullet(x, y, 1, 5)
         b.body\setLinearVelocity(lv[1], lv[2])
         b.body\applyLinearImpulse(fx, fy)
+        b.fixture\setGroupIndex(groupIndex)
 

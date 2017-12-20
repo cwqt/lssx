@@ -5,6 +5,8 @@ class Player extends Entity
     @ship.hash = @hash
     @ship\appendUserData("hash", @hash)
 
+    @ship.fixture\setGroupIndex(-1)
+
     @oxygen = 100
     @fuel = 100
     @ammo = 50
@@ -81,6 +83,8 @@ class Player extends Entity
   -- on our data to our ship which is
   beginContact: (other) =>
     @ship\beginContact(other)
+    print(@ship.fixture\getGroupIndex())
+    print(lssx.objects[other\getBody()\getUserData().hash].fixture\getGroupIndex())
 
   draw_UI: () =>
     love.graphics.print("fuel: " .. @fuel, 10, 20)
@@ -88,5 +92,5 @@ class Player extends Entity
   keypressed: (key) =>
     switch key
       when "w"
-        -- lx, ly = @ship.body\getWorldPoints(50, 50)
-        @ship\fire("Bullet", 50, 50, 2)
+        lx, ly = @ship.body\getWorldPoints(15, 0)
+        @ship\fire("Bullet", lx, ly, 2, -1)

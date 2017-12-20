@@ -39,6 +39,7 @@ Ship(points, density, world, x, y, bodyType, customHash)
 
 ## Projectile
 ```moon
+Projectile(x, y, points, lifetime)
 Projectile(lifetime, points, density, world, x, y, bodyType, customHash)
 ```
 * __lifetime__: time in seconds object should live for, `number`
