@@ -21,6 +21,7 @@ export CameraManager       = require("modules/CameraManager")
 export Background          = require("modules/Background")
 export Particle            = require("modules/Particle")
 export SPFX                = require("modules/SPFX")
+export EntityManager       = require("modules/EntityManager")
 
 export Entity              = require("components/Entity")
 export Ship                = require("components/Ship")
@@ -31,48 +32,75 @@ export Bullet              = require("components/Bullet")
 export Emitter             = require("components/Emitter")
 export Shield              = require("components/Shield")
 
-love.load = () ->
-  Debugger.load()
+-- ============================================================]]
+Splash = {}
+
+Splash\init()
+
+Splash\update(dt) ->
+
+Splash\draw() ->
+
+Splash\leave() ->
+-- ============================================================]]
+MainMenu = {}
+
+MainMenu\init() ->
+
+MainMenu\enter(previous) ->
+
+MainMenu\update(dt) ->
+
+MainMenu\draw() ->
+
+MainMenu\leave() ->
+-- ============================================================]]
+Game = {}
+
+Game\init() ->
   Physics.load()
   Background.load()
+  CameraManager.load(10, 10)
+
+Game\enter(previous) ->
+  EntityManager.clear()
   Player(Ship(lssx.world, 10, 10, "dynamic"), 10, "Player")
-  CameraManager.load(130, 100)
   CameraManager.setLockTarget(lssx.objects["Player"])
+  for i=1, 100 do
+    Asteroid(math.random(love.graphics.getWidth()), love.graphics.getHeight())
 
-  Asteroid(100, 200)
-
-  Emitter(10, 20)
-
-  Shield(10, 10, 10)
-
-
-
-
-love.update = (dt) ->
-  for k, object in pairs(lssx.objects) do
-    object\update(dt)
-  Timer.update(dt)
-  Debugger.update(dt)
+Game\update(dt) ->
   Physics.update(dt)
+  EntityManager.update(dt)
   CameraManager.update(dt)
-  flux.update(dt)
 
-love.draw = () ->
+Game\draw() ->
   CameraManager.attach()
   Background.draw()
   love.graphics.setColor(255,255,255)
-  for k, object in pairs(lssx.objects) do
-    object\draw()
+  EntityManager.draw()
   CameraManager.detach()
 
+Game\keypressed(key) ->
+  EntityManager.keypressed(key)
+
+Game\leave() ->
+-- ============================================================]]
+
+love.load = () ->
+  Debugger.load()
+
+love.update = (dt) ->
+  Timer.update(dt)
+  Debugger.update(dt)
+  flux.update(dt)
+
+love.draw = () ->
   Debugger.draw()
 
 love.keypressed = (key) ->
   fluids.keypressed(key)
   Debugger.keypressed(key)
-  for _, object in pairs(lssx.objects)
-    if type(object.keypressed) == "function"
-      object\keypressed(key)
 
 love.keyreleased = (key) ->
   fluids.keyreleased(key)
