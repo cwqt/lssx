@@ -89,6 +89,8 @@ Game\leave() ->
 
 love.load = () ->
   Debugger.load()
+  Gamestate.registerEvents()
+  Gamestate.switch(Game)
 
 love.update = (dt) ->
   Timer.update(dt)
