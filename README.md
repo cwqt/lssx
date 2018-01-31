@@ -13,11 +13,11 @@ And then say, in object A:
 ```moon
 beginContact: (other) =>
   collObj = lssx.objects[other\getBody()\getUserData().hash]
-  switch collObj
-    when collObj.__class = 'coin'
+  switch collObj.__class
+    when 'coin'
       collObj\Pickup()
       collObj\Destroy()
-    when collObj.__class = 'spikes'
+    when 'spikes'
       @Die()
 ``` 
 
