@@ -18,7 +18,7 @@ beginContact: (other) =>
       collObj\Pickup()
       collObj\Destroy()
     when collObj.__class = 'spikes'
-      @die()
+      @Die()
 ``` 
 
 ## Object
