@@ -9,7 +9,7 @@ class Asteroid extends PolygonPhysicsShape
 
     super(v, 1, lssx.world, x, y, "dynamic", ...)
 
-    @fixture\setFriction(10)
+    @fixture\setFriction(1)
     @body\setLinearDamping(0.2)
     @body\setAngularDamping(0.2)
 

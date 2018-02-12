@@ -1,5 +1,5 @@
 class Shield extends CirclePhysicsShape
-  new: (hp, x, y,  ...) =>
+  new: (hp, x, y, ...) =>
     radius = hp*2
     super(radius, 0, lssx.world, x, y, "dynamic", ...)
     @hp = hp

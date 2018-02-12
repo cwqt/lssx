@@ -104,9 +104,12 @@ class Player extends Entity
 
   keypressed: (key) =>
     switch key
-      when "w"
+      when "f"
         lx, ly = @ship.body\getWorldPoints(15, 0)
         @fire(lx, ly)
-
-      when "d"
+      when "s"
         @takeDamage(2)
+      when "w"
+        @ship.body\applyLinearImpulse(@fx, @fy)
+
+

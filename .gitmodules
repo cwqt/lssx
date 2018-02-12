@@ -19,3 +19,6 @@
 [submodule "libs/light_world.lua"]
 	path = libs/light_world.lua
 	url = https://github.com/tanema/light_world.lua.git
+[submodule "libs/splashy"]
+	path = libs/splashy
+	url = https://github.com/videah/splashy.git

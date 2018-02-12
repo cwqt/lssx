@@ -76,34 +76,34 @@ Debugger.keypressed = (key) ->
     debugging = not debugging
 
 Debugger.log = (msg, classification) ->
-  if classification == nil
-    classification == "none"
-  switch classification
-    when "error"
-      export color = "ff6961"
-    when "spawn"
-      export color = "6666ff"
-    when "stdout"
-      export color = "FFA500"
-    when "stdin"
-      export color = "ffd27f"
-    when "death"
-      export color = "ff3232"
-    when "important"
-      export color = "ff3232"
-    when "inherit"
-      export color = "46df46"
-    when "collision"
-      export color = "c382ff"
-    else
-      classification = "game"
+  -- if classification == nil
+  --   classification == "none"
+  -- switch classification
+  --   when "error"
+  --     export color = "ff6961"
+  --   when "spawn"
+  --     export color = "6666ff"
+  --   when "stdout"
+  --     export color = "FFA500"
+  --   when "stdin"
+  --     export color = "ffd27f"
+  --   when "death"
+  --     export color = "ff3232"
+  --   when "important"
+  --     export color = "ff3232"
+  --   when "inherit"
+  --     export color = "46df46"
+  --   when "collision"
+  --     export color = "c382ff"
+  --   else
+  --     classification = "game"
 
-  time = love.timer.getTime() - dbg.start
-  classification = string.sub(classification .. "        ", 1, 7)
-  time = string.sub(time .. "           ", 1, 5).. "s"
-  string = "[" .. tostring(classification) .. "] " .. time .. ": " .. msg
-  table.insert(dbg.print, {string, color})
-  export color = nil
+  -- time = love.timer.getTime() - dbg.start
+  -- classification = string.sub(classification .. "        ", 1, 7)
+  -- time = string.sub(time .. "           ", 1, 5).. "s"
+  -- string = "[" .. tostring(classification) .. "] " .. time .. ": " .. msg
+  -- table.insert(dbg.print, {string, color})
+  -- export color = nil
 
 Debugger.execute = (command) ->
   -- Capture stdout + stderr

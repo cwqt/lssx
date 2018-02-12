@@ -9,6 +9,7 @@ export Gamestate           = require("libs/hump/gamestate")
 export Timer               = require("libs/hump/timer")
 export Camera              = require("libs/STALKER-X/Camera")
 export moonshine           = require("libs/moonshine")
+export splashy             = require("libs/splashy/splashy")
 require("lssx")
 
 export Object              = require("components/Object")
@@ -17,11 +18,13 @@ export Physics             = require("modules/Physics/Physics")
 export PhysicsObject       = require("modules/Physics/PhysicsObject")
 export PolygonPhysicsShape = require("modules/Physics/PolygonPhysicsShape")
 export CirclePhysicsShape  = require("modules/Physics/CirclePhysicsShape")
-export CameraManager       = require("modules/CameraManager")
 export Background          = require("modules/Background")
 export Particle            = require("modules/Particle")
 export SPFX                = require("modules/SPFX")
+
+export CameraManager       = require("modules/CameraManager")
 export EntityManager       = require("modules/EntityManager")
+export SoundManager        = require("modules/SoundManager")
 
 export Entity              = require("components/Entity")
 export Ship                = require("components/Ship")
@@ -32,18 +35,6 @@ export Bullet              = require("components/Bullet")
 export Emitter             = require("components/Emitter")
 export Shield              = require("components/Shield")
 export Enemy               = require("components/Enemy")
-
--- ============================================================]]
-
-Splash = {}
-
-Splash.init = () =>
-
-Splash.update = (dt) =>
-
-Splash.draw = () =>
-
-Splash.leave = () =>
 
 -- ============================================================]]
 
@@ -93,6 +84,8 @@ Game.draw = () =>
     EntityManager.draw()
     CameraManager.detach()
   -- Debugger.draw()
+  love.graphics.setColor(255,255,255)
+  love.graphics.print("FPS: " .. love.timer.getFPS(), 10, 10)
 
 Game.keypressed = (key) =>
   EntityManager.keypressed(key)
@@ -102,18 +95,41 @@ Game.leave = () =>
 
 -- ============================================================]]
 
+Splash = {}
+
+Splash.init = () =>
+  image = love.graphics.newImage("assets/tempsplash.png")
+  splashy.addSplash(image, 2)
+  splashy.onComplete(-> Gamestate.switch(Game))
+
+Splash.update = (dt) =>
+  splashy.update(dt)
+
+Splash.draw = () =>
+  splashy.draw()
+
+Splash.keypressed = (key) =>
+  if key == "space"
+    splashy.skipAll()
+
+Splash.leave = () =>
+  image = nil
+
+-- ============================================================]]
+
+
 love.load = () ->
-  Debugger.load()
+  -- Debugger.load()
   Gamestate.registerEvents()
-  Gamestate.switch(Game)
+  Gamestate.switch(Splash)
 
 love.update = (dt) ->
   Timer.update(dt)
-  Debugger.update(dt)
+  -- Debugger.update(dt)
   flux.update(dt)
 
 love.draw = () ->
-  Debugger.draw()
+  -- Debugger.draw()
 
 love.keypressed = (key) ->
   fluids.keypressed(key)

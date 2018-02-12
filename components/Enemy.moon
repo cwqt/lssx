@@ -5,6 +5,12 @@ class Enemy extends Entity
     @ship.hash = @hash
     @ship\appendUserData("hash", @hash)
 
+    @states = {
+      {"idle", {}},
+      {"chasing", {}},
+      {"firing", {}},
+    }
+
     -- @ship.fixture\setGroupIndex(-1)
 
     -- @ship.components["Emitter"] = Emitter!
@@ -51,8 +57,10 @@ class Enemy extends Entity
     if @HP <= 0 @die()
 
   draw: () =>
+    love.graphics.setColor(255,0,0)
     super\draw()
     @ship\draw()
+    love.graphics.setColor(255,255,255)
 
   beginContact: (other) =>
     @ship\beginContact(other)
