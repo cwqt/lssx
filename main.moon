@@ -73,12 +73,16 @@ Game.enter = (previous) =>
   EntityManager.clear()
   Player(Ship(lssx.world, 10, 10, "dynamic"), 10, "Player")
   CameraManager.setLockTarget(lssx.objects["Player"])
-  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)
+  for i=1, 200
+    Asteroid(math.random(2000), math.random(2000))
+
+  for i=1, 10
+    Enemy(Ship(lssx.world, math.random(200), math.random(200), "dynamic"), 10)
 
 Game.update = (dt) =>
-  SPFX.update(dt)
-  Physics.update(dt)
   EntityManager.update(dt)
+  Physics.update(dt)
+  SPFX.update(dt)
   CameraManager.update(dt)
 
 Game.draw = () =>
@@ -88,6 +92,7 @@ Game.draw = () =>
     love.graphics.setColor(255,255,255)
     EntityManager.draw()
     CameraManager.detach()
+  -- Debugger.draw()
 
 Game.keypressed = (key) =>
   EntityManager.keypressed(key)

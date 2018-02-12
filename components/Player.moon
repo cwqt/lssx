@@ -69,6 +69,7 @@ class Player extends Entity
   draw: () =>
     super\draw()
     @ship\draw()
+    @draw_UI()
 
   takeDamage: (amount) =>
     super\takeDamage(amount)
@@ -82,20 +83,30 @@ class Player extends Entity
     @ship\remove()
     super\die()
 
+  fire: (lx, ly) =>
+    if @ammo > 0
+      @ship\fire("Bullet", lx, ly, 2, -1)
+    @ammo -= 1
+    if @ammo <= 0 then @ammo = 0
+
   -- We're not a physics object, but we should pass
   -- on our data to our ship which is
   beginContact: (other) =>
     @ship\beginContact(other)
-    print(@ship.fixture\getGroupIndex())
-    print(lssx.objects[other\getBody()\getUserData().hash].fixture\getGroupIndex())
+    -- print(@ship.fixture\getGroupIndex())
+    -- print(lssx.objects[other\getBody()\getUserData().hash].fixture\getGroupIndex())
 
   draw_UI: () =>
     love.graphics.print("fuel: " .. @fuel, 10, 20)
+    love.graphics.print("oxygen: " .. @oxygen, 10, 40)
+    love.graphics.print("ammo: " .. @ammo, 10, 60)
+    love.graphics.print("boost: " .. @boost, 10, 80)
 
   keypressed: (key) =>
     switch key
       when "w"
         lx, ly = @ship.body\getWorldPoints(15, 0)
-        @ship\fire("Bullet", lx, ly, 2, -1)
+        @fire(lx, ly)
+
       when "d"
         @takeDamage(2)

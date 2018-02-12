@@ -25,7 +25,7 @@ class Bullet extends Projectile
       when "Entity"
         other_object\takeDamage(@damage)
         @remove()
-      when "AI"
+      when "Enemy"
         other_object\takeDamage(@damage)
         @remove()
 

@@ -24,6 +24,9 @@ class Ship extends PolygonPhysicsShape
       component\draw()
 
   remove: () =>
+    lx, ly = @ship.body\getWorldCenter()
+    for i=1, 100 do
+      Particle({255,255,0}, lx, ly, math.random(-10, 10)+lx, math.random(-10, 10)+ly, 5, math.random(5), love.math.random(4)*0.1)
     for k, component in pairs(@components) do
       component\remove()
     super\remove()
