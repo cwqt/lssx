@@ -30,23 +30,22 @@ export Projectile          = require("components/Projectile")
 export Bullet              = require("components/Bullet")
 export Emitter             = require("components/Emitter")
 export Shield              = require("components/Shield")
+export Enemy               = require("components/Enemy")
 
 love.load = () ->
   Debugger.load()
   Physics.load()
   Background.load()
+  SPFX.load()
   Player(Ship(lssx.world, 10, 10, "dynamic"), 10, "Player")
   CameraManager.load(130, 100)
   CameraManager.setLockTarget(lssx.objects["Player"])
 
-  Asteroid(100, 200)
+  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)
 
+  for i=1, 100
+    Asteroid(math.random(2000), math.random(2000))
   Emitter(10, 20)
-
-  Shield(10, 10, 10)
-
-
-
 
 love.update = (dt) ->
   for k, object in pairs(lssx.objects) do
@@ -55,15 +54,17 @@ love.update = (dt) ->
   Debugger.update(dt)
   Physics.update(dt)
   CameraManager.update(dt)
+  SPFX.update(dt)
   flux.update(dt)
 
 love.draw = () ->
-  CameraManager.attach()
-  Background.draw()
-  love.graphics.setColor(255,255,255)
-  for k, object in pairs(lssx.objects) do
-    object\draw()
-  CameraManager.detach()
+  SPFX.effect ->
+    CameraManager.attach()
+    Background.draw()
+    love.graphics.setColor(255,255,255)
+    for k, object in pairs(lssx.objects) do
+      object\draw()
+    CameraManager.detach()
 
   Debugger.draw()
 
@@ -133,3 +134,19 @@ love.run = () ->
 
 math.dist = (x1,y1, x2,y2) -> return (((x2)-(x1))^2+((y2)-(y1))^2)^0.5
 math.clamp = (low, n, high) -> return math.min(math.max(n, low), high)
+
+
+HSL = (h, s, l, a) ->
+  if s<=0 
+    return l,l,l,a
+  h, s, l = h/256*6, s/255, l/255
+  c = (1-math.abs(2*l-1))*s
+  x = (1-math.abs(h%2-1))*c
+  m,r,g,b = (l-.5*c), 0,0,0
+  if h < 1     then r,g,b = c,x,0
+  elseif h < 2 then r,g,b = x,c,0
+  elseif h < 3 then r,g,b = 0,c,x
+  elseif h < 4 then r,g,b = 0,x,c
+  elseif h < 5 then r,g,b = x,0,c
+  else              r,g,b = c,0,x
+  return (r+m)*255,(g+m)*255,(b+m)*255,a

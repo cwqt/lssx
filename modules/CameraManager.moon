@@ -27,4 +27,8 @@ CameraManager.setLockTarget = (object) ->
   CameraManager.lockTarget = object.hash
   Debugger.log("Camera setLockTarget -> " .. object.hash)
 
+CameraManager.shake = (intensity, duration, frequency) ->
+  frequency = frequency or 60
+  lssx.camera\shake(intensity, duration, frequency)
+
 return CameraManager

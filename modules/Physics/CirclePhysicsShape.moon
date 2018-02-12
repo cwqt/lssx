@@ -9,4 +9,4 @@ class CirclePhysicsShape extends PhysicsObject
 
   draw: () =>
     lx, ly = @body\getWorldPoints(@shape\getPoint())
-    love.graphics.circle("line", lx, ly, @radius)
+    love.graphics.circle("line", lx, ly, @shape\getRadius())

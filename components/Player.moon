@@ -13,6 +13,7 @@ class Player extends Entity
     @boost = 10
 
     @ship.components["Emitter"] = Emitter!
+    @ship.components["Shield"]  = Shield(10, 10, 10)
 
   update: (dt) =>
     super\update(dt)
@@ -71,6 +72,8 @@ class Player extends Entity
 
   takeDamage: (amount) =>
     super\takeDamage(amount)
+    SPFX.bounceChroma(0.2, 10, 10)
+    CameraManager.shake(20, 0.2)
 
   die: () =>
     lx, ly = @ship.body\getWorldCenter()
@@ -94,3 +97,5 @@ class Player extends Entity
       when "w"
         lx, ly = @ship.body\getWorldPoints(15, 0)
         @ship\fire("Bullet", lx, ly, 2, -1)
+      when "d"
+        @takeDamage(2)

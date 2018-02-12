@@ -15,11 +15,16 @@ export lssx = {
     ["All"]:        5,
   }
 
-  INIT_TIME: love.timer.getTime()
-  CAMERA_ZOOM: 1.5
-  WIDTH: 400
-  HEIGHT: 300
-  SCALE: 1
+  INIT_TIME: love.timer.getTime(),
+  CAMERA_ZOOM: 1.5,
+  WIDTH: 400,
+  HEIGHT: 300,
+  SCALE: 1,
+
+  SPFX: {
+    CHROMASEP: 0,
+    CHROMASEP_ANGLE: 0
+  }
 }
 -- I will collide with a...
 lssx.masks = {
