@@ -26,6 +26,8 @@ export CameraManager       = require("modules/CameraManager")
 export EntityManager       = require("modules/EntityManager")
 export SoundManager        = require("modules/SoundManager")
 
+-- export HUD                 = require("modules/UI/HUD")
+
 export Entity              = require("components/Entity")
 export Ship                = require("components/Ship")
 export Player              = require("components/Player")
@@ -67,8 +69,9 @@ Game.enter = (previous) =>
   for i=1, 200
     Asteroid(math.random(2000), math.random(2000))
 
-  for i=1, 10
-    Enemy(Ship(lssx.world, math.random(200), math.random(200), "dynamic"), 10)
+  -- for i=1, 10 do
+    -- Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
+  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)
 
 Game.update = (dt) =>
   EntityManager.update(dt)
@@ -83,7 +86,7 @@ Game.draw = () =>
     love.graphics.setColor(255,255,255)
     EntityManager.draw()
     CameraManager.detach()
-  -- Debugger.draw()
+  Debugger.draw()
   love.graphics.setColor(255,255,255)
   love.graphics.print("FPS: " .. love.timer.getFPS(), 10, 10)
 
@@ -99,6 +102,7 @@ Splash = {}
 
 Splash.init = () =>
   image = love.graphics.newImage("assets/tempsplash.png")
+  export h = love.graphics.getHeight()
   splashy.addSplash(image, 2)
   splashy.onComplete(-> Gamestate.switch(Game))
 
@@ -107,6 +111,7 @@ Splash.update = (dt) =>
 
 Splash.draw = () =>
   splashy.draw()
+  love.graphics.print("Press 'space' to skip.", 10, h-20)
 
 Splash.keypressed = (key) =>
   if key == "space"
@@ -114,14 +119,15 @@ Splash.keypressed = (key) =>
 
 Splash.leave = () =>
   image = nil
+  h = nil
 
 -- ============================================================]]
-
 
 love.load = () ->
   -- Debugger.load()
   Gamestate.registerEvents()
-  Gamestate.switch(Splash)
+  -- Gamestate.switch(Splash)
+  Gamestate.switch(Game)
 
 love.update = (dt) ->
   Timer.update(dt)

@@ -69,7 +69,6 @@ class Player extends Entity
   draw: () =>
     super\draw()
     @ship\draw()
-    @draw_UI()
 
   takeDamage: (amount) =>
     super\takeDamage(amount)
@@ -77,9 +76,6 @@ class Player extends Entity
     CameraManager.shake(20, 0.2)
 
   die: () =>
-    lx, ly = @ship.body\getWorldCenter()
-    for i=1, 100 do
-      Particle({255,255,0}, lx, ly, math.random(-10, 10)+lx, math.random(-10, 10)+ly, 5, math.random(5), love.math.random(4)*0.1)
     @ship\remove()
     super\die()
 
@@ -95,12 +91,6 @@ class Player extends Entity
     @ship\beginContact(other)
     -- print(@ship.fixture\getGroupIndex())
     -- print(lssx.objects[other\getBody()\getUserData().hash].fixture\getGroupIndex())
-
-  draw_UI: () =>
-    love.graphics.print("fuel: " .. @fuel, 10, 20)
-    love.graphics.print("oxygen: " .. @oxygen, 10, 40)
-    love.graphics.print("ammo: " .. @ammo, 10, 60)
-    love.graphics.print("boost: " .. @boost, 10, 80)
 
   keypressed: (key) =>
     switch key

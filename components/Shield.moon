@@ -18,11 +18,15 @@ class Shield extends CirclePhysicsShape
       if @hp <= 5 then
         lx, ly = @body\getPosition()
         for i=1, 40 do
-          Particle({0,205,205}, lx, ly, math.random(-10, 10)+lx, math.random(-10, 10)+ly, math.random(2,5), math.random(5), 0.4)
+          Particle({0,205,205}, lx, ly, math.random(-10, 10)+lx,
+                                        math.random(-10, 10)+ly,
+                                        math.random(2, 5),
+                                        math.random(5), 0.4)
         flux.to(self, 0.2, {hp: 0})
         Debugger.log("Shield disabled for " .. @disabledTime .. "s")
         Timer.after @disabledTime, ->
           Debugger.log("Shield restoring...")
+          -- radius proportional to hp, radius -> 0
           flux.to(self, @disabledTime/2, {hp: @initialHP})\ease("cubicout")
     Debugger.log("Shield took " .. amount .. " damage", "death")
 
