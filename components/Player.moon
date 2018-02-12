@@ -13,7 +13,7 @@ class Player extends Entity
     @boost = 10
 
     @ship.components["Emitter"] = Emitter!
-    @ship.components["Shield"]  = Shield(10, 10, 10)
+    -- @ship.components["Shield"]  = Shield(10, 10, 10)
 
   update: (dt) =>
     super\update(dt)

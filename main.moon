@@ -21,6 +21,7 @@ export CameraManager       = require("modules/CameraManager")
 export Background          = require("modules/Background")
 export Particle            = require("modules/Particle")
 export SPFX                = require("modules/SPFX")
+export EntityManager       = require("modules/EntityManager")
 
 export Entity              = require("components/Entity")
 export Ship                = require("components/Ship")
@@ -32,48 +33,86 @@ export Emitter             = require("components/Emitter")
 export Shield              = require("components/Shield")
 export Enemy               = require("components/Enemy")
 
-love.load = () ->
-  Debugger.load()
+-- ============================================================]]
+
+Splash = {}
+
+Splash.init = () =>
+
+Splash.update = (dt) =>
+
+Splash.draw = () =>
+
+Splash.leave = () =>
+
+-- ============================================================]]
+
+MainMenu = {}
+
+MainMenu.init = () =>
+
+MainMenu.enter = (previous) =>
+
+MainMenu.update = (dt) =>
+
+MainMenu.draw = () =>
+
+MainMenu.leave = () =>
+
+-- ============================================================]]
+
+Game = {}
+
+Game.init = () =>
   Physics.load()
   Background.load()
   SPFX.load()
-  Player(Ship(lssx.world, 10, 10, "dynamic"), 10, "Player")
-  CameraManager.load(130, 100)
-  CameraManager.setLockTarget(lssx.objects["Player"])
+  CameraManager.load(10, 10)
 
+Game.enter = (previous) =>
+  EntityManager.clear()
+  Player(Ship(lssx.world, 10, 10, "dynamic"), 10, "Player")
+  CameraManager.setLockTarget(lssx.objects["Player"])
   Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)
 
-  for i=1, 100
-    Asteroid(math.random(2000), math.random(2000))
-  Emitter(10, 20)
-
-love.update = (dt) ->
-  for k, object in pairs(lssx.objects) do
-    object\update(dt)
-  Timer.update(dt)
-  Debugger.update(dt)
-  Physics.update(dt)
-  CameraManager.update(dt)
+Game.update = (dt) =>
   SPFX.update(dt)
-  flux.update(dt)
+  Physics.update(dt)
+  EntityManager.update(dt)
+  CameraManager.update(dt)
 
-love.draw = () ->
+Game.draw = () =>
   SPFX.effect ->
     CameraManager.attach()
     Background.draw()
     love.graphics.setColor(255,255,255)
-    for k, object in pairs(lssx.objects) do
-      object\draw()
+    EntityManager.draw()
     CameraManager.detach()
 
+Game.keypressed = (key) =>
+  EntityManager.keypressed(key)
+
+Game.leave = () =>
+  print("Later alligator")
+
+-- ============================================================]]
+
+love.load = () ->
+  Debugger.load()
+  Gamestate.registerEvents()
+  Gamestate.switch(Game)
+
+love.update = (dt) ->
+  Timer.update(dt)
+  Debugger.update(dt)
+  flux.update(dt)
+
+love.draw = () ->
   Debugger.draw()
 
 love.keypressed = (key) ->
   fluids.keypressed(key)
   Debugger.keypressed(key)
-  for _, object in pairs(lssx.objects)
-    if type(object.keypressed) == "function"
-      object\keypressed(key)
 
 love.keyreleased = (key) ->
   fluids.keyreleased(key)
@@ -134,7 +173,6 @@ love.run = () ->
 
 math.dist = (x1,y1, x2,y2) -> return (((x2)-(x1))^2+((y2)-(y1))^2)^0.5
 math.clamp = (low, n, high) -> return math.min(math.max(n, low), high)
-
 
 HSL = (h, s, l, a) ->
   if s<=0 
