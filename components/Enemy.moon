@@ -15,7 +15,7 @@ class Enemy extends Entity
 
     -- @ship.fixture\setGroupIndex(-1)
 
-    -- @ship.components["Emitter"] = Emitter!
+    @ship.components["Emitter"] = Emitter!
     -- @ship.components["Shield"]  = Shield(10, 10, 10)
     -- Timer.every 0.5, ->
     --   lx, ly = @ship.body\getWorldPoints(15, 0)
@@ -38,8 +38,6 @@ class Enemy extends Entity
     @d = math.dist(mx, my, @ship.x, @ship.y)
 
     -- Decide on a state based on player distance
-
-
     if @HP < (@initalHP/2)
       @state = "hiding"
     else
@@ -49,7 +47,6 @@ class Enemy extends Entity
         @state = "idle"
       else
         @state = "chasing"
-
 
     -- Save the CPU
     if @state != "idle"
@@ -74,13 +71,19 @@ class Enemy extends Entity
       -- v is proportional to 1/2 distance from player
       @v = @d*0.5
 
-      -- Finally, apply the force
+      -- Calculate force components
       @fx, @fy = @v*math.cos(@ship.body\getAngle()), @v*math.sin(@ship.body\getAngle())
-      if @state == "hiding"
-        @fx = @fx*-1
-        @fy = @fy*-1
-        @angle -= 180
-      @ship.body\applyForce(@fx, @fy)
+      
+      -- If in close proximity, sprint towards player
+      -- if @d < 50
+      --   @fx = @fx*5
+      --   @fy = @fy*5
+      -- if @state == "hiding"
+      --   @fx = @fx*-1
+      --   @fy = @fy*-1
+      --   @angle -= 180
+
+      -- @ship.body\applyForce(@fx, @fy)
 
       -- if @state == "firing" then
         -- Check if player within some cone of sight
@@ -95,6 +98,12 @@ class Enemy extends Entity
     -- love.graphics.circle("line", @ship.x, @ship.y, 500)
     -- love.graphics.circle("line", @ship.x, @ship.y, 100)
     love.graphics.setColor(255,255,255)
+
+  fire: () =>
+
+  die: () =>
+    @ship\remove()
+    super\die()
 
   beginContact: (other) =>
     @ship\beginContact(other)

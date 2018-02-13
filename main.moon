@@ -50,12 +50,12 @@ Game.enter = (previous) =>
   EntityManager.clear()
   Player(Ship(lssx.world, 10, 10, "dynamic"), 10, "Player")
   CameraManager.setLockTarget(lssx.objects["Player"])
-  for i=1, 200
-    Asteroid(math.random(2000), math.random(2000))
-
-  for i=1, 20 do
-    Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
-  -- Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)
+  -- for i=1, 200
+    -- Asteroid(math.random(2000), math.random(2000))
+  -- for i=1, 20 do
+    -- Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
+  
+  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)
 
 Game.update = (dt) =>
   if lssx.PAUSE then return
@@ -124,7 +124,7 @@ MainMenu.enter = (previous) =>
       {"     * INPUT:    STDIN                    "}
       {"     * OUTPUT:   NONE                     "}
       {"     * CALLS:    Boot_Process.MASTER      "}
-      {"     * DESTROYS: acc_A                    "}
+      {"     * DESTROYS: NONE                     "}
       {"     *                                    "}
       {"     * Engaging Core Modules [0x0->0xFD03]"}
       {""}
@@ -132,18 +132,17 @@ MainMenu.enter = (previous) =>
       {"COOA B7  80       STA A ACIA   ;SET BITS 2, 4 STOP "}
       {"C00D 73  C0       JMP   SIGNON ;GO TO BOOT START"}
       {""}
+      {"     STDOUT:: 'ENABLING MODULES'", 1}
+      {"     STDOUT:: 'ARPANET(beta) ONLINE'", 1}
+      {"     STDOUT:: 'ACK RECIEVED...'", 1}
+      {"     STDIN :: 'M9 86 D0 7S 96 D0 2D 97 00 28 D7 B7'", 1}
       {""}
-      {"STDOUT:: 'ENABLING MODULES'", 1}
-      {"STDOUT:: 'ARPANET(beta) ONLINE'", 1}
-      {"STDOUT:: 'ACK RECIEVED...'", 1}
-      {"STDOUT:: 'M9 86 D0 7S 96 D0 2D 97 00 28 D7 B7'", 1}
-      {""}
-      {"KEY ACCEPTED", 2}
+      {"CHECKSUM ACCEPTED", 2}
       {""}
       {"Welcome to lssxOS."}
       {"Enter 'help' for more information."}
       {""}
-      {"root/> ./lssx_run"}
+      {"root/> ./zephyr"}
       {""}--keep because bug
     }
   }
@@ -172,6 +171,7 @@ MainMenu.update = (dt) =>
         title.typeTimer = text.content[text.k][2] or 0.1
         text.printedText = text.printedText .. "\n" .. text.content[text.k][1]
         text.k += 1
+    -- else -- done
 
 MainMenu.draw = () =>
   SPFX.effect ->
@@ -209,7 +209,7 @@ Splash.update = (dt) =>
 Splash.draw = () =>
   SPFX.effect ->
     splashy.draw()
-    love.graphics.print("Press 'space' to skip.", 10, config.h-20)
+    -- love.graphics.print("Press 'space' to skip.", 10, config.h-20)
 
 Splash.keypressed = (key) =>
   if key == "space"
@@ -222,17 +222,19 @@ Splash.leave = () =>
 
 love.load = () ->
   -- Debugger.load()
-  bgm = love.audio.newSource("assets/Boot.ogg", "stream")
-  love.audio.play(bgm)
+  -- bgm = love.audio.newSource("assets/Boot.ogg", "stream")
+  -- love.audio.play(bgm)
   Timer.after 1.5, ->
     Gamestate.registerEvents()
-    Gamestate.switch(Splash)
+    -- Gamestate.switch(Splash)
   -- Gamestate.switch(MainMenu)
+  Gamestate.switch(Game)
 
 love.update = (dt) ->
   Timer.update(dt)
   -- Debugger.update(dt)
   flux.update(dt)
+  require("libs/lovebird/lovebird").update()
 
 love.draw = () ->
   -- Debugger.draw()

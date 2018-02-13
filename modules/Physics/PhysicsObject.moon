@@ -27,6 +27,6 @@ class PhysicsObject extends Object
       @body\destroy()
 
   beginContact: (other) =>
-    other_object = lssx.objects[other\getBody()\getUserData().hash]
-    str = "-> " .. other_object.__class.__name .. ", k: " .. other\getBody()\getUserData().hash
-    Debugger.log(str, "collision")
+    -- other_object = lssx.objects[other\getBody()\getUserData().hash]
+    -- str = "-> " .. other_object.__class.__name .. ", k: " .. other\getBody()\getUserData().hash
+    -- Debugger.log(str, "collision")
