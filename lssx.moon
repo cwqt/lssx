@@ -16,10 +16,12 @@ export lssx = {
   }
 
   INIT_TIME: love.timer.getTime(),
-  CAMERA_ZOOM: 1.5,
+  CAMERA_ZOOM: 1.8,
   WIDTH: 400,
   HEIGHT: 300,
   SCALE: 1,
+
+  PAUSE: false,
 
   SPFX: {
     CHROMASEP: 0,

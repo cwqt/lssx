@@ -38,22 +38,6 @@ export Emitter             = require("components/Emitter")
 export Shield              = require("components/Shield")
 export Enemy               = require("components/Enemy")
 
--- ============================================================]]
-
-MainMenu = {}
-
-MainMenu.init = () =>
-
-MainMenu.enter = (previous) =>
-
-MainMenu.update = (dt) =>
-
-MainMenu.draw = () =>
-
-MainMenu.leave = () =>
-
--- ============================================================]]
-
 Game = {}
 
 Game.init = () =>
@@ -69,17 +53,19 @@ Game.enter = (previous) =>
   for i=1, 200
     Asteroid(math.random(2000), math.random(2000))
 
-  -- for i=1, 10 do
-    -- Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
-  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)
+  for i=1, 20 do
+    Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
+  -- Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)
 
 Game.update = (dt) =>
-  EntityManager.update(dt)
+  if lssx.PAUSE then return
   Physics.update(dt)
+  EntityManager.update(dt)
   SPFX.update(dt)
   CameraManager.update(dt)
 
 Game.draw = () =>
+  love.graphics.setLineStyle("smooth")
   SPFX.effect ->
     CameraManager.attach()
     Background.draw()
@@ -94,40 +80,154 @@ Game.keypressed = (key) =>
   EntityManager.keypressed(key)
 
 Game.leave = () =>
+  EntityManager.clear()
   print("Later alligator")
 
 -- ============================================================]]
 
-Splash = {}
+-- ============================================================]]
+
+MainMenu = {}
+
+MainMenu.init = () =>
+
+MainMenu.enter = (previous) =>
+  SPFX.load()
+  export title = {
+    font: love.graphics.newFont("assets/MainMenu/title.ttf", 50)
+    textToPrint: "LSSX v2.8_a3 BIOS",
+    printedText: "",
+    
+    typeTimer: 0.1,
+    typePosition: -1,
+  }
+  title.font\setLineHeight(1)
+
+  export text = {
+    print: false,
+    font: love.graphics.newFont("assets/MainMenu/text.ttf", 22),
+    k: 1,
+    printedText: "",
+    content: {
+      {"COMPILED 25 OCT 1962.   CCAFS", 0.8}
+      {"DO NOT REDISTRIBUTE.", 0.8}
+      {""}
+      {"TOTAL REAL MEMORY: 7808bytes.", 0.5}
+      {"BUFFER SPACE USED:  600bytes (150 4b buffers)", 0.7}
+      {"AVAILABLE  MEMORY: 6552bytes", 0.5}
+      {""}
+      {"C000              ORG   ROM+$0000 BEGIN MONITOR"}
+      {"C001 8E  70 START LDS   #STACK"}
+      {""}
+      {"     *************************************"}
+      {"     * FUNCTION: INITA_Initialise ACIA    "}
+      {"     * INPUT:    STDIN                    "}
+      {"     * OUTPUT:   NONE                     "}
+      {"     * CALLS:    Boot_Process.MASTER      "}
+      {"     * DESTROYS: acc_A                    "}
+      {"     *                                    "}
+      {"     * Engaging Core Modules [0x0->0xFD03]"}
+      {""}
+      {""}
+      {"COOA B7  80       STA A ACIA   ;SET BITS 2, 4 STOP "}
+      {"C00D 73  C0       JMP   SIGNON ;GO TO BOOT START"}
+      {""}
+      {""}
+      {"STDOUT:: 'ENABLING MODULES'", 1}
+      {"STDOUT:: 'ARPANET(beta) ONLINE'", 1}
+      {"STDOUT:: 'ACK RECIEVED...'", 1}
+      {"STDOUT:: 'M9 86 D0 7S 96 D0 2D 97 00 28 D7 B7'", 1}
+      {""}
+      {"KEY ACCEPTED", 2}
+      {""}
+      {"Welcome to lssxOS."}
+      {"Enter 'help' for more information."}
+      {""}
+      {"root/> ./lssx_run"}
+      {""}--keep because bug
+    }
+  }
+  text.font\setLineHeight(0.6)
+  Timer.after 0.2, -> SPFX.bounceChroma(0.2, 6)
+  Timer.after 6, -> SPFX.bounceChroma(2, 2, 2)
+
+MainMenu.update = (dt) =>
+  SPFX.update(dt)
+  -- Decrease timer
+  title.typeTimer = title.typeTimer - dt
+
+  -- Timer done, we need to print a new letter:
+  -- Adjust position, use string.sub to get sub-string
+  if title.typePosition <= string.len(title.textToPrint) then
+    title.typeTimer = title.typeTimer - dt
+    if title.typeTimer <= 0 then
+      title.typeTimer = 0.1
+      title.typePosition = title.typePosition + 1
+      title.printedText = string.sub(title.textToPrint,0,title.typePosition)
+  else
+    -- Same concept as above, except priting whole lines via concatenation
+    if #text.content != text.k
+      title.typeTimer -= dt
+      if title.typeTimer <= 0
+        title.typeTimer = text.content[text.k][2] or 0.1
+        text.printedText = text.printedText .. "\n" .. text.content[text.k][1]
+        text.k += 1
+
+MainMenu.draw = () =>
+  SPFX.effect ->
+    love.graphics.setFont(title.font)
+    love.graphics.print(title.printedText, 40, 40)
+    love.graphics.setFont(text.font)
+    love.graphics.print(text.printedText, 40, 100)
+
+MainMenu.leave = () =>
+  title = nil
+  text = nil
+
+MainMenu.keypressed = (key) =>
+  if key == "r" then MainMenu.enter()
+  if key == "s" then Gamestate.switch(Game)
+
+-- ============================================================]]
+
+export Splash = {}
 
 Splash.init = () =>
-  image = love.graphics.newImage("assets/tempsplash.png")
-  export h = love.graphics.getHeight()
-  splashy.addSplash(image, 2)
-  splashy.onComplete(-> Gamestate.switch(Game))
+  export config = {
+    image: love.graphics.newImage("assets/Splash/Logo.png")
+    h: love.graphics.getHeight()
+  }
+  splashy.addSplash(config.image, 2)
+  splashy.onComplete(-> Gamestate.switch(MainMenu))
+  SPFX.load()
+  Timer.after 0.2, -> SPFX.bounceChroma(2, 3, 2)
 
 Splash.update = (dt) =>
+  SPFX.update(dt)
   splashy.update(dt)
 
 Splash.draw = () =>
-  splashy.draw()
-  love.graphics.print("Press 'space' to skip.", 10, h-20)
+  SPFX.effect ->
+    splashy.draw()
+    love.graphics.print("Press 'space' to skip.", 10, config.h-20)
 
 Splash.keypressed = (key) =>
   if key == "space"
     splashy.skipAll()
 
 Splash.leave = () =>
-  image = nil
-  h = nil
+  config = nil
 
 -- ============================================================]]
 
 love.load = () ->
   -- Debugger.load()
-  Gamestate.registerEvents()
-  -- Gamestate.switch(Splash)
-  Gamestate.switch(Game)
+  bgm = love.audio.newSource("assets/Boot.ogg", "stream")
+  love.audio.play(bgm)
+  Timer.after 1.5, ->
+    Gamestate.registerEvents()
+    Gamestate.switch(Splash)
+  -- Gamestate.switch(MainMenu)
 
 love.update = (dt) ->
   Timer.update(dt)
@@ -140,6 +240,8 @@ love.draw = () ->
 love.keypressed = (key) ->
   fluids.keypressed(key)
   Debugger.keypressed(key)
+  if key == "p"
+    lssx.PAUSE = not lssx.PAUSE
 
 love.keyreleased = (key) ->
   fluids.keyreleased(key)

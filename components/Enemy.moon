@@ -10,6 +10,7 @@ class Enemy extends Entity
       "idle": {0, 255, 0},
       "chasing": {255, 255, 0},
       "firing":{255, 0, 0},
+      "hiding": {0, 0, 255},
     }
 
     -- @ship.fixture\setGroupIndex(-1)
@@ -36,13 +37,18 @@ class Enemy extends Entity
     -- Get distance from player and body
     @d = math.dist(mx, my, @ship.x, @ship.y)
 
-    -- Decided on a state
-    if @d < 100 then
-      @state = "firing"
-    elseif @d > 500 then
-      @state = "idle"
+    -- Decide on a state based on player distance
+
+
+    if @HP < (@initalHP/2)
+      @state = "hiding"
     else
-      @state = "chasing"
+      if @d < 100 then
+        @state = "firing"
+      elseif @d > 500 then
+        @state = "idle"
+      else
+        @state = "chasing"
 
 
     -- Save the CPU
@@ -63,18 +69,22 @@ class Enemy extends Entity
       if difference < -180 difference += 360
 
       -- Apply torque into direction of differential angle
-      @ship.body\applyTorque(1.8 * difference)
+      @ship.body\applyTorque(2 * difference)
 
+      -- v is proportional to 1/2 distance from player
       @v = @d*0.5
 
       -- Finally, apply the force
       @fx, @fy = @v*math.cos(@ship.body\getAngle()), @v*math.sin(@ship.body\getAngle())
+      if @state == "hiding"
+        @fx = @fx*-1
+        @fy = @fy*-1
+        @angle -= 180
       @ship.body\applyForce(@fx, @fy)
 
       -- if @state == "firing" then
         -- Check if player within some cone of sight
         -- @fire()
-
 
     if @HP <= 0 @die()
 
@@ -82,8 +92,8 @@ class Enemy extends Entity
     love.graphics.setColor(unpack(@states[@state]))
     super\draw()
     @ship\draw()
-    love.graphics.circle("line", @ship.x, @ship.y, 500)
-    love.graphics.circle("line", @ship.x, @ship.y, 100)
+    -- love.graphics.circle("line", @ship.x, @ship.y, 500)
+    -- love.graphics.circle("line", @ship.x, @ship.y, 100)
     love.graphics.setColor(255,255,255)
 
   beginContact: (other) =>

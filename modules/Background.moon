@@ -30,12 +30,12 @@ Background.drawGrid = (offsetx, offsety) ->
     love.graphics.line(x+offsetx, 0+offsety, x+offsetx, 1000+offsety)
     love.graphics.line(0+offsetx, x+offsety, 1000+offsetx, x+offsety)
 
-    love.graphics.push()
-    love.graphics.translate(x, x)
-    love.graphics.setLineWidth(3)
-    love.graphics.line(0, 0, 0, 20)
-    love.graphics.line(-10, 10, 10, 10)
-    love.graphics.setLineWidth(0.9)
-    love.graphics.pop()
+    -- love.graphics.push()
+    -- love.graphics.translate(math.random(x)%50, math.random(x)%50)
+    -- love.graphics.setLineWidth(3)
+    -- love.graphics.line(0, 0, 0, 20)
+    -- love.graphics.line(-10, 10, 10, 10)
+    -- love.graphics.setLineWidth(0.9)
+    -- love.graphics.pop()
 
 return Background

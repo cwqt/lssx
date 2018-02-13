@@ -2,7 +2,7 @@ CameraManager = {}
 
 CameraManager.load = (x, y) ->
   lssx.camera = Camera(x, y) -- , lssx.WIDTH, lssx.HEIGHT
-  lssx.camera\setFollowLerp(0.1)
+  lssx.camera\setFollowLerp(0.05)
   lssx.camera\setFollowLead(20)
   lssx.camera\setFollowStyle('LOCKON')
   Debugger.log("CameraManager created")

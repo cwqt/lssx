@@ -40,7 +40,7 @@ class Player extends Entity
     @ship.body\applyTorque(1.2 * difference)
 
     -- Get distance from mouse and body, calculate a velocity
-    @v = math.dist(mx, my, @ship.x, @ship.y)*0.3
+    @v = math.dist(mx, my, @ship.x, @ship.y)*0.4
 
     -- Detract some fuel from moving - adjust v
     @fuel -= @v*0.0002

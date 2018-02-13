@@ -5,7 +5,7 @@ class Projectile extends PolygonPhysicsShape
 
   update: (dt) =>
     super\update(dt)
-    if (@creationTime+lssx.INIT_TIME - love.timer.getTime()) < @lifetime*-1
+    if (@creationTime+lssx.INIT_TIME - love.timer.getTime()) < -@lifetime
       @remove()
 
   draw: () =>

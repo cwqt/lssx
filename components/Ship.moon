@@ -18,7 +18,7 @@ class Ship extends PolygonPhysicsShape
         component.body\setPosition(@x, @y)
 
   draw: () =>
-    love.graphics.setLineStyle("rough")
+    -- love.graphics.setLineStyle("rough")
     love.graphics.polygon("fill", @body\getWorldPoints(@shape\getPoints()))
     for _, component in pairs(@components) do
       component\draw()
