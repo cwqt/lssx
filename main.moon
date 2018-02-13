@@ -50,13 +50,11 @@ Game.enter = (previous) =>
   EntityManager.clear()
   Player(Ship(lssx.world, 10, 10, "dynamic"), 10, "Player")
   CameraManager.setLockTarget(lssx.objects["Player"])
-  -- for i=1, 200
-    -- Asteroid(math.random(2000), math.random(2000))
-  -- for i=1, 20 do
-    -- Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
+  for i=1, 200
+    Asteroid(math.random(2000), math.random(2000))
+  for i=1, 20 do
+    Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
   
-  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)
-
 Game.update = (dt) =>
   if lssx.PAUSE then return
   Physics.update(dt)
@@ -104,11 +102,13 @@ MainMenu.enter = (previous) =>
   title.font\setLineHeight(1)
 
   export text = {
+    sound: love.audio.newSource("assets/MainMenu/typeSound.wav", "static")
     print: false,
     font: love.graphics.newFont("assets/MainMenu/text.ttf", 22),
     k: 1,
     printedText: "",
     content: {
+      --{"some text", delay_time}
       {"COMPILED 25 OCT 1962.   CCAFS", 0.8}
       {"DO NOT REDISTRIBUTE.", 0.8}
       {""}
@@ -146,6 +146,8 @@ MainMenu.enter = (previous) =>
       {""}--keep because bug
     }
   }
+  text.sound\setVolume(0.3)
+  text.sound\setPitch(0.6)
   text.font\setLineHeight(0.6)
   Timer.after 0.2, -> SPFX.bounceChroma(0.2, 6)
   Timer.after 6, -> SPFX.bounceChroma(2, 2, 2)
@@ -163,13 +165,16 @@ MainMenu.update = (dt) =>
       title.typeTimer = 0.1
       title.typePosition = title.typePosition + 1
       title.printedText = string.sub(title.textToPrint,0,title.typePosition)
+      love.audio.play(text.sound)
   else
     -- Same concept as above, except priting whole lines via concatenation
     if #text.content != text.k
       title.typeTimer -= dt
       if title.typeTimer <= 0
+        love.audio.stop(text.sound)
         title.typeTimer = text.content[text.k][2] or 0.1
         text.printedText = text.printedText .. "\n" .. text.content[text.k][1]
+        love.audio.play(text.sound)
         text.k += 1
     -- else -- done
 
@@ -222,12 +227,13 @@ Splash.leave = () =>
 
 love.load = () ->
   -- Debugger.load()
-  -- bgm = love.audio.newSource("assets/Boot.ogg", "stream")
-  -- love.audio.play(bgm)
-  Timer.after 1.5, ->
-    Gamestate.registerEvents()
+  -- bootSound = love.audio.newSource("assets/Boot.ogg", "stream")
+  -- love.audio.play(bootSound)
+  -- Timer.after 1.5, ->
+    -- Gamestate.registerEvents()
     -- Gamestate.switch(Splash)
   -- Gamestate.switch(MainMenu)
+  Gamestate.registerEvents()
   Gamestate.switch(Game)
 
 love.update = (dt) ->

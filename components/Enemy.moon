@@ -75,15 +75,15 @@ class Enemy extends Entity
       @fx, @fy = @v*math.cos(@ship.body\getAngle()), @v*math.sin(@ship.body\getAngle())
       
       -- If in close proximity, sprint towards player
-      -- if @d < 50
-      --   @fx = @fx*5
-      --   @fy = @fy*5
-      -- if @state == "hiding"
-      --   @fx = @fx*-1
-      --   @fy = @fy*-1
-      --   @angle -= 180
+      if @d < 50
+        @fx = @fx*5
+        @fy = @fy*5
+      if @state == "hiding"
+        @fx = @fx*-1
+        @fy = @fy*-1
+        @angle -= 180
 
-      -- @ship.body\applyForce(@fx, @fy)
+      @ship.body\applyForce(@fx, @fy)
 
       -- if @state == "firing" then
         -- Check if player within some cone of sight
@@ -97,7 +97,7 @@ class Enemy extends Entity
     @ship\draw()
     -- love.graphics.circle("line", @ship.x, @ship.y, 500)
     -- love.graphics.circle("line", @ship.x, @ship.y, 100)
-    love.graphics.setColor(255,255,255)
+    -- love.graphics.setColor(255,255,255)
 
   fire: () =>
 
