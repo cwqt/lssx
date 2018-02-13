@@ -67,6 +67,7 @@ class Player extends Entity
     if @HP <= 0 @die()
 
   draw: () =>
+    love.graphics.setColor(255,255,255)
     super\draw()
     @ship\draw()
 

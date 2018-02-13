@@ -1,4 +1,5 @@
 io.stdout\setvbuf("no")
+math.randomseed(os.time())
 require("moonscript")
 require("imgui")
 
@@ -50,10 +51,18 @@ Game.enter = (previous) =>
   EntityManager.clear()
   Player(Ship(lssx.world, 10, 10, "dynamic"), 10, "Player")
   CameraManager.setLockTarget(lssx.objects["Player"])
-  for i=1, 200
-    Asteroid(math.random(2000), math.random(2000))
-  for i=1, 20 do
-    Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
+  -- for i=1, 200
+  --   Asteroid(math.random(2000), math.random(2000))
+  -- for i=1, 20 do
+  --   Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
+  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)  
+  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)  
+  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)  
+  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)  
+  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)  
+  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)  
+  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)  
+  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)  
   
 Game.update = (dt) =>
   if lssx.PAUSE then return
@@ -70,7 +79,7 @@ Game.draw = () =>
     love.graphics.setColor(255,255,255)
     EntityManager.draw()
     CameraManager.detach()
-  Debugger.draw()
+  -- Debugger.draw()
   love.graphics.setColor(255,255,255)
   love.graphics.print("FPS: " .. love.timer.getFPS(), 10, 10)
 
@@ -167,7 +176,7 @@ MainMenu.update = (dt) =>
       title.printedText = string.sub(title.textToPrint,0,title.typePosition)
       love.audio.play(text.sound)
   else
-    -- Same concept as above, except priting whole lines via concatenation
+    -- Same concept as above, except printing whole lines via concatenation
     if #text.content != text.k
       title.typeTimer -= dt
       if title.typeTimer <= 0
@@ -176,7 +185,9 @@ MainMenu.update = (dt) =>
         text.printedText = text.printedText .. "\n" .. text.content[text.k][1]
         love.audio.play(text.sound)
         text.k += 1
-    -- else -- done
+    else
+      Timer.after 1, ->
+        Gamestate.switch(Game)
 
 MainMenu.draw = () =>
   SPFX.effect ->
@@ -226,7 +237,7 @@ Splash.leave = () =>
 -- ============================================================]]
 
 love.load = () ->
-  -- Debugger.load()
+  Debugger.load()
   -- bootSound = love.audio.newSource("assets/Boot.ogg", "stream")
   -- love.audio.play(bootSound)
   -- Timer.after 1.5, ->
@@ -238,12 +249,10 @@ love.load = () ->
 
 love.update = (dt) ->
   Timer.update(dt)
-  -- Debugger.update(dt)
   flux.update(dt)
-  require("libs/lovebird/lovebird").update()
+  Debugger.update(dt)
 
 love.draw = () ->
-  -- Debugger.draw()
 
 love.keypressed = (key) ->
   fluids.keypressed(key)

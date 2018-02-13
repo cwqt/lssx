@@ -41,7 +41,7 @@ class Enemy extends Entity
     if @HP < (@initalHP/2)
       @state = "hiding"
     else
-      if @d < 100 then
+      if @d < 150 then
         @state = "firing"
       elseif @d > 500 then
         @state = "idle"
@@ -69,21 +69,21 @@ class Enemy extends Entity
       @ship.body\applyTorque(2 * difference)
 
       -- v is proportional to 1/2 distance from player
-      @v = @d*0.5
+      @v = @d*0.6
 
       -- Calculate force components
       @fx, @fy = @v*math.cos(@ship.body\getAngle()), @v*math.sin(@ship.body\getAngle())
       
       -- If in close proximity, sprint towards player
       if @d < 50
-        @fx = @fx*5
-        @fy = @fy*5
+        @fx = @fx*15
+        @fy = @fy*15
       if @state == "hiding"
         @fx = @fx*-1
         @fy = @fy*-1
         @angle -= 180
 
-      @ship.body\applyForce(@fx, @fy)
+      -- @ship.body\applyForce(@fx, @fy)
 
       -- if @state == "firing" then
         -- Check if player within some cone of sight
@@ -96,7 +96,7 @@ class Enemy extends Entity
     super\draw()
     @ship\draw()
     -- love.graphics.circle("line", @ship.x, @ship.y, 500)
-    -- love.graphics.circle("line", @ship.x, @ship.y, 100)
+    love.graphics.circle("line", @ship.x, @ship.y, 150)
     -- love.graphics.setColor(255,255,255)
 
   fire: () =>
