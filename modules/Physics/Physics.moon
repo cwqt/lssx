@@ -18,6 +18,9 @@ Physics.addToBuffer = (func) ->
   Physics.buffer[#Physics.buffer+1] = func
 
 Physics.runBuffer = () ->
+  -- check for repeats!!!
+
+
   if #Physics.buffer > 0
     for i = #Physics.buffer, 1, -1  do
       Physics.buffer[i]()

@@ -9,7 +9,7 @@ class Player extends Entity
 
     @oxygen = 100
     @fuel = 100
-    @ammo = 50
+    @ammo = 5000
     @boost = 10
 
     @ship.components["Emitter"] = Emitter!
@@ -82,6 +82,8 @@ class Player extends Entity
 
   fire: (lx, ly) =>
     if @ammo > 0
+      @ship\fire("Bullet", lx, ly, 2, -1)
+      @ship\fire("Bullet", lx, ly, 2, -1)
       @ship\fire("Bullet", lx, ly, 2, -1)
     @ammo -= 1
     if @ammo <= 0 then @ammo = 0

@@ -1,9 +1,7 @@
 io.stdout\setvbuf("no")
 math.randomseed(os.time())
 require("moonscript")
-require("imgui")
 
-export fluids              = require("libs/fluids")
 export flux                = require("libs/flux/flux")
 export lovebird            = require("libs/lovebird/lovebird")
 export Gamestate           = require("libs/hump/gamestate")
@@ -255,31 +253,23 @@ love.update = (dt) ->
 love.draw = () ->
 
 love.keypressed = (key) ->
-  fluids.keypressed(key)
   Debugger.keypressed(key)
   if key == "p"
     lssx.PAUSE = not lssx.PAUSE
 
 love.keyreleased = (key) ->
-  fluids.keyreleased(key)
 
 love.mousemoved = (x, y) ->
-  fluids.mousemoved(x, y)
 
 love.mousepressed = (x, y, button) ->
-  fluids.mousepressed(button)
 
 love.mousereleased = (x, y, button) ->
-  fluids.mousereleased(button)
 
 love.wheelmoved = (x, y) ->
-  fluids.wheelmoved(x, y)
 
 love.textinput = (t) ->
-  fluids.textinput(t)
 
 love.quit = () ->
-  fluids.Quit()
 
 -- FIXED TIMESTEP ============================================]]
 love.run = () ->
