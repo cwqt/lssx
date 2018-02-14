@@ -53,14 +53,8 @@ Game.enter = (previous) =>
   --   Asteroid(math.random(2000), math.random(2000))
   -- for i=1, 20 do
   --   Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
-  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)  
-  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)  
-  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)  
-  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)  
-  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)  
-  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)  
-  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)  
-  Enemy(Ship(lssx.world, 10, 10, "dynamic"), 10)  
+  Enemy(Ship(lssx.world, 30, 10, "dynamic"), 10)  
+ 
   
 Game.update = (dt) =>
   if lssx.PAUSE then return

@@ -4,6 +4,7 @@ class PhysicsObject extends Object
     @body = love.physics.newBody(world, @x, @y, bodyType)
     -- Leave a reference to the table key (for collision data)
     @body\setUserData({["hash"]: @hash})
+    @removed = false
 
   update: (dt) =>
     @x, @y = @body\getPosition()
@@ -21,12 +22,17 @@ class PhysicsObject extends Object
     @body\appendUserData("hash", @hash)
 
   remove: () =>
-    -- Remove self from global table, Box2D destroy self
-    Physics.addToBuffer ->
-      super\remove()
-      @body\destroy()
+    -- Mitigate repeated buffer adds
+    if not @removed
+      -- Remove self from global table, Box2D destroy self
+      -- Pass hash along to check later for repeat attempt destroys
+      Physics.addToBuffer ->
+        @body\destroy()
+        super\remove(),
+          @hash
+    @removed = true
 
   beginContact: (other) =>
-    -- other_object = lssx.objects[other\getBody()\getUserData().hash]
-    -- str = "-> " .. other_object.__class.__name .. ", k: " .. other\getBody()\getUserData().hash
-    -- Debugger.log(str, "collision")
+    other_object = lssx.objects[other\getBody()\getUserData().hash]
+    str = "-> " .. other_object.__class.__name .. ", k: " .. other\getBody()\getUserData().hash
+    Debugger.log(str, "collision")

@@ -14,17 +14,20 @@ Physics.update = (dt) ->
   Physics.runBuffer()
 
 Physics.buffer = {}
-Physics.addToBuffer = (func) ->
-  Physics.buffer[#Physics.buffer+1] = func
+Physics.addToBuffer = (func, hash) ->
+  hash = hash or nil
+  Physics.buffer[#Physics.buffer+1] = {func, hash}
 
 Physics.runBuffer = () ->
-  -- check for repeats!!!
-
-
-  if #Physics.buffer > 0
+  hash = {}
+  if #Physics.buffer > 0 then
     for i = #Physics.buffer, 1, -1  do
-      Physics.buffer[i]()
-      table.remove(Physics.buffer, i)
+      -- Detect if we've already seen this function before
+      -- So we don't try and delete the same body twice
+      if (not hash[Physics.buffer[i][2]]) then
+        Physics.buffer[i][1]()
+        hash[Physics.buffer[i][2]] = true
+        table.remove(Physics.buffer, i)
 
 Physics.beginContact = (a, b, coll) ->
   Debugger.log("beginContact() triggered", "important")

@@ -79,11 +79,10 @@ class Enemy extends Entity
         @fx = @fx*15
         @fy = @fy*15
       if @state == "hiding"
-        @fx = @fx*-1
-        @fy = @fy*-1
-        @angle -= 180
+        @fx = @fx*-0.2
+        @fy = @fy*-0.2
 
-      -- @ship.body\applyForce(@fx, @fy)
+      @ship.body\applyForce(@fx, @fy)
 
       -- if @state == "firing" then
         -- Check if player within some cone of sight
