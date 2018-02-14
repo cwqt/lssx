@@ -69,15 +69,15 @@ class Enemy extends Entity
       @ship.body\applyTorque(2 * difference)
 
       -- v is proportional to 1/2 distance from player
-      @v = @d*0.6
+      @v = @d*0.4
 
       -- Calculate force components
       @fx, @fy = @v*math.cos(@ship.body\getAngle()), @v*math.sin(@ship.body\getAngle())
       
       -- If in close proximity, sprint towards player
       if @d < 50
-        @fx = @fx*15
-        @fy = @fy*15
+        @fx = @fx*5
+        @fy = @fy*5
       if @state == "hiding"
         @fx = @fx*-0.2
         @fy = @fy*-0.2
@@ -95,8 +95,8 @@ class Enemy extends Entity
     super\draw()
     @ship\draw()
     -- love.graphics.circle("line", @ship.x, @ship.y, 500)
-    love.graphics.circle("line", @ship.x, @ship.y, 150)
-    -- love.graphics.setColor(255,255,255)
+    -- love.graphics.circle("line", @ship.x, @ship.y, 150)
+    love.graphics.setColor(255,255,255)
 
   fire: () =>
 
