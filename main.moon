@@ -17,6 +17,7 @@ export Physics             = require("modules/Physics/Physics")
 export PhysicsObject       = require("modules/Physics/PhysicsObject")
 export PolygonPhysicsShape = require("modules/Physics/PolygonPhysicsShape")
 export CirclePhysicsShape  = require("modules/Physics/CirclePhysicsShape")
+export ChainPhysicsShape    = require("modules/Physics/ChainPhysicsShape")
 export Background          = require("modules/Background")
 export Particle            = require("modules/Particle")
 export SPFX                = require("modules/SPFX")
@@ -25,7 +26,9 @@ export CameraManager       = require("modules/CameraManager")
 export EntityManager       = require("modules/EntityManager")
 export SoundManager        = require("modules/SoundManager")
 
--- export HUD                 = require("modules/UI/HUD")
+export HUD                 = require("modules/UI/HUD")
+export Cross               = require("modules/UI/Cross")
+export FlashSq             = require("modules/UI/FlashSq")
 
 export Entity              = require("components/Entity")
 export Ship                = require("components/Ship")
@@ -42,37 +45,39 @@ Game = {}
 Game.init = () =>
   Physics.load()
   Background.load()
-  SPFX.load()
-  CameraManager.load(10, 10)
+  -- SPFX.load()
+  CameraManager.load(1000, 1000)
 
 Game.enter = (previous) =>
+  love.graphics.setLineStyle("smooth")
+  love.graphics.setDefaultFilter("nearest","nearest")
   EntityManager.clear()
-  Player(Ship(lssx.world, 10, 10, "dynamic"), 10, "Player")
+  Player(Ship(lssx.world, 1000, 1000, "dynamic"), 10, "Player")
   CameraManager.setLockTarget(lssx.objects["Player"])
-  for i=1, 200
-    Asteroid(math.random(2000), math.random(2000))
-  for i=1, 20 do
+  HUD.load(lssx.objects["Player"])
+  ChainPhysicsShape({0,0,2000,0,2000,2000,0,2000}, 1, lssx.world, 0, 0, "static")
+
+  for i=1, 100
+    Asteroid(100+math.random(1800), 100+math.random(1800))
+  for i=1, 10 do
     Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
   -- Enemy(Ship(lssx.world, 30, 10, "dynamic"), 10)  
  
-  
 Game.update = (dt) =>
   if lssx.PAUSE then return
   Physics.update(dt)
   EntityManager.update(dt)
-  SPFX.update(dt)
   CameraManager.update(dt)
+  HUD.update(dt)
 
 Game.draw = () =>
-  love.graphics.setLineStyle("smooth")
   SPFX.effect ->
     CameraManager.attach()
     Background.draw()
-    love.graphics.setColor(255,255,255)
     EntityManager.draw()
     CameraManager.detach()
-  -- Debugger.draw()
-  love.graphics.setColor(255,255,255)
+
+    HUD.draw()
   love.graphics.print("FPS: " .. love.timer.getFPS(), 10, 10)
 
 Game.keypressed = (key) =>
@@ -91,7 +96,6 @@ MainMenu = {}
 MainMenu.init = () =>
 
 MainMenu.enter = (previous) =>
-  SPFX.load()
   export title = {
     font: love.graphics.newFont("assets/MainMenu/title.ttf", 50)
     textToPrint: "LSSX v2.8_a3 BIOS",
@@ -110,6 +114,7 @@ MainMenu.enter = (previous) =>
     printedText: "",
     content: {
       --{"some text", delay_time}
+      {"", 2}
       {"COMPILED 25 OCT 1962.   CCAFS", 0.8}
       {"DO NOT REDISTRIBUTE.", 0.8}
       {""}
@@ -137,6 +142,7 @@ MainMenu.enter = (previous) =>
       {"     STDOUT:: 'ARPANET(beta) ONLINE'", 1}
       {"     STDOUT:: 'ACK RECIEVED...'", 1}
       {"     STDIN :: 'M9 86 D0 7S 96 D0 2D 97 00 28 D7 B7'", 1}
+      {"     STDIN :: 'CHECKING PARITY BITS'", 1.3}
       {""}
       {"CHECKSUM ACCEPTED", 2}
       {""}
@@ -178,8 +184,7 @@ MainMenu.update = (dt) =>
         love.audio.play(text.sound)
         text.k += 1
     else
-      Timer.after 1, ->
-        Gamestate.switch(Game)
+      Gamestate.switch(Game)
 
 MainMenu.draw = () =>
   SPFX.effect ->
@@ -207,11 +212,9 @@ Splash.init = () =>
   }
   splashy.addSplash(config.image, 2)
   splashy.onComplete(-> Gamestate.switch(MainMenu))
-  SPFX.load()
   Timer.after 0.2, -> SPFX.bounceChroma(2, 3, 2)
 
 Splash.update = (dt) =>
-  SPFX.update(dt)
   splashy.update(dt)
 
 Splash.draw = () =>
@@ -230,17 +233,19 @@ Splash.leave = () =>
 
 love.load = () ->
   Debugger.load()
+  SPFX.load() 
   -- bootSound = love.audio.newSource("assets/Boot.ogg", "stream")
   -- love.audio.play(bootSound)
   -- Timer.after 1.5, ->
-    -- Gamestate.registerEvents()
-    -- Gamestate.switch(Splash)
+  --   Gamestate.registerEvents()
+  --   Gamestate.switch(Splash)
   -- Gamestate.switch(MainMenu)
   Gamestate.registerEvents()
   Gamestate.switch(Game)
 
 love.update = (dt) ->
   Timer.update(dt)
+  SPFX.update(dt)
   flux.update(dt)
   Debugger.update(dt)
 
@@ -318,3 +323,10 @@ HSL = (h, s, l, a) ->
   elseif h < 5 then r,g,b = x,0,c
   else              r,g,b = c,0,x
   return (r+m)*255,(g+m)*255,(b+m)*255,a
+
+export UUID = () ->
+  fn = (x) ->
+    r = math.random(16) - 1
+    r = (x == "x") and (r + 1) or (r % 4) + 9
+    return ("0123456789abcdef")\sub(r, r)
+  return (("xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx")\gsub("[xy]", fn))

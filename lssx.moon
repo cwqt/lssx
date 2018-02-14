@@ -21,7 +21,13 @@ export lssx = {
   HEIGHT: 300,
   SCALE: 1,
 
+  W_HEIGHT: 600,
+  W_WIDTH: 1100,
+
   PAUSE: false,
+
+  TITLEF: love.graphics.newFont("assets/MainMenu/title.ttf", 50)
+  TEXTF:  love.graphics.newFont("assets/MainMenu/text.ttf", 26)
 
   SPFX: {
     CHROMASEP: 0,

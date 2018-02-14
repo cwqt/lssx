@@ -82,7 +82,14 @@ class Enemy extends Entity
         @fx = @fx*-0.2
         @fy = @fy*-0.2
 
+      -- Spin out of control
+      if @HP <= 2 then
+        @ship.body\setAngularVelocity(10)
+        @fx=-@fx*5
+        @fy=-@fy*5
+
       @ship.body\applyForce(@fx, @fy)
+
 
       -- if @state == "firing" then
         -- Check if player within some cone of sight

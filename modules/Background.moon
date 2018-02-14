@@ -20,6 +20,7 @@ Background.draw = () ->
   love.graphics.setLineWidth(3)
   love.graphics.line(0, 0, 0, 20)
   love.graphics.line(-10, 10, 10, 10)
+
   love.graphics.setLineWidth(0.9)
 
 Background.drawGrid = (offsetx, offsety) ->

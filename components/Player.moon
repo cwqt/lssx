@@ -9,7 +9,7 @@ class Player extends Entity
 
     @oxygen = 100
     @fuel = 100
-    @ammo = 5000
+    @ammo = 50
     @boost = 10
 
     @ship.components["Emitter"] = Emitter!
@@ -60,7 +60,7 @@ class Player extends Entity
     if @oxygen <= 0
       lssx.CHROMASEP = math.random(5)
       lssx.CHROMASEP_ANGLE = math.random(5)
-      lssx.camera\shake((@hp-@initalHP)*0.08, 0.2, 40, "XY")
+      CameraManager.shake((@hp-@initalHP)*0.08, 0.2, 40, "XY")
       @hp -= 0.1
       @oxygen = 0
 

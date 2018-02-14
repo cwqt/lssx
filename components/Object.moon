@@ -4,7 +4,7 @@ class Object
     if customHash != nil then
       @hash = tostring(customHash)
     else
-      @hash = tostring((@creationTime))\gsub('%.', '')
+      @hash = UUID()
 
     if @isOwnObject == (false or nil)
       lssx.objects[@hash] = self
