@@ -1,7 +1,16 @@
 HUD = {}
 HUD.elements = {}
 HUD.elements.active = {}
-HUD.elements.crosses = {}
+HUD.elements.crosses = {
+  Cross(40, 30)
+  Cross(1060, 30)
+  Cross(1060, 550)
+  Cross(40, 550)
+  Cross(540, 30)
+  Cross(1060, 300)
+  Cross(540, 550)
+  Cross(40, 300)
+}
 
 HUD.load = (player) ->
   HUD.camera = Camera()
@@ -13,19 +22,6 @@ HUD.load = (player) ->
   HUD.elements.bar(150, lssx.W_HEIGHT-80, HUD.player, "ammo",   {255,0,0},   {204,0,0})
   HUD.elements.bar(300, lssx.W_HEIGHT-80, HUD.player, "oxygen", {0,0,255},   {102,0,255})
   HUD.elements.bar(450, lssx.W_HEIGHT-80, HUD.player, "fuel",   {255,255,0}, {255,255,255})
-  
-  table.insert(HUD.elements.crosses, Cross(40, 30))
-  table.insert(HUD.elements.crosses, Cross(1060, 30))
-  table.insert(HUD.elements.crosses, Cross(1060, 550))
-  table.insert(HUD.elements.crosses, Cross(40, 550))
-
-  table.insert(HUD.elements.crosses, Cross(540, 30))
-  table.insert(HUD.elements.crosses, Cross(1060, 300))
-  table.insert(HUD.elements.crosses, Cross(540, 550))
-  table.insert(HUD.elements.crosses, Cross(40, 300))
-
-  for k, v in pairs(HUD.player) do
-    print(k .. ": " .. tostring(v))
 
 HUD.update = (dt) ->
   for k, element in pairs(HUD.elements.active) do
@@ -42,6 +38,7 @@ HUD.draw = () ->
   love.graphics.setLineWidth(0.2)
   love.graphics.setColor(255,255,255,100)
   love.graphics.line(40, 40, 1060, 40, 1060, 560, 40, 560, 40, 40)
+  love.graphics.setLineWidth(2)
   for k, cross in pairs(HUD.elements.crosses) do cross\draw()
 
   love.graphics.setLineWidth(1)
@@ -80,6 +77,16 @@ class HUD.elements.bar
       flux.to(@config, 0.5, {lagV: @pointer[@value]})\delay(0.1)
 
   draw: () =>
+    if @config.currentV <= @config.originalV*0.2
+      love.graphics.setColor(255,0,0)
+      love.graphics.setFont(lssx.TITLEF)
+      love.graphics.print("SYSTEM CRITICAL", -210, 45)
+      love.graphics.setFont(lssx.TEXTF)
+      -- love.graphics.print("CODE 102: LOW " .. string.upper(@value), -210, 95)
+      lssx.camera\shake(1, 0.1)
+      HUD.shake(1, 0.1)
+      lssx.SPFX.CHROMASEP = math.random(10)
+
     love.graphics.setFont(lssx.TEXTF)
     love.graphics.setColor(unpack(@bgcolor))
     love.graphics.rectangle("fill", @x, @y, (@config.boxW/@config.originalV)*@config.lagV, 10)

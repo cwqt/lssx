@@ -17,17 +17,18 @@ export Physics             = require("modules/Physics/Physics")
 export PhysicsObject       = require("modules/Physics/PhysicsObject")
 export PolygonPhysicsShape = require("modules/Physics/PolygonPhysicsShape")
 export CirclePhysicsShape  = require("modules/Physics/CirclePhysicsShape")
-export ChainPhysicsShape    = require("modules/Physics/ChainPhysicsShape")
+export ChainPhysicsShape   = require("modules/Physics/ChainPhysicsShape")
 export Background          = require("modules/Background")
 export Particle            = require("modules/Particle")
 export SPFX                = require("modules/SPFX")
+export Director            = require("modules/Director")
 
 export CameraManager       = require("modules/CameraManager")
 export EntityManager       = require("modules/EntityManager")
 export SoundManager        = require("modules/SoundManager")
 
-export HUD                 = require("modules/UI/HUD")
 export Cross               = require("modules/UI/Cross")
+export HUD                 = require("modules/UI/HUD")
 export FlashSq             = require("modules/UI/FlashSq")
 
 export Entity              = require("components/Entity")
@@ -55,6 +56,7 @@ Game.enter = (previous) =>
   Player(Ship(lssx.world, 1000, 1000, "dynamic"), 10, "Player")
   CameraManager.setLockTarget(lssx.objects["Player"])
   HUD.load(lssx.objects["Player"])
+  Director.load()
   ChainPhysicsShape({0,0,2000,0,2000,2000,0,2000}, 1, lssx.world, 0, 0, "static")
 
   for i=1, 100
@@ -69,6 +71,7 @@ Game.update = (dt) =>
   EntityManager.update(dt)
   CameraManager.update(dt)
   HUD.update(dt)
+  Director.update(dt)
 
 Game.draw = () =>
   SPFX.effect ->
@@ -76,12 +79,16 @@ Game.draw = () =>
     Background.draw()
     EntityManager.draw()
     CameraManager.detach()
-
     HUD.draw()
+
+  Director.draw()
+
+  love.graphics.setFont(lssx.TEXTF)
   love.graphics.print("FPS: " .. love.timer.getFPS(), 10, 10)
 
 Game.keypressed = (key) =>
   EntityManager.keypressed(key)
+  Director.keypressed(key)
 
 Game.leave = () =>
   EntityManager.clear()
@@ -239,7 +246,7 @@ love.load = () ->
   -- Timer.after 1.5, ->
   --   Gamestate.registerEvents()
   --   Gamestate.switch(Splash)
-  -- Gamestate.switch(MainMenu)
+
   Gamestate.registerEvents()
   Gamestate.switch(Game)
 

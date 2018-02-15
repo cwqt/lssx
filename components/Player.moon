@@ -9,7 +9,7 @@ class Player extends Entity
 
     @oxygen = 100
     @fuel = 100
-    @ammo = 50
+    @ammo = 5
     @boost = 10
 
     @ship.components["Emitter"] = Emitter!
@@ -73,12 +73,18 @@ class Player extends Entity
 
   takeDamage: (amount) =>
     super\takeDamage(amount)
-    SPFX.bounceChroma(0.2, 10, 10)
+    SPFX.bounceChroma(0.5, 10, 10)
+    lssx.camera\flash(0.05, {0, 0, 0, 255})
     CameraManager.shake(20, 0.2)
 
   die: () =>
     @ship\remove()
     super\die()
+    @ammo = 0
+    @boost = 0
+    @fuel = 0
+    @oxygen = 0
+    Timer.after 1, -> lssx.PLAYER_DEAD = true
 
   fire: (lx, ly) =>
     if @ammo > 0

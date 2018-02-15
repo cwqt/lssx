@@ -20,15 +20,13 @@ export lssx = {
   WIDTH: 400,
   HEIGHT: 300,
   SCALE: 1,
-
   W_HEIGHT: 600,
   W_WIDTH: 1100,
-
+  PLAYER_DEAD: false
   PAUSE: false,
-
   TITLEF: love.graphics.newFont("assets/MainMenu/title.ttf", 50)
   TEXTF:  love.graphics.newFont("assets/MainMenu/text.ttf", 26)
-
+  SCORE: 0
   SPFX: {
     CHROMASEP: 0,
     CHROMASEP_ANGLE: 0
@@ -43,3 +41,5 @@ lssx.masks = {
   }
 }
 
+lssx.StringPad = (str, len, char) ->
+  return i .. string.rep(char, len-#str)
