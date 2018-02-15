@@ -191,6 +191,7 @@ MainMenu.update = (dt) =>
         love.audio.play(text.sound)
         text.k += 1
     else
+      love.timer.sleep(1)
       Gamestate.switch(Game)
 
 MainMenu.draw = () =>
@@ -241,14 +242,14 @@ Splash.leave = () =>
 love.load = () ->
   Debugger.load()
   SPFX.load() 
-  -- bootSound = love.audio.newSource("assets/Boot.ogg", "stream")
-  -- love.audio.play(bootSound)
-  -- Timer.after 1.5, ->
-  --   Gamestate.registerEvents()
-  --   Gamestate.switch(Splash)
+  bootSound = love.audio.newSource("assets/Boot.ogg", "stream")
+  love.audio.play(bootSound)
+  Timer.after 1.5, ->
+    Gamestate.registerEvents()
+    Gamestate.switch(Splash)
 
-  Gamestate.registerEvents()
-  Gamestate.switch(Game)
+  -- Gamestate.registerEvents()
+  -- Gamestate.switch(Game)
 
 love.update = (dt) ->
   Timer.update(dt)

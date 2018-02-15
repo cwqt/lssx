@@ -5,6 +5,8 @@ class Player extends Entity
     @ship.hash = @hash
     @ship\appendUserData("hash", @hash)
 
+    @ship.body\setInertia(2)
+
     @ship.fixture\setGroupIndex(-1)
 
     @oxygen = 100
@@ -48,12 +50,16 @@ class Player extends Entity
 
     -- Finally, apply the force
     @fx, @fy = @v*math.cos(@ship.body\getAngle()), @v*math.sin(@ship.body\getAngle())
+
+    @fx = math.clamp(-200, @fx, 200)
+    @fy = math.clamp(-200, @fy, 200)
+
     if not love.mouse.isDown("1")
       @ship.body\applyForce(@fx, @fy)
 
-    if (math.abs(@fx) + math.abs(@fy)) > 75 and @fuel > 0
-      for i=0, 1, 1/(@v*0.1) do
-        Particle({100,0,255}, @ship.x, @ship.y, math.random(10)+@ship.x, math.random(10)+@ship.y, math.random(3, 5), math.random(2), 0.4)
+    -- if (math.abs(@fx) + math.abs(@fy)) > 75 and @fuel > 0
+    --   for i=0, 1, 1/(@v*0.1) do
+    --     Particle({100,0,255}, @ship.x, @ship.y, math.random(10)+@ship.x, math.random(10)+@ship.y, math.random(3, 5), math.random(2), 0.4)
 
     -- Take some background O2 away, check it
     @oxygen -= 0.001

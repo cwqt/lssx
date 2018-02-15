@@ -5,6 +5,8 @@ class Enemy extends Entity
     @ship.hash = @hash
     @ship\appendUserData("hash", @hash)
 
+    @ship.body\setInertia(2)
+    
     @state = "idle"
     @states = {
       "idle": {0, 255, 0},
@@ -69,13 +71,13 @@ class Enemy extends Entity
       @ship.body\applyTorque(2 * difference)
 
       -- v is proportional to 1/2 distance from player
-      @v = @d*0.4
+      @v = @d*0.5
 
       -- Calculate force components
       @fx, @fy = @v*math.cos(@ship.body\getAngle()), @v*math.sin(@ship.body\getAngle())
       
       -- If in close proximity, sprint towards player
-      if @d < 50
+      if @d < 75
         @fx = @fx*5
         @fy = @fy*5
       if @state == "hiding"
@@ -87,6 +89,9 @@ class Enemy extends Entity
         @ship.body\setAngularVelocity(10)
         @fx=-@fx*5
         @fy=-@fy*5
+
+      @fx = math.clamp(-200, @fx, 200)
+      @fy = math.clamp(-200, @fy, 200)
 
       @ship.body\applyForce(@fx, @fy)
 
