@@ -4,9 +4,19 @@ class Enemy extends Entity
     --Reference ship to top-level player
     @ship.hash = @hash
     @ship\appendUserData("hash", @hash)
+    @ship.fixture\setGroupIndex(lssx.groupIndices["Enemy"])
+
+    @fovshp = love.physics.newPolygonShape(10, 0, 150, 20, 150, -20)
+    @fovfix = love.physics.newFixture(@ship.body, @fovshp, 0)
+
+    -- @fovfix\setCategory(lssx.categories["Enemy_FOV"])
+    -- @fovfix\setMask(lssx.categories["Player"])
+    @fovfix\setSensor(true)
+    @fovfix\setUserData("fov")
+    @fovfix\setGroupIndex(lssx.groupIndices["Enemy"])
 
     @ship.body\setInertia(2)
-    
+
     @state = "idle"
     @states = {
       "idle": {0, 255, 0},
@@ -14,8 +24,6 @@ class Enemy extends Entity
       "firing":{255, 0, 0},
       "hiding": {0, 0, 255},
     }
-
-    -- @ship.fixture\setGroupIndex(-1)
 
     @ship.components["Emitter"] = Emitter!
     -- @ship.components["Shield"]  = Shield(10, 10, 10)
@@ -93,10 +101,12 @@ class Enemy extends Entity
       @fx = math.clamp(-200, @fx, 200)
       @fy = math.clamp(-200, @fy, 200)
 
-      @ship.body\applyForce(@fx, @fy)
+      -- @ship.body\applyForce(@fx, @fy)
 
-
+      -- for k, contact in pairs(@ship.body\getContactList())
+      --   print(contact)
       -- if @state == "firing" then
+        -- for k, collision in pairs(@fovfix\getColl)
         -- Check if player within some cone of sight
         -- @fire()
 
@@ -106,17 +116,24 @@ class Enemy extends Entity
     love.graphics.setColor(unpack(@states[@state]))
     super\draw()
     @ship\draw()
+    love.graphics.polygon("line", @ship.body\getWorldPoints(@fovshp\getPoints()))
     -- love.graphics.circle("line", @ship.x, @ship.y, 500)
     -- love.graphics.circle("line", @ship.x, @ship.y, 150)
     love.graphics.setColor(255,255,255)
 
-  fire: () =>
+  fire: (lx, ly) =>
+    Physics.addToBuffer ->
+      @ship\fire("Bullet", lx, ly, 2, -1)
 
   die: () =>
     @ship\remove()
     super\die()
 
-  beginContact: (other) =>
-    @ship\beginContact(other)
-    -- print(@ship.fixture\getGroupIndex())
-    -- print(lssx.objects[other\getBody()\getUserData().hash].fixture\getGroupIndex())
+  beginContact: (other, ourfixture) =>
+    -- if (ourfixture\getUserData() == "fov") and (lssx.objects[other\getBody()\getUserData().hash].hash == "Player")
+    --   lx, ly = @ship.body\getWorldPoints(15, 0)
+    --   @fire(lx, ly)
+    -- print(selfs\getUserData())
+    -- @ship\beginContact(other)
+    -- -- print(@ship.fixture\getGroupIndex())
+    -- print(lssx.objects[other\getBody()\getUserData().hash].hash)

@@ -1,3 +1,6 @@
+-- lssx
+-- twentytwoo 2017/18
+
 io.stdout\setvbuf("no")
 math.randomseed(os.time())
 require("moonscript")
@@ -37,9 +40,10 @@ export Player              = require("components/Player")
 export Asteroid            = require("components/Asteroid")
 export Projectile          = require("components/Projectile")
 export Bullet              = require("components/Bullet")
-export Emitter             = require("components/Emitter")
 export Shield              = require("components/Shield")
 export Enemy               = require("components/Enemy")
+
+-- ============================================================]]
 
 Game = {}
 
@@ -59,11 +63,12 @@ Game.enter = (previous) =>
   Director.load()
   ChainPhysicsShape({0,0,2000,0,2000,2000,0,2000}, 1, lssx.world, 0, 0, "static")
 
-  for i=1, 100
-    Asteroid(100+math.random(1800), 100+math.random(1800))
-  for i=1, 10 do
-    Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
-  -- Enemy(Ship(lssx.world, 30, 10, "dynamic"), 10)  
+  export test = Asteroid(1100, 1000, 2)
+  -- for i=1, 100
+  --   Asteroid(100+math.random(1800), 100+math.random(1800))
+  -- for i=1, 10 do
+  --   Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
+  -- Enemy(Ship(lssx.world, 900, 1000, "dynamic"), 10)  
  
 Game.update = (dt) =>
   if lssx.PAUSE then return
@@ -89,12 +94,12 @@ Game.draw = () =>
 Game.keypressed = (key) =>
   EntityManager.keypressed(key)
   Director.keypressed(key)
+  if key == "b"
+    test\remove()
 
 Game.leave = () =>
   EntityManager.clear()
   print("Later alligator")
-
--- ============================================================]]
 
 -- ============================================================]]
 
@@ -145,7 +150,7 @@ MainMenu.enter = (previous) =>
       {"COOA B7  80       STA A ACIA   ;SET BITS 2, 4 STOP "}
       {"C00D 73  C0       JMP   SIGNON ;GO TO BOOT START"}
       {""}
-      {"     STDOUT:: 'ENABLING MODULES'", 1}
+      {"     STDOUT:: 'CONNECTING AT 155.2.0.192.in-addr.arpa:2000'", 1}
       {"     STDOUT:: 'ARPANET(beta) ONLINE'", 1}
       {"     STDOUT:: 'ACK RECIEVED...'", 1}
       {"     STDIN :: 'M9 86 D0 7S 96 D0 2D 97 00 28 D7 B7'", 1}
@@ -191,7 +196,7 @@ MainMenu.update = (dt) =>
         love.audio.play(text.sound)
         text.k += 1
     else
-      love.timer.sleep(1)
+      love.timer.sleep(1) --ehhhh
       Gamestate.switch(Game)
 
 MainMenu.draw = () =>
@@ -207,7 +212,7 @@ MainMenu.leave = () =>
 
 MainMenu.keypressed = (key) =>
   if key == "r" then MainMenu.enter()
-  if key == "s" then Gamestate.switch(Game)
+  if key == "space" then Gamestate.switch(Game)
 
 -- ============================================================]]
 
@@ -242,14 +247,14 @@ Splash.leave = () =>
 love.load = () ->
   Debugger.load()
   SPFX.load() 
-  bootSound = love.audio.newSource("assets/Boot.ogg", "stream")
-  love.audio.play(bootSound)
-  Timer.after 1.5, ->
-    Gamestate.registerEvents()
-    Gamestate.switch(Splash)
+  -- bootSound = love.audio.newSource("assets/Boot.ogg", "stream")
+  -- love.audio.play(bootSound)
+  -- Timer.after 1.5, ->
+  --   Gamestate.registerEvents()
+  --   Gamestate.switch(Splash)
 
-  -- Gamestate.registerEvents()
-  -- Gamestate.switch(Game)
+  Gamestate.registerEvents()
+  Gamestate.switch(Game)
 
 love.update = (dt) ->
   Timer.update(dt)
@@ -316,21 +321,6 @@ love.run = () ->
 
 math.dist = (x1,y1, x2,y2) -> return (((x2)-(x1))^2+((y2)-(y1))^2)^0.5
 math.clamp = (low, n, high) -> return math.min(math.max(n, low), high)
-
-HSL = (h, s, l, a) ->
-  if s<=0 
-    return l,l,l,a
-  h, s, l = h/256*6, s/255, l/255
-  c = (1-math.abs(2*l-1))*s
-  x = (1-math.abs(h%2-1))*c
-  m,r,g,b = (l-.5*c), 0,0,0
-  if h < 1     then r,g,b = c,x,0
-  elseif h < 2 then r,g,b = x,c,0
-  elseif h < 3 then r,g,b = 0,c,x
-  elseif h < 4 then r,g,b = 0,x,c
-  elseif h < 5 then r,g,b = x,0,c
-  else              r,g,b = c,0,x
-  return (r+m)*255,(g+m)*255,(b+m)*255,a
 
 export UUID = () ->
   fn = (x) ->

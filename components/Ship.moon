@@ -5,6 +5,9 @@ class Ship extends PolygonPhysicsShape
     super({-5,5,-5,-5,10,0}, 1, ...)
 
     @fixture\setRestitution(0.4)
+    @fixture\setCategory(lssx.categories["Ship"])
+    -- @fixture\setMask(lssx.categories["All"])
+
     @body\setAngularDamping(4)
     @body\setLinearDamping(2)
 
@@ -19,6 +22,7 @@ class Ship extends PolygonPhysicsShape
 
   draw: () =>
     -- love.graphics.setLineStyle("rough")
+    super\draw()
     love.graphics.polygon("fill", @body\getWorldPoints(@shape\getPoints()))
     for _, component in pairs(@components) do
       component\draw()
@@ -31,5 +35,7 @@ class Ship extends PolygonPhysicsShape
       component\remove()
     super\remove()
 
-  fire: (object, dx, dy, v, groupIndex) =>
-    @components["Emitter"]\emit(object, @x, @y, dx, dy, v, {@body\getLinearVelocity()}, groupIndex)
+  fire: () =>
+    -- xl, yl = @body\get
+    -- Bullet()
+    -- @components["Emitter"]\emit(object, @x, @y, dx, dy, v, {@body\getLinearVelocity()}, groupIndex)

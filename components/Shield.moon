@@ -1,10 +1,14 @@
 class Shield extends CirclePhysicsShape
-  new: (hp, x, y, ...) =>
+  new: (hp, x, y, gindex, ...) =>
     radius = hp*2
     super(radius, 0, lssx.world, x, y, "dynamic", ...)
     @hp = hp
     @originalHP = hp
     @disabledTime = @originalHP/2
+
+    @fixture\setCategory(lssx.categories["Shield"])
+    @fixture\setMask(unpack(lssx.masks["Shield"]))
+    @fixture\setGroupIndex(gindex)
 
   update: (dt) =>
     super\update(dt)

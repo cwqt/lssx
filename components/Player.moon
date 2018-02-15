@@ -7,15 +7,14 @@ class Player extends Entity
 
     @ship.body\setInertia(2)
 
-    @ship.fixture\setGroupIndex(-1)
+    @ship.fixture\setGroupIndex(lssx.groupIndices["Friendly"])
 
     @oxygen = 100
     @fuel = 100
-    @ammo = 5
+    @ammo = 15
     @boost = 10
 
-    @ship.components["Emitter"] = Emitter!
-    -- @ship.components["Shield"]  = Shield(10, 10, 10)
+    @ship.components["Shield"]  = Shield(10, 0, 0, lssx.groupIndices["Friendly"])
 
   update: (dt) =>
     super\update(dt)
@@ -92,11 +91,11 @@ class Player extends Entity
     @oxygen = 0
     Timer.after 1, -> lssx.PLAYER_DEAD = true
 
-  fire: (lx, ly) =>
-    if @ammo > 0
-      @ship\fire("Bullet", lx, ly, 2, -1)
-    @ammo -= 1
-    if @ammo <= 0 then @ammo = 0
+  -- fire: (lx, ly) =>
+    -- if @ammo > 0
+    --   @ship\fire("Bullet", lx, ly, 2, -1)
+    -- @ammo -= 1
+    -- if @ammo <= 0 then @ammo = 0
 
   -- We're not a physics object, but we should pass
   -- on our data to our ship which is
@@ -108,10 +107,7 @@ class Player extends Entity
   keypressed: (key) =>
     switch key
       when "f"
-        lx, ly = @ship.body\getWorldPoints(15, 0)
-        @fire(lx, ly)
-      when "s"
-        @takeDamage(2)
+        @ship.fire()
       when "w"
         @ship.body\applyLinearImpulse(@fx, @fy)
 

@@ -2,17 +2,15 @@ export lssx = {
   objects: {}
   -- I am a ...
   categories: {
-    ["Player"]:     1,
+    ["Ship"]:       1,
     ["Projectile"]: 2,
-    ["Ship"]:       3,
+    ["Shield"]:     3,
     ["Asteroid"]:   4,
   }
   groupIndices: {
-    ["Friendly"]:   1,
-    ["Enemy"]:      2,
-    ["Neutral"]:    3,
-    ["NonNeutral"]: 4,
-    ["All"]:        5,
+    ["Friendly"]:   -1,
+    ["Enemy"]:      -2,
+    ["All"]:        3,
   }
 
   INIT_TIME: love.timer.getTime(),
@@ -32,12 +30,18 @@ export lssx = {
     CHROMASEP_ANGLE: 0
   }
 }
--- I will collide with a...
+-- I WON'T collide with...
 lssx.masks = {
+  ["Ship"]: {
+
+  }
   ["Player"]: {
-    lssx.categories["Ship"],
-    lssx.categories["Projectile"],
+    -- lssx.categories["Ship"],
+    -- lssx.categories["Projectile"],
+  }
+  ["Shield"]: {
     lssx.categories["Asteroid"],
+    lssx.categories["Ship"],
   }
 }
 

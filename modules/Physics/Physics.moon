@@ -15,7 +15,7 @@ Physics.update = (dt) ->
 
 Physics.buffer = {}
 Physics.addToBuffer = (func, hash) ->
-  hash = hash or nil
+  hash = hash or UUID()
   Physics.buffer[#Physics.buffer+1] = {func, hash}
 
 Physics.runBuffer = () ->
@@ -31,8 +31,8 @@ Physics.runBuffer = () ->
 
 Physics.beginContact = (a, b, coll) ->
   Debugger.log("beginContact() triggered", "important")
-  lssx.objects[a\getBody()\getUserData().hash]\beginContact(b)
-  lssx.objects[b\getBody()\getUserData().hash]\beginContact(a)
+  lssx.objects[a\getBody()\getUserData().hash]\beginContact(b, a)
+  lssx.objects[b\getBody()\getUserData().hash]\beginContact(a, b)
 
 Physics.endContact = (a, b, coll) ->
 
