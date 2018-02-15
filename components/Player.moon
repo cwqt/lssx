@@ -14,7 +14,7 @@ class Player extends Entity
     @ammo = 15
     @boost = 10
 
-    @ship.components["Shield"]  = Shield(10, 0, 0, lssx.groupIndices["Friendly"])
+    -- @ship.components["Shield"]  = Shield(10, 0, 0, lssx.groupIndices["Friendly"])
 
   update: (dt) =>
     super\update(dt)
@@ -89,25 +89,21 @@ class Player extends Entity
     @boost = 0
     @fuel = 0
     @oxygen = 0
-    Timer.after 1, -> lssx.PLAYER_DEAD = true
+    Timer.after 2, -> lssx.PLAYER_DEAD = true
 
-  -- fire: (lx, ly) =>
-    -- if @ammo > 0
-    --   @ship\fire("Bullet", lx, ly, 2, -1)
-    -- @ammo -= 1
-    -- if @ammo <= 0 then @ammo = 0
+  fire: () =>
+    if @ammo > 0
+      @ship\fire(lssx.groupIndices["Friendly"])
+      @ammo -= 1
 
-  -- We're not a physics object, but we should pass
-  -- on our data to our ship which is
+  -- We're not a physics object, but we should pass on our data to our ship, which is
   beginContact: (other) =>
     @ship\beginContact(other)
-    -- print(@ship.fixture\getGroupIndex())
-    -- print(lssx.objects[other\getBody()\getUserData().hash].fixture\getGroupIndex())
 
   keypressed: (key) =>
     switch key
       when "f"
-        @ship.fire()
+        @fire()
       when "w"
         @ship.body\applyLinearImpulse(@fx, @fy)
 

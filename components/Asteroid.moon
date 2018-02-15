@@ -7,18 +7,14 @@ class Asteroid extends PolygonPhysicsShape
 
     @scale = @scale or math.random(0.2, 1)
     for i=1, #v do v[i] = v[i] * @scale
-
-    print(@scale)
-
     super(v, 1, lssx.world, x, y, "dynamic", ...)
-
-    @fixture\setFriction(1)
+    @hp = math.ceil(@body\getMass())
 
     @fixture\setCategory(lssx.categories["Asteroid"])
+
+    @fixture\setFriction(1)
     @body\setLinearDamping(0.2)
     @body\setAngularDamping(0.2)
-
-    print(@body\getMass())
 
   update: (dt) =>
 
@@ -28,12 +24,16 @@ class Asteroid extends PolygonPhysicsShape
     love.graphics.setColor(255,255,255)
     love.graphics.polygon("line", @body\getWorldPoints(@shape\getPoints()))
 
+  takeDamage: (amount) =>
+    @hp -= amount
 
   beginContact: (other) =>
     super\beginContact(other)
-    other_object = lssx.objects[other\getBody()\getUserData().hash].__class.__name
-    if other_object == "Player"
-      @remove()
+    other_object = lssx.objects[other\getBody()\getUserData().hash]
+    other_name = other_object.__class.__name
+    switch other_name
+      when "Bullet"
+        if @hp <= 0 then @remove()
 
   remove: () =>
     x, y = @body\getWorldCenter()
@@ -42,7 +42,6 @@ class Asteroid extends PolygonPhysicsShape
       Debugger.log("Asteroid breaking up into " .. c .. " parts")
       p = {@body\getWorldPoints(@shape\getPoints())}
       for i=1, #p, 2 do
-        FlashSq(p[i], p[i+1])
         FlashSq(p[i], p[i+1])
         FlashSq(x, y)
       Physics.addToBuffer ->      

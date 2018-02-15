@@ -23,13 +23,12 @@ class FlashSq extends Object
     rand = math.random(3)
 
     @tAlive = 0.1+math.random(5)/20
-    -- flux.to(@startc, @tAlive, {[1]: @endc[1], [2]: @endc[2], [3]: @endc[3]})
     if rand == 1
       flux.to(@c, @tAlive/6, {w: @c.w/1.2, h: @c.h/1.2})
     Timer.after @tAlive+0.1, -> super\remove()
 
-  update: () =>
+  update: (dt) =>
 
   draw: () =>
-    love.graphics.setColor(unpack(@startc))
+    love.graphics.setColor(@startc)
     love.graphics.rectangle("fill", @c.x, @c.y, @c.w, @c.h)

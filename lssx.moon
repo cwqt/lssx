@@ -24,7 +24,10 @@ export lssx = {
   PAUSE: false,
   TITLEF: love.graphics.newFont("assets/MainMenu/title.ttf", 50)
   TEXTF:  love.graphics.newFont("assets/MainMenu/text.ttf", 26)
+
   SCORE: 0
+  KILLS: 0
+
   SPFX: {
     CHROMASEP: 0,
     CHROMASEP_ANGLE: 0

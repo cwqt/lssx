@@ -25,6 +25,12 @@ class Bullet extends Projectile
       -- when "Entity"
       --   other_object\takeDamage(@damage)
       --   @remove()
+      when "Player"
+        other_object\takeDamage(@damage)
+        @remove()        
+      when "Asteroid"
+        other_object\takeDamage(@damage)
+        @remove()
       when "Enemy"
         other_object\takeDamage(@damage)
         @remove()

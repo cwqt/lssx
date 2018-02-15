@@ -1,3 +1,5 @@
+range = 300
+
 class Enemy extends Entity
   new: (@ship, ...) =>
     super(...)
@@ -6,7 +8,7 @@ class Enemy extends Entity
     @ship\appendUserData("hash", @hash)
     @ship.fixture\setGroupIndex(lssx.groupIndices["Enemy"])
 
-    @fovshp = love.physics.newPolygonShape(10, 0, 150, 20, 150, -20)
+    @fovshp = love.physics.newPolygonShape(10, 0, range, 20, range, -20)
     @fovfix = love.physics.newFixture(@ship.body, @fovshp, 0)
 
     -- @fovfix\setCategory(lssx.categories["Enemy_FOV"])
@@ -25,7 +27,6 @@ class Enemy extends Entity
       "hiding": {0, 0, 255},
     }
 
-    @ship.components["Emitter"] = Emitter!
     -- @ship.components["Shield"]  = Shield(10, 10, 10)
     -- Timer.every 0.5, ->
     --   lx, ly = @ship.body\getWorldPoints(15, 0)
@@ -76,10 +77,10 @@ class Enemy extends Entity
       if difference < -180 difference += 360
 
       -- Apply torque into direction of differential angle
-      @ship.body\applyTorque(2 * difference)
+      @ship.body\applyTorque(difference)
 
       -- v is proportional to 1/2 distance from player
-      @v = @d*0.5
+      @v = @d*0.3
 
       -- Calculate force components
       @fx, @fy = @v*math.cos(@ship.body\getAngle()), @v*math.sin(@ship.body\getAngle())
@@ -101,14 +102,7 @@ class Enemy extends Entity
       @fx = math.clamp(-200, @fx, 200)
       @fy = math.clamp(-200, @fy, 200)
 
-      -- @ship.body\applyForce(@fx, @fy)
-
-      -- for k, contact in pairs(@ship.body\getContactList())
-      --   print(contact)
-      -- if @state == "firing" then
-        -- for k, collision in pairs(@fovfix\getColl)
-        -- Check if player within some cone of sight
-        -- @fire()
+      @ship.body\applyForce(@fx, @fy)
 
     if @HP <= 0 @die()
 
@@ -116,7 +110,7 @@ class Enemy extends Entity
     love.graphics.setColor(unpack(@states[@state]))
     super\draw()
     @ship\draw()
-    love.graphics.polygon("line", @ship.body\getWorldPoints(@fovshp\getPoints()))
+    -- love.graphics.polygon("line", @ship.body\getWorldPoints(@fovshp\getPoints()))
     -- love.graphics.circle("line", @ship.x, @ship.y, 500)
     -- love.graphics.circle("line", @ship.x, @ship.y, 150)
     love.graphics.setColor(255,255,255)
@@ -126,13 +120,16 @@ class Enemy extends Entity
       @ship\fire("Bullet", lx, ly, 2, -1)
 
   die: () =>
+    lssx.KILLS += 1
     @ship\remove()
     super\die()
 
   beginContact: (other, ourfixture) =>
-    -- if (ourfixture\getUserData() == "fov") and (lssx.objects[other\getBody()\getUserData().hash].hash == "Player")
-    --   lx, ly = @ship.body\getWorldPoints(15, 0)
-    --   @fire(lx, ly)
+    @ship\beginContact(other)
+    if (ourfixture\getUserData() == "fov") and (lssx.objects[other\getBody()\getUserData().hash].hash == "Player")
+      Physics.addToBuffer ->
+        @ship\fire(lssx.groupIndices["Enemy"])
+
     -- print(selfs\getUserData())
     -- @ship\beginContact(other)
     -- -- print(@ship.fixture\getGroupIndex())

@@ -8,7 +8,7 @@ class Ship extends PolygonPhysicsShape
     @fixture\setCategory(lssx.categories["Ship"])
     -- @fixture\setMask(lssx.categories["All"])
 
-    @body\setAngularDamping(4)
+    @body\setAngularDamping(3)
     @body\setLinearDamping(2)
 
     @components = {}
@@ -35,7 +35,11 @@ class Ship extends PolygonPhysicsShape
       component\remove()
     super\remove()
 
-  fire: () =>
-    -- xl, yl = @body\get
-    -- Bullet()
-    -- @components["Emitter"]\emit(object, @x, @y, dx, dy, v, {@body\getLinearVelocity()}, groupIndex)
+  fire: (groupIndex) =>
+    xl, yl = @body\getWorldPoint(14,0)
+    v = math.abs(@body\getLinearVelocity())*0.001+2
+    print(v)
+    a = @body\getAngle()
+    print xl, yl
+    k = Bullet(xl, yl, 2, groupIndex)
+    k.body\applyLinearImpulse(v*math.cos(a), v*math.sin(a))

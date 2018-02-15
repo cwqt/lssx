@@ -43,6 +43,12 @@ HUD.draw = () ->
 
   love.graphics.setLineWidth(1)
 
+  love.graphics.setColor(255,255,255)
+  love.graphics.print(
+    "SCORE: " .. lssx.SCORE .. "\n" .. 
+    "KILLS: " .. lssx.KILLS
+    50, 50)
+
   love.graphics.push()
   love.graphics.translate((lssx.W_WIDTH/2)-285, 0)
   for k, element in pairs(HUD.elements.active) do
@@ -77,7 +83,7 @@ class HUD.elements.bar
       flux.to(@config, 0.5, {lagV: @pointer[@value]})\delay(0.1)
 
   draw: () =>
-    if @config.currentV <= @config.originalV*0.2
+    if @config.currentV <= @config.originalV*0.2 and (@value == "hp") --bleeeehh
       love.graphics.setColor(255,0,0)
       love.graphics.setFont(lssx.TITLEF)
       love.graphics.print("SYSTEM CRITICAL", -210, 45)
