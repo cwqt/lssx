@@ -6,6 +6,7 @@ export lssx = {
     ["Projectile"]: 2,
     ["Shield"]:     3,
     ["Asteroid"]:   4,
+    ["EN_Fov"]:     5,
   }
   groupIndices: {
     ["Friendly"]:   -1,

@@ -15,6 +15,7 @@ class Enemy extends Entity
     -- @fovfix\setMask(lssx.categories["Player"])
     @fovfix\setSensor(true)
     @fovfix\setUserData("fov")
+    -- @fovfix\setCategory(lssx.categories[""])
     @fovfix\setGroupIndex(lssx.groupIndices["Enemy"])
 
     @ship.body\setInertia(2)
@@ -110,7 +111,7 @@ class Enemy extends Entity
     love.graphics.setColor(unpack(@states[@state]))
     super\draw()
     @ship\draw()
-    -- love.graphics.polygon("line", @ship.body\getWorldPoints(@fovshp\getPoints()))
+    love.graphics.polygon("line", @ship.body\getWorldPoints(@fovshp\getPoints()))
     -- love.graphics.circle("line", @ship.x, @ship.y, 500)
     -- love.graphics.circle("line", @ship.x, @ship.y, 150)
     love.graphics.setColor(255,255,255)

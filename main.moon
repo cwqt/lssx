@@ -63,11 +63,13 @@ Game.enter = (previous) =>
   Director.load()
   ChainPhysicsShape({0,0,2000,0,2000,2000,0,2000}, 1, lssx.world, 0, 0, "static")
 
-  for i=1, 100
-    Asteroid(100+math.random(1800), 100+math.random(1800))
-  for i=1, 10 do
-    Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
-  -- Enemy(Ship(lssx.world, 900, 1000, "dynamic"), 10)  
+  -- for i=1, 100
+  --   Asteroid(100+math.random(1800), 100+math.random(1800))
+  -- for i=1, 3 do
+  --   Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
+  Enemy(Ship(lssx.world, 900, 1000, "dynamic"), 10)  
+  Enemy(Ship(lssx.world, 900, 1000, "dynamic"), 10)  
+  Enemy(Ship(lssx.world, 900, 1000, "dynamic"), 10)  
  
 Game.update = (dt) =>
   if lssx.PAUSE then return
@@ -84,8 +86,7 @@ Game.draw = () =>
     EntityManager.draw()
     CameraManager.detach()
     HUD.draw()
-
-  Director.draw()
+    Director.draw()
 
   love.graphics.setFont(lssx.TEXTF)
   love.graphics.print("FPS: " .. love.timer.getFPS(), 10, 10)

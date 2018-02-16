@@ -14,7 +14,7 @@ Physics.update = (dt) ->
   Physics.runBuffer()
 
 Physics.buffer = {}
-Physics.addToBuffer = (func, hash) ->
+Physics.addToBuffer = (func, hash, isDestroyCommand) ->
   hash = hash or UUID()
   Physics.buffer[#Physics.buffer+1] = {func, hash}
 

@@ -11,7 +11,7 @@ class Player extends Entity
 
     @oxygen = 100
     @fuel = 100
-    @ammo = 15
+    @ammo = 250
     @boost = 10
 
     -- @ship.components["Shield"]  = Shield(10, 0, 0, lssx.groupIndices["Friendly"])
@@ -71,6 +71,9 @@ class Player extends Entity
 
     if @HP <= 0 @die()
 
+    if love.keyboard.isDown("f")
+      @fire()
+
   draw: () =>
     love.graphics.setColor(255,255,255)
     super\draw()
@@ -88,7 +91,9 @@ class Player extends Entity
     @ammo = 0
     @boost = 0
     @fuel = 0
+    @hp = 0
     @oxygen = 0
+    Physics.buffer = {}
     Timer.after 2, -> lssx.PLAYER_DEAD = true
 
   fire: () =>
@@ -102,9 +107,9 @@ class Player extends Entity
 
   keypressed: (key) =>
     switch key
-      when "f"
-        @fire()
-      when "w"
-        @ship.body\applyLinearImpulse(@fx, @fy)
-
-
+      when "s"
+        @takeDamage(5)
+      when "k"
+        lssx.KILLS += 1
+    --   when "f"
+    --     @fire()

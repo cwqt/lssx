@@ -41,10 +41,10 @@ Director.getStats = () ->
   if Director.results.canUpdateStats == false then return
   Director.results.strings = {
     "A critical system error has occured.  ",
-    "TIME SURVIVED : " .. math.floor(love.timer.getTime()-lssx.INIT_TIME, 3) ..  " sec",
-    "SOVIETS KIA   : " .. "19",
+    "TIME SURVIVED : " .. tostring(math.floor(love.timer.getTime()-lssx.INIT_TIME, 3)*(10^(2)+0.5)/10^(2)) ..  " sec",
+    "SOVIETS KIA   : " .. lssx.KILLS,
     "SCORE         : " .. lssx.SCORE,
-    "RANKING       : " .. "SS",
+    "RANKING       : " .. Director.calculateRank(),
     ""
     "* STACKTRACE: L.0xC0"
     "*   0x83F800  cmp eax, 0"
@@ -55,6 +55,26 @@ Director.getStats = () ->
     ""
   }
   Director.results.canUpdateStats = false
+
+Director.calculateRank = () ->
+  rank = ""
+  if lssx.SCORE > 20000
+    rank = "SS"
+  elseif lssx.SCORE > 15000
+    rank = "S"
+  elseif lssx.SCORE > 10000
+    rank = "A"
+  elseif lssx.SCORE > 75000
+    rank = "B"
+  elseif lssx.SCORE > 5000
+    rank = "C"
+  elseif lssx.SCORE > 2500
+    rank = "D"
+  elseif lssx.SCORE > 1000
+    rank = "E"
+  else
+    rank = "F"
+  return rank
 
 Director.keypressed = (key) ->
   -- if Director.canRestart and key == ("kpenter" or "return")

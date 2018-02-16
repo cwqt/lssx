@@ -7,10 +7,9 @@ class Projectile extends PolygonPhysicsShape
 
   update: (dt) =>
     super\update(dt)
-    if math.abs(@body\getLinearVelocity()) < 1
+    if math.abs(@body\getLinearVelocity()) < 100
+      FlashSq(@x, @y, 0.01)
       @remove()
-
-  beginContact: (other) =>
 
   draw: () =>
     super\draw()

@@ -13,6 +13,7 @@ class Bullet extends Projectile
     super\update(dt)
 
   draw: () =>
+    love.graphics.setColor(255,255,255)
     super\draw()
 
   beginContact: (other) =>
@@ -32,5 +33,7 @@ class Bullet extends Projectile
         other_object\takeDamage(@damage)
         @remove()
       when "Enemy"
-        other_object\takeDamage(@damage)
-        @remove()
+        print("hye")
+        if other\getCategory() == lssx.categories["Ship"]
+          other_object\takeDamage(@damage)
+          @remove()

@@ -27,9 +27,10 @@ class PhysicsObject extends Object
       -- Remove self from global table, Box2D destroy self
       -- Pass hash along to check later for repeat attempt destroys
       Physics.addToBuffer ->
-        @body\destroy()
-        super\remove(),
-          @hash
+          super\remove()
+          @body\destroy(),
+        @hash,
+        true
     @removed = true
 
   beginContact: (other) =>
