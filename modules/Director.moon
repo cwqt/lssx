@@ -39,6 +39,7 @@ Director.draw = () ->
 
 Director.getStats = () ->
   if Director.results.canUpdateStats == false then return
+  lssx.SCORE = lssx.SCORE + (lssx.KILLS*500)
   Director.results.strings = {
     "A critical system error has occured.  ",
     "TIME SURVIVED : " .. tostring(math.floor(love.timer.getTime()-lssx.INIT_TIME, 3)*(10^(2)+0.5)/10^(2)) ..  " sec",

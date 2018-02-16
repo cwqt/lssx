@@ -37,17 +37,17 @@ class Asteroid extends PolygonPhysicsShape
 
   remove: () =>
     x, y = @body\getWorldCenter()
-    if @body\getMass() > 2.5
-      c = math.ceil(@body\getMass()/math.random(3,6))
+    if @body\getMass() > 2
+      c = math.floor(@body\getMass()/math.random(3,6))
       Debugger.log("Asteroid breaking up into " .. c .. " parts")
       p = {@body\getWorldPoints(@shape\getPoints())}
       for i=1, #p, 2 do
         FlashSq(p[i], p[i+1])
-        FlashSq(x, y)
+      --revisit this
       Physics.addToBuffer ->      
         for i=1, c do
-          k = Asteroid(x, y, @scale/c)
-          k.body\applyAngularImpulse(math.random(-50, 50))
+          k = Asteroid(x+math.random(-10,10), y+math.random(-10,10), @scale/2)
+          k.body\applyAngularImpulse(math.random(-200, 200))
     FlashSq(x, y)
     FlashSq(x, y)
     super\remove()

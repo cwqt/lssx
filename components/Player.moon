@@ -54,14 +54,14 @@ class Player extends Entity
     @fy = math.clamp(-200, @fy, 200)
 
     if not love.mouse.isDown("1")
-      @ship.body\applyForce(@fx, @fy)
+      @ship.body\applyForce(@fx*0.8, @fy*1.2)
 
     -- if (math.abs(@fx) + math.abs(@fy)) > 75 and @fuel > 0
     --   for i=0, 1, 1/(@v*0.1) do
     --     Particle({100,0,255}, @ship.x, @ship.y, math.random(10)+@ship.x, math.random(10)+@ship.y, math.random(3, 5), math.random(2), 0.4)
 
     -- Take some background O2 away, check it
-    @oxygen -= 0.001
+    @oxygen -= 0.01
     if @oxygen <= 0
       lssx.CHROMASEP = math.random(5)
       lssx.CHROMASEP_ANGLE = math.random(5)
@@ -86,15 +86,15 @@ class Player extends Entity
     CameraManager.shake(20, 0.2)
 
   die: () =>
-    @ship\remove()
-    super\die()
     @ammo = 0
     @boost = 0
     @fuel = 0
     @hp = 0
     @oxygen = 0
-    Physics.buffer = {}
     Timer.after 2, -> lssx.PLAYER_DEAD = true
+    Physics.addToBuffer ->
+      super\die()
+    @ship\remove()
 
   fire: () =>
     if @ammo > 0

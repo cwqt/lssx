@@ -17,7 +17,7 @@ class Bullet extends Projectile
     super\draw()
 
   beginContact: (other) =>
-    super\beginContact(other)
+    -- super\beginContact(other)
     other_object = lssx.objects[other\getBody()\getUserData().hash]
     switch other_object.__class.__name
       -- when "Player"
@@ -33,7 +33,6 @@ class Bullet extends Projectile
         other_object\takeDamage(@damage)
         @remove()
       when "Enemy"
-        print("hye")
         if other\getCategory() == lssx.categories["Ship"]
           other_object\takeDamage(@damage)
           @remove()

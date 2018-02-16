@@ -38,8 +38,6 @@ class Ship extends PolygonPhysicsShape
   fire: (groupIndex) =>
     xl, yl = @body\getWorldPoint(14,0)
     v = math.abs(@body\getLinearVelocity())*0.001+2
-    print(v)
     a = @body\getAngle()
-    print xl, yl
     k = Bullet(xl, yl, 2, groupIndex)
     k.body\applyLinearImpulse(v*math.cos(a), v*math.sin(a))

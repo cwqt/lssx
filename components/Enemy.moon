@@ -111,27 +111,27 @@ class Enemy extends Entity
     love.graphics.setColor(unpack(@states[@state]))
     super\draw()
     @ship\draw()
-    love.graphics.polygon("line", @ship.body\getWorldPoints(@fovshp\getPoints()))
+    -- love.graphics.polygon("line", @ship.body\getWorldPoints(@fovshp\getPoints()))
     -- love.graphics.circle("line", @ship.x, @ship.y, 500)
     -- love.graphics.circle("line", @ship.x, @ship.y, 150)
     love.graphics.setColor(255,255,255)
 
-  fire: (lx, ly) =>
+  fire: () =>
     Physics.addToBuffer ->
-      @ship\fire("Bullet", lx, ly, 2, -1)
+      @ship\fire(lssx.groupIndices["Enemy"])
 
   die: () =>
     lssx.KILLS += 1
+    Physics.addToBuffer ->
+      super\die()
     @ship\remove()
-    super\die()
 
   beginContact: (other, ourfixture) =>
     @ship\beginContact(other)
     if (ourfixture\getUserData() == "fov") and (lssx.objects[other\getBody()\getUserData().hash].hash == "Player")
-      Physics.addToBuffer ->
-        @ship\fire(lssx.groupIndices["Enemy"])
+      @fire()
 
     -- print(selfs\getUserData())
     -- @ship\beginContact(other)
-    -- -- print(@ship.fixture\getGroupIndex())
+    -- print(@ship.fixture\getGroupIndex())
     -- print(lssx.objects[other\getBody()\getUserData().hash].hash)

@@ -33,7 +33,7 @@ Physics.beginContact = (a, b, coll) ->
   Debugger.log("beginContact() triggered", "important")
   lssx.objects[a\getBody()\getUserData().hash]\beginContact(b, a)
   lssx.objects[b\getBody()\getUserData().hash]\beginContact(a, b)
-
+  
 Physics.endContact = (a, b, coll) ->
 
 Physics.preSolve = (a, b, coll) ->

@@ -3,6 +3,7 @@ class Projectile extends PolygonPhysicsShape
     super(points, 0.2, lssx.world, x, y, "dynamic", ...)
     @body\isBullet(true)
     @fixture\setCategory(lssx.categories["Projectile"])
+    @fixture\setMask(lssx.categories["Projectile"])
     @fixture\setGroupIndex(groupIndex)
 
   update: (dt) =>

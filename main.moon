@@ -58,18 +58,18 @@ Game.enter = (previous) =>
   love.graphics.setDefaultFilter("nearest","nearest")
   EntityManager.clear()
   Player(Ship(lssx.world, 1000, 1000, "dynamic"), 10, "Player")
+
   CameraManager.setLockTarget(lssx.objects["Player"])
   HUD.load(lssx.objects["Player"])
   Director.load()
+
   ChainPhysicsShape({0,0,2000,0,2000,2000,0,2000}, 1, lssx.world, 0, 0, "static")
 
-  -- for i=1, 100
-  --   Asteroid(100+math.random(1800), 100+math.random(1800))
-  -- for i=1, 3 do
-  --   Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
-  Enemy(Ship(lssx.world, 900, 1000, "dynamic"), 10)  
-  Enemy(Ship(lssx.world, 900, 1000, "dynamic"), 10)  
-  Enemy(Ship(lssx.world, 900, 1000, "dynamic"), 10)  
+  for i=1, 100
+    Asteroid(100+math.random(1800), 100+math.random(1800))
+  for i=1, 10 do
+    Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
+  -- Enemy(Ship(lssx.world, 900, 1000, "dynamic"), 10)  
  
 Game.update = (dt) =>
   if lssx.PAUSE then return
