@@ -8,6 +8,19 @@ Director.load = () ->
     canRestart: false
   }
 
+Director.gameStart = () ->
+  EntityManager.clear()
+  ChainPhysicsShape({0,0,2000,0,2000,2000,0,2000}, 1, lssx.world, 0, 0, "static")
+  Player(Ship(lssx.world, 1000, 1000, "dynamic"), 10, "Player")
+  CameraManager.setLockTarget(lssx.objects["Player"])
+  HUD.load(lssx.objects["Player"])
+  -- for i=1, 100
+  --   Asteroid(100+math.random(1800), 100+math.random(1800))
+  -- for i=1, 10 do
+  --   Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
+  Pickup(1100, 1000)
+
+
 Director.update = (dt) ->
 
   if lssx.PLAYER_DEAD
@@ -78,7 +91,8 @@ Director.calculateRank = () ->
   return rank
 
 Director.keypressed = (key) ->
-  -- if Director.canRestart and key == ("kpenter" or "return")
+  if Director.canRestart and key == ("kpenter" or "return")
+    Director.gameStart()
 
 Director.spawnEnemies = (x, y, count) ->
 

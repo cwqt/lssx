@@ -42,6 +42,8 @@ export Projectile          = require("components/Projectile")
 export Bullet              = require("components/Bullet")
 export Shield              = require("components/Shield")
 export Enemy               = require("components/Enemy")
+export Pickup              = require("components/Pickup")
+export AmmoPickup          = require("components/AmmoPickup")
 
 -- ============================================================]]
 
@@ -56,19 +58,8 @@ Game.init = () =>
 Game.enter = (previous) =>
   love.graphics.setLineStyle("smooth")
   love.graphics.setDefaultFilter("nearest","nearest")
-  EntityManager.clear()
-  Player(Ship(lssx.world, 1000, 1000, "dynamic"), 10, "Player")
-
-  CameraManager.setLockTarget(lssx.objects["Player"])
-  HUD.load(lssx.objects["Player"])
   Director.load()
-
-  ChainPhysicsShape({0,0,2000,0,2000,2000,0,2000}, 1, lssx.world, 0, 0, "static")
-
-  for i=1, 100
-    Asteroid(100+math.random(1800), 100+math.random(1800))
-  for i=1, 10 do
-    Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
+  Director.gameStart()
   -- Enemy(Ship(lssx.world, 900, 1000, "dynamic"), 10)  
  
 Game.update = (dt) =>
@@ -264,8 +255,11 @@ love.draw = () ->
 
 love.keypressed = (key) ->
   Debugger.keypressed(key)
-  if key == "p"
-    lssx.PAUSE = not lssx.PAUSE
+  switch key
+    when "p"
+      lssx.PAUSE = not lssx.PAUSE
+    when "esc"
+      love.quit()
 
 love.keyreleased = (key) ->
 
@@ -280,6 +274,7 @@ love.wheelmoved = (x, y) ->
 love.textinput = (t) ->
 
 love.quit = () ->
+  Debugger.log("Quitting...")
 
 -- FIXED TIMESTEP ============================================]]
 love.run = () ->
@@ -326,3 +321,17 @@ export UUID = () ->
     r = (x == "x") and (r + 1) or (r % 4) + 9
     return ("0123456789abcdef")\sub(r, r)
   return (("xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx")\gsub("[xy]", fn))
+
+--https://github.com/SSYGEN/blog/issues/20
+export PushRotate = (x, y, r) ->
+  love.graphics.push()
+  love.graphics.translate(x, y)
+  love.graphics.rotate(r or 0)
+  love.graphics.translate(-x, -y)
+
+export PushRotateScale = (x, y, r, sx, sy) ->
+  love.graphics.push()
+  love.graphics.translate(x, y)
+  love.graphics.rotate(r or 0)
+  love.graphics.scale(sx or 1, sy or sx or 1)
+  love.graphics.translate(-x, -y)

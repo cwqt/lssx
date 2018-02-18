@@ -4,7 +4,7 @@ CameraManager.load = (x, y) ->
   lssx.camera = Camera(x, y) -- , lssx.WIDTH, lssx.HEIGHT
   lssx.camera\setFollowLerp(0.05)
   lssx.camera\setFollowLead(20)
-  lssx.camera\setFollowStyle('TOPDOWN_TIGHT')
+  lssx.camera\setFollowStyle('LOCK_ON')
   Debugger.log("CameraManager created")
   lssx.camera\setBounds(-300, -200, 2600, 2400) --x,y,w,h
 

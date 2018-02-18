@@ -22,3 +22,6 @@
 [submodule "libs/splashy"]
 	path = libs/splashy
 	url = https://github.com/videah/splashy.git
+[submodule "libs/tick"]
+	path = libs/tick
+	url = https://github.com/bjornbytes/tick.git
