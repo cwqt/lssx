@@ -18,7 +18,7 @@ Director.gameStart = () ->
   --   Asteroid(100+math.random(1800), 100+math.random(1800))
   -- for i=1, 10 do
   --   Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
-  Pickup(1100, 1000)
+  -- Pickup(1100, 1000)
 
 
 Director.update = (dt) ->
@@ -93,6 +93,9 @@ Director.calculateRank = () ->
 Director.keypressed = (key) ->
   if Director.canRestart and key == ("kpenter" or "return")
     Director.gameStart()
+  if key == "v"
+    for i=1, 10
+      LineExplosion(math.random(-100, 100)+1100, math.random(-100, 100)+1000, math.random(10)+4)  
 
 Director.spawnEnemies = (x, y, count) ->
 

@@ -81,6 +81,7 @@ class Player extends Entity
 
   takeDamage: (amount) =>
     super\takeDamage(amount)
+    LineExplosion(@ship.x, @ship.y)
     SPFX.bounceChroma(0.5, 10, 10)
     lssx.camera\flash(0.05, {0, 0, 0, 255})
     CameraManager.shake(20, 0.2)
@@ -108,7 +109,7 @@ class Player extends Entity
   keypressed: (key) =>
     switch key
       when "s"
-        @takeDamage(5)
+        @takeDamage(1)
       when "k"
         lssx.KILLS += 1
     --   when "f"

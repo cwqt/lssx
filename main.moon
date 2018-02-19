@@ -33,6 +33,7 @@ export SoundManager        = require("modules/SoundManager")
 export Cross               = require("modules/UI/Cross")
 export HUD                 = require("modules/UI/HUD")
 export FlashSq             = require("modules/UI/FlashSq")
+export LineExplosion       = require("modules/UI/LineExplosion")
 
 export Entity              = require("components/Entity")
 export Ship                = require("components/Ship")
