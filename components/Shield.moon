@@ -4,7 +4,7 @@ class Shield extends CirclePhysicsShape
     super(radius, 0, lssx.world, x, y, "dynamic", ...)
     @hp = hp
     @originalHP = hp
-    @disabledTime = @originalHP/2
+    @disabledTime = @originalHP/4
 
     @fixture\setCategory(lssx.categories["Shield"])
     @fixture\setMask(unpack(lssx.masks["Shield"]))
@@ -18,20 +18,22 @@ class Shield extends CirclePhysicsShape
     super\draw()
 
   takeDamage: (amount) =>
-    flux.to(self, 0.2, {hp: @hp-amount})\oncomplete ->
-      if @hp <= 5 then
-        lx, ly = @body\getPosition()
-        for i=1, 40 do
-          Particle({0,205,205}, lx, ly, math.random(-10, 10)+lx,
-                                        math.random(-10, 10)+ly,
-                                        math.random(2, 5),
-                                        math.random(5), 0.4)
-        flux.to(self, 0.2, {hp: 0})
-        Debugger.log("Shield disabled for " .. @disabledTime .. "s")
-        Timer.after @disabledTime, ->
-          Debugger.log("Shield restoring...")
-          -- radius proportional to hp, radius -> 0
-          flux.to(self, @disabledTime/2, {hp: @initialHP})\ease("cubicout")
+    if @hp > 0
+      flux.to(self, 0.2, {hp: @hp-amount})\oncomplete ->
+        if @hp <= 5
+          @body\setActive(false)
+          lx, ly = @body\getPosition()
+          for i=1, 40 do
+            Particle({0,205,205}, lx, ly, math.random(-10, 10)+lx,
+                                          math.random(-10, 10)+ly,
+                                          math.random(2, 5),
+                                          math.random(5), 0.4)
+          flux.to(self, 0.2, {hp: 0})
+          Debugger.log("Shield disabled for " .. @disabledTime .. "s")
+          Timer.after @disabledTime, ->
+            Debugger.log("Shield restoring")
+            @body\setActive(true)
+            flux.to(self, 0.5, {hp: @originalHP})
     Debugger.log("Shield took " .. amount .. " damage", "death")
 
   beginContact: (other) =>

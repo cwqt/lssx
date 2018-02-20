@@ -12,6 +12,7 @@ export Timer               = require("libs/hump/timer")
 export Camera              = require("libs/STALKER-X/Camera")
 export moonshine           = require("libs/moonshine")
 export splashy             = require("libs/splashy/splashy")
+require("libs/TEsound")
 require("lssx")
 
 export Object              = require("components/Object")

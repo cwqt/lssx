@@ -2,7 +2,8 @@ class Ship extends PolygonPhysicsShape
   new: (...) =>
     -- Don't insert ship into new instance
     @isOwnObject = true
-    super({-5,5,-5,-5,10,0}, 1, ...)
+    super({-5, 5, -3,0,10,0}, 1, ...)
+    love.physics.newFixture(@body, love.physics.newPolygonShape(-5,-5, -3,0,10,0), 1)
 
     @fixture\setRestitution(0.4)
     @fixture\setCategory(lssx.categories["Ship"])
@@ -21,13 +22,14 @@ class Ship extends PolygonPhysicsShape
         component.body\setPosition(@x, @y)
 
   draw: () =>
-    -- love.graphics.setLineStyle("rough")
-    super\draw()
+    -- super\draw()
     love.graphics.polygon("fill", @body\getWorldPoints(@shape\getPoints()))
+    love.graphics.polygon("fill", @body\getWorldPoints(-5,-5, -3,0,10,0))
     for _, component in pairs(@components) do
       component\draw()
 
   remove: () =>
+    SoundManager.playRandom("Explosion", 3)
     lx, ly = @body\getWorldCenter()
     for i=1, 20 do
       FlashSq(lx, ly)
@@ -36,6 +38,7 @@ class Ship extends PolygonPhysicsShape
     super\remove()
 
   fire: (groupIndex) =>
+    SoundManager.playRandom("Laser_Shoot", 1)
     xl, yl = @body\getWorldPoint(14,0)
     v = math.abs(@body\getLinearVelocity())*0.001+2
     a = @body\getAngle()

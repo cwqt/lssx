@@ -10,15 +10,22 @@ Director.load = () ->
 
 Director.gameStart = () ->
   EntityManager.clear()
+  SoundManager.playLooping("DONBOR.ogg")
   ChainPhysicsShape({0,0,2000,0,2000,2000,0,2000}, 1, lssx.world, 0, 0, "static")
-  Player(Ship(lssx.world, 1000, 1000, "dynamic"), 10, "Player")
+  Player(Ship(lssx.world, 1000, 1000, "dynamic"), 100, "Player")
   CameraManager.setLockTarget(lssx.objects["Player"])
   HUD.load(lssx.objects["Player"])
-  -- for i=1, 100
+  -- for i=1, 50
   --   Asteroid(100+math.random(1800), 100+math.random(1800))
   -- for i=1, 10 do
-  --   Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10)  
-  -- Pickup(1100, 1000)
+  --   Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10) 
+  -- for i=1, 10 do 
+  --   Pickup(math.random(2000), math.random(2000))
+  -- Enemy(Ship(lssx.world, 1100, 1000, "dynamic"), 10) 
+
+  Pickup(1100, 1000)
+  -- Timer.every 2, ->
+  --   Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10) 
 
 
 Director.update = (dt) ->
@@ -28,7 +35,7 @@ Director.update = (dt) ->
     if #Director.results.strings != Director.results.k
       Director.results.typeTimer -= dt
       if Director.results.typeTimer <= 0
-        Director.results.typeTimer = 0.2
+        Director.results.typeTimer = 0.1
         Director.results.result = Director.results.result .. "\n" .. Director.results.strings[Director.results.k]
         Director.results.k += 1
     else
@@ -92,6 +99,7 @@ Director.calculateRank = () ->
 
 Director.keypressed = (key) ->
   if Director.canRestart and key == ("kpenter" or "return")
+    lssx.PLAYER_DEAD = false
     Director.gameStart()
   if key == "v"
     for i=1, 10

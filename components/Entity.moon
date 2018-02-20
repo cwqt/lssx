@@ -11,6 +11,7 @@ class Entity extends Object
 
   takeDamage: (amount) =>
     Debugger.log("Entity took " .. amount .. " damage")
+    SoundManager.playRandom("Hit", 1)
     @HP -= amount
 
   die: () =>
