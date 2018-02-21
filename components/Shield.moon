@@ -10,9 +10,12 @@ class Shield extends CirclePhysicsShape
     @fixture\setMask(unpack(lssx.masks["Shield"]))
     @fixture\setGroupIndex(gindex)
 
+    @timer = Timer.new()
+
   update: (dt) =>
     super\update(dt)
     @shape\setRadius(@hp*2)
+    @timer\update(dt)
 
   draw: () =>
     super\draw()
@@ -21,6 +24,7 @@ class Shield extends CirclePhysicsShape
     if @hp > 0
       flux.to(self, 0.2, {hp: @hp-amount})\oncomplete ->
         if @hp <= 5
+          SoundManager.playRandom("ShieldDown", 1)
           @body\setActive(false)
           lx, ly = @body\getPosition()
           for i=1, 40 do
@@ -30,11 +34,18 @@ class Shield extends CirclePhysicsShape
                                           math.random(5), 0.4)
           flux.to(self, 0.2, {hp: 0})
           Debugger.log("Shield disabled for " .. @disabledTime .. "s")
-          Timer.after @disabledTime, ->
-            Debugger.log("Shield restoring")
-            @body\setActive(true)
-            flux.to(self, 0.5, {hp: @originalHP})
+          @timer\after @disabledTime, ->
+            Physics.addToBuffer ->
+              if not lssx.PLAYER_DEAD
+                Debugger.log("Shield restoring")
+                SoundManager.playRandom("ShieldUp", 1)
+                @body\setActive(true)
+                flux.to(self, 0.5, {hp: @originalHP})
     Debugger.log("Shield took " .. amount .. " damage", "death")
+
+  remove: () =>
+    @timer\clear()
+    super\remove()
 
   beginContact: (other) =>
     other_object = lssx.objects[other\getBody()\getUserData().hash]

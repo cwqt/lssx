@@ -36,6 +36,7 @@ class Asteroid extends PolygonPhysicsShape
         if @hp <= 0 then @remove()
 
   remove: () =>
+    SoundManager.playRandom("AsteroidExp", 2)
     x, y = @body\getWorldCenter()
     if @body\getMass() > 2
       c = math.floor(@body\getMass()/math.random(3,6))

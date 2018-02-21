@@ -39,8 +39,9 @@ class Ship extends PolygonPhysicsShape
 
   fire: (groupIndex) =>
     SoundManager.playRandom("Laser_Shoot", 1)
-    xl, yl = @body\getWorldPoint(14,0)
-    v = math.abs(@body\getLinearVelocity())*0.001+2
-    a = @body\getAngle()
+    xl, yl = @body\getWorldPoint(20,0)
+    v = math.abs(@body\getLinearVelocity())*0.01+5
+    a = @body\getAngle()+math.random(-10, 10)/50
     k = Bullet(xl, yl, 2, groupIndex)
+    k.body\setAngle(a)
     k.body\applyLinearImpulse(v*math.cos(a), v*math.sin(a))

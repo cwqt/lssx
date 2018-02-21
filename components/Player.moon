@@ -11,7 +11,7 @@ class Player extends Entity
 
     @oxygen = 100
     @fuel = 100
-    @ammo = 250
+    @ammo = 1000
     @boost = 10
 
     @ship.components["Shield"]  = Shield(10, 0, 0, lssx.groupIndices["Friendly"])
@@ -41,7 +41,7 @@ class Player extends Entity
     @ship.body\applyTorque(1.2 * difference)
 
     -- Get distance from mouse and body, calculate a velocity
-    @v = math.dist(mx, my, @ship.x, @ship.y)*0.4
+    @v = math.dist(mx, my, @ship.x, @ship.y)*0.5
 
     -- Detract some fuel from moving - adjust v
     if @fuel <= 0 then @v = @v*0.3
@@ -68,7 +68,18 @@ class Player extends Entity
     if love.keyboard.isDown("f")
       @fire()
 
+
+    @HP += 0.01
+    @ammo += 0.1
+    @oxygen += 0.01
+
+    @HP = math.clamp(0, @HP, @initalHP+1)
+    @ammo = math.clamp(0, @ammo, 1000)
+    @fuel = math.clamp(0, @fuel, 100)
+    @oxygen = math.clamp(0, @oxygen, 100)
+
     if @HP <= 0 @die()
+
 
   draw: () =>
     love.graphics.setColor(255,255,255)
@@ -83,6 +94,7 @@ class Player extends Entity
     CameraManager.shake(200, 5, 5)
 
   die: () =>
+    SoundManager.playRandom("Death", 1)
     @ammo = 0
     @boost = 0
     @fuel = 0
@@ -92,12 +104,11 @@ class Player extends Entity
     Physics.addToBuffer ->
       super\die()
     @ship\remove()
-    @ship.components["Shield"]\remove()
 
   fire: () =>
-    if @ammo > 0
+    if @ammo > 3
       @ship\fire(lssx.groupIndices["Friendly"])
-      @oxygen -= 0.1
+      @oxygen -= 0.05
       @ammo -= 1
 
   -- We're not a physics object, but we should pass on our data to our ship, which is

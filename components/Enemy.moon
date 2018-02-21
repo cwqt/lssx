@@ -55,55 +55,52 @@ class Enemy extends Entity
     else
       if @d < 150 then
         @state = "firing"
-      elseif @d > 500 then
-        @state = "idle"
       else
         @state = "chasing"
 
     -- Save the CPU
-    if @state != "idle"
-      -- Get differential angle between player and body
-      @angle = math.atan2(( my - @ship.y ), ( mx - @ship.x ))
+    -- Get differential angle between player and body
+    @angle = math.atan2(( my - @ship.y ), ( mx - @ship.x ))
 
-      -- Map atan2 (-180, 180) onto 0-360
-      @angle = math.deg(@angle)
-      if @angle < 0 then @angle += 360
+    -- Map atan2 (-180, 180) onto 0-360
+    @angle = math.deg(@angle)
+    if @angle < 0 then @angle += 360
 
-      -- Calculate differential angle between desired and actual angle
-      -- Cap @body\getAngle() to 360 to prevent over-spin
-      difference = @angle - (math.deg(@ship.body\getAngle()) % 360)
+    -- Calculate differential angle between desired and actual angle
+    -- Cap @body\getAngle() to 360 to prevent over-spin
+    difference = @angle - (math.deg(@ship.body\getAngle()) % 360)
 
-      -- Compensate for -360/360 overtick
-      if difference > 180 difference -= 360
-      if difference < -180 difference += 360
+    -- Compensate for -360/360 overtick
+    if difference > 180 difference -= 360
+    if difference < -180 difference += 360
 
-      -- Apply torque into direction of differential angle
-      @ship.body\applyTorque(difference)
+    -- Apply torque into direction of differential angle
+    @ship.body\applyTorque(difference)
 
-      -- v is proportional to 1/2 distance from player
-      @v = @d*0.3
+    -- v is proportional to 1/2 distance from player
+    @v = math.clamp(0, @d*0.3, 100)
 
-      -- Calculate force components
-      @fx, @fy = @v*math.cos(@ship.body\getAngle()), @v*math.sin(@ship.body\getAngle())
-      
-      -- If in close proximity, sprint towards player
-      if @d < 75
-        @fx = @fx*5
-        @fy = @fy*5
-      if @state == "hiding"
-        @fx = @fx*-0.2
-        @fy = @fy*-0.2
+    -- Calculate force components
+    @fx, @fy = @v*math.cos(@ship.body\getAngle()), @v*math.sin(@ship.body\getAngle())
+    
+    -- If in close proximity, sprint towards player
+    if @d < 75
+      @fx = @fx*5
+      @fy = @fy*5
+    if @state == "hiding"
+      @fx = @fx*-0.2
+      @fy = @fy*-0.2
 
-      -- Spin out of control
-      if @HP <= 2 then
-        @ship.body\setAngularVelocity(10)
-        @fx=-@fx*5
-        @fy=-@fy*5
+    -- Spin out of control
+    if @HP <= 2 then
+      @ship.body\setAngularVelocity(10)
+      @fx=-@fx*5
+      @fy=-@fy*5
 
-      @fx = math.clamp(-200, @fx, 200)
-      @fy = math.clamp(-200, @fy, 200)
+    @fx = math.clamp(-200, @fx, 200)
+    @fy = math.clamp(-200, @fy, 200)
 
-      @ship.body\applyForce(@fx, @fy)
+    @ship.body\applyForce(@fx, @fy)
 
     if @HP <= 0 @die()
 

@@ -5,10 +5,11 @@ class Projectile extends PolygonPhysicsShape
     @fixture\setCategory(lssx.categories["Projectile"])
     @fixture\setMask(lssx.categories["Projectile"])
     @fixture\setGroupIndex(groupIndex)
+    Timer.after 1, -> super\remove()
 
   update: (dt) =>
     super\update(dt)
-    if math.abs(@body\getLinearVelocity()) < 100
+    if math.abs(@body\getLinearVelocity()) < 50
       FlashSq(@x, @y, 0.01)
       @remove()
 

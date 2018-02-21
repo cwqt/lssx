@@ -15,7 +15,7 @@ export lssx = {
   }
 
   INIT_TIME: love.timer.getTime(),
-  CAMERA_ZOOM: 1.8,
+  CAMERA_ZOOM: 1.6,
   WIDTH: 400,
   HEIGHT: 300,
   SCALE: 1,

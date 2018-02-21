@@ -83,7 +83,7 @@ class HUD.elements.bar
       flux.to(@config, 0.5, {lagV: @pointer[@value]})\delay(0.1)
 
   draw: () =>
-    if @config.currentV <= @config.originalV*0.2 and (@value == "hp") --bleeeehh
+    if @config.currentV <= @config.originalV*0.2 and (@value == "HP") --bleeeehh
       love.graphics.setColor(255,0,0)
       love.graphics.setFont(lssx.TITLEF)
       love.graphics.print("SYSTEM CRITICAL", -210, 45)

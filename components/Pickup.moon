@@ -6,10 +6,22 @@ class Pickup extends PolygonPhysicsShape
       "oxygen",
       "fuel",
       "ammo",
-      "boost",
       "HP"
     }
+
+
     @type = types[math.random(#types)]
+
+    @color = {255,255,255}
+    switch @type
+      when "oxygen"
+        @color = {0,0,255}
+      when "fuel"
+        @color = {255,255,0}
+      when "ammo"
+        @color = {255,0,0}
+      when "HP"
+        @color = {0,255,0}
 
     @body\applyAngularImpulse(50)
     @config = {
@@ -24,7 +36,7 @@ class Pickup extends PolygonPhysicsShape
     super\update()
 
   draw: () =>
-    love.graphics.setColor(0,191,255)
+    love.graphics.setColor(@color)
     lx, ly = @body\getWorldCenter()
     PushRotate(lx, ly, @config.r)
     love.graphics.rectangle("line", lx-@config.s/2, ly-@config.s/2, @config.s, @config.s)

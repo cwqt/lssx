@@ -1,11 +1,12 @@
 class Bullet extends Projectile
   new: (x, y, @damage, ...) =>
-    points = {-1, -2, 1, -2, 2, -1, 2, 1, 1, 2, -1, 2, -2, 1, -2, -1}
+    -- points = {-1, -2, 1, -2, 2, -1, 2, 1, 1, 2, -1, 2, -2, 1, -2, -1}
+    points = {-5,1,-5,-1,5,-1,5,1}
     -- for i=1, #points do
     --   points[i] = points[i] * 0.5
 
     super(x, y, points, ...)
-    @body\setLinearDamping(0.8)
+    @body\setLinearDamping(5)
     @body\setInertia(10)
     @fixture\setRestitution(0.1)
 

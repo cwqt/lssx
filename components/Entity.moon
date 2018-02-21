@@ -1,7 +1,7 @@
 class Entity extends Object
   new: (hp, ...) =>
     super(...)
-    hp = hp or 100
+    hp = hp or 10
     @initalHP = hp
     @HP = hp
 
@@ -11,7 +11,7 @@ class Entity extends Object
 
   takeDamage: (amount) =>
     Debugger.log("Entity took " .. amount .. " damage")
-    SoundManager.playRandom("Hit", 1)
+    SoundManager.playRandom("Hit", 3)
     @HP -= amount
 
   die: () =>

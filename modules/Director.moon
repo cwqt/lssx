@@ -12,21 +12,26 @@ Director.gameStart = () ->
   EntityManager.clear()
   SoundManager.playLooping("DONBOR.ogg")
   ChainPhysicsShape({0,0,2000,0,2000,2000,0,2000}, 1, lssx.world, 0, 0, "static")
-  Player(Ship(lssx.world, 1000, 1000, "dynamic"), 100, "Player")
+  Player(Ship(lssx.world, 1000, 1000, "dynamic"), 20, "Player")
   CameraManager.setLockTarget(lssx.objects["Player"])
   HUD.load(lssx.objects["Player"])
-  -- for i=1, 50
-  --   Asteroid(100+math.random(1800), 100+math.random(1800))
-  -- for i=1, 10 do
-  --   Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10) 
-  -- for i=1, 10 do 
-  --   Pickup(math.random(2000), math.random(2000))
-  -- Enemy(Ship(lssx.world, 1100, 1000, "dynamic"), 10) 
+  for i=1, 50
+    Asteroid(100+math.random(1800), 100+math.random(1800))
+  for i=1, 10 do 
+    Pickup(math.random(2000), math.random(2000))
 
-  Pickup(1100, 1000)
-  -- Timer.every 2, ->
-  --   Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10) 
+  lssx.SHOW_INSTRUCTIONS = true
+  Timer.after 5, ->  
+    lssx.SHOW_INSTRUCTIONS = false
+    for i=1, 10 do
+      Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10) 
+    Timer.every 0.5, ->
+      Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10) 
+    Timer.every 2, ->
+      Pickup(math.random(2000), math.random(2000))
+      Asteroid(100+math.random(1800), 100+math.random(1800))
 
+  Missile(1100, 1000, 2, 1)
 
 Director.update = (dt) ->
 
@@ -44,6 +49,8 @@ Director.update = (dt) ->
     lssx.SCORE = lssx.SCORE + 1
 
 Director.draw = () ->
+  if lssx.SHOW_INSTRUCTIONS
+    love.graphics.printf("'MOUSE' TO MOVE \n 'F' TO FIRE \n MOVE OR DIE. \n GOODLUCK PILOT.", 0, 100, 1100, "center")
   if lssx.PLAYER_DEAD
     love.graphics.setColor(0,0,0,200)
     love.graphics.rectangle("fill",0,0,1150,600)
@@ -79,19 +86,19 @@ Director.getStats = () ->
 
 Director.calculateRank = () ->
   rank = ""
-  if lssx.SCORE > 20000
+  if lssx.SCORE > 200000
     rank = "SS"
-  elseif lssx.SCORE > 15000
+  elseif lssx.SCORE > 150000
     rank = "S"
-  elseif lssx.SCORE > 10000
+  elseif lssx.SCORE > 100000
     rank = "A"
-  elseif lssx.SCORE > 75000
+  elseif lssx.SCORE > 750000
     rank = "B"
-  elseif lssx.SCORE > 5000
+  elseif lssx.SCORE > 50000
     rank = "C"
-  elseif lssx.SCORE > 2500
+  elseif lssx.SCORE > 25000
     rank = "D"
-  elseif lssx.SCORE > 1000
+  elseif lssx.SCORE > 10000
     rank = "E"
   else
     rank = "F"
@@ -99,8 +106,7 @@ Director.calculateRank = () ->
 
 Director.keypressed = (key) ->
   if Director.canRestart and key == ("kpenter" or "return")
-    lssx.PLAYER_DEAD = false
-    Director.gameStart()
+    love.event.quit( "restart" )
   if key == "v"
     for i=1, 10
       LineExplosion(math.random(-100, 100)+1100, math.random(-100, 100)+1000, math.random(10)+4)  

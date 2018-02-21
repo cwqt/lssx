@@ -45,7 +45,8 @@ export Bullet              = require("components/Bullet")
 export Shield              = require("components/Shield")
 export Enemy               = require("components/Enemy")
 export Pickup              = require("components/Pickup")
-export AmmoPickup          = require("components/AmmoPickup")
+-- export AmmoPickup          = require("components/AmmoPickup")
+export Missile             = require("components/Missile")
 
 -- ============================================================]]
 
@@ -238,14 +239,14 @@ Splash.leave = () =>
 love.load = () ->
   Debugger.load()
   SPFX.load() 
-  -- bootSound = love.audio.newSource("assets/Boot.ogg", "stream")
-  -- love.audio.play(bootSound)
-  -- Timer.after 1.5, ->
-  --   Gamestate.registerEvents()
-  --   Gamestate.switch(Splash)
+  bootSound = love.audio.newSource("assets/Boot.ogg", "stream")
+  love.audio.play(bootSound)
+  Timer.after 1.5, ->
+    Gamestate.registerEvents()
+    Gamestate.switch(Splash)
 
-  Gamestate.registerEvents()
-  Gamestate.switch(Game)
+  -- Gamestate.registerEvents()
+  -- Gamestate.switch(Game)
 
 love.update = (dt) ->
   Timer.update(dt)
