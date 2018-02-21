@@ -1,7 +1,6 @@
 # zephyr
 A Box2D-focused engine for lssx.
 
-Possibly the simplest collison detection and resolution system ever created (joke.)
 ```moon
 Physics.beginContact = (a, b, coll) ->
   -- a handles collision with b
