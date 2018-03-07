@@ -1,0 +1,554 @@
+0.038s [inherit   ] Object was inherited by PhysicsObject
+0.102s [inherit   ] PhysicsObject was inherited by PolygonPhysicsShape
+0.147s [inherit   ] PhysicsObject was inherited by CirclePhysicsShape
+0.195s [inherit   ] PhysicsObject was inherited by ChainPhysicsShape
+0.289s [inherit   ] Object was inherited by Particle
+0.556s [inherit   ] Object was inherited by FlashSq
+0.593s [inherit   ] Object was inherited by LineExplosion
+0.624s [inherit   ] Object was inherited by Entity
+0.656s [inherit   ] PolygonPhysicsShape was inherited by Ship
+0.728s [inherit   ] Entity was inherited by Player
+0.756s [inherit   ] PolygonPhysicsShape was inherited by Asteroid
+0.776s [inherit   ] PolygonPhysicsShape was inherited by Projectile
+0.798s [inherit   ] Projectile was inherited by Bullet
+0.836s [inherit   ] CirclePhysicsShape was inherited by Shield
+0.894s [inherit   ] Entity was inherited by Enemy
+0.916s [inherit   ] PolygonPhysicsShape was inherited by Pickup
+0.948s [inherit   ] Projectile was inherited by Missile
+2.867s [game      ] Created Box2D World: 0x02fb6b70
+2.902s [game      ] CameraManager created
+3.023s [spawn     ] Spawned ChainPhysicsShape
+3.063s [spawn     ] Spawned Ship
+3.074s [spawn     ] Spawned Player
+3.080s [game      ] Updated userData hash from 2dd2a3b7-0e10-4f98-8787-47e8a188a8d6 to Player
+3.089s [spawn     ] Spawned Shield
+3.096s [game      ] Camera setLockTarget -> Player
+3.106s [spawn     ] Spawned Asteroid
+3.111s [spawn     ] Spawned Asteroid
+3.126s [spawn     ] Spawned Asteroid
+3.132s [spawn     ] Spawned Asteroid
+3.137s [spawn     ] Spawned Asteroid
+3.145s [spawn     ] Spawned Asteroid
+3.150s [spawn     ] Spawned Asteroid
+3.157s [spawn     ] Spawned Asteroid
+3.211s [spawn     ] Spawned Asteroid
+3.251s [spawn     ] Spawned Asteroid
+3.282s [spawn     ] Spawned Asteroid
+3.287s [spawn     ] Spawned Asteroid
+3.293s [spawn     ] Spawned Asteroid
+3.323s [spawn     ] Spawned Asteroid
+3.346s [spawn     ] Spawned Asteroid
+3.354s [spawn     ] Spawned Asteroid
+3.388s [spawn     ] Spawned Asteroid
+3.398s [spawn     ] Spawned Asteroid
+3.426s [spawn     ] Spawned Asteroid
+3.441s [spawn     ] Spawned Asteroid
+3.471s [spawn     ] Spawned Asteroid
+3.502s [spawn     ] Spawned Asteroid
+3.517s [spawn     ] Spawned Asteroid
+3.540s [spawn     ] Spawned Asteroid
+3.559s [spawn     ] Spawned Asteroid
+3.582s [spawn     ] Spawned Asteroid
+3.597s [spawn     ] Spawned Asteroid
+3.620s [spawn     ] Spawned Asteroid
+3.649s [spawn     ] Spawned Asteroid
+3.680s [spawn     ] Spawned Asteroid
+3.702s [spawn     ] Spawned Asteroid
+3.718s [spawn     ] Spawned Asteroid
+3.745s [spawn     ] Spawned Asteroid
+3.773s [spawn     ] Spawned Asteroid
+3.802s [spawn     ] Spawned Asteroid
+3.829s [spawn     ] Spawned Asteroid
+3.872s [spawn     ] Spawned Asteroid
+3.903s [spawn     ] Spawned Asteroid
+3.924s [spawn     ] Spawned Asteroid
+3.944s [spawn     ] Spawned Asteroid
+3.961s [spawn     ] Spawned Asteroid
+3.976s [spawn     ] Spawned Asteroid
+3.996s [spawn     ] Spawned Asteroid
+4.045s [spawn     ] Spawned Asteroid
+4.068s [spawn     ] Spawned Asteroid
+4.086s [spawn     ] Spawned Asteroid
+4.100s [spawn     ] Spawned Asteroid
+4.114s [spawn     ] Spawned Asteroid
+4.125s [spawn     ] Spawned Asteroid
+4.131s [spawn     ] Spawned Asteroid
+4.145s [spawn     ] Spawned Pickup
+4.156s [spawn     ] Spawned Pickup
+4.161s [spawn     ] Spawned Pickup
+4.176s [spawn     ] Spawned Pickup
+4.186s [spawn     ] Spawned Pickup
+4.201s [spawn     ] Spawned Pickup
+4.209s [spawn     ] Spawned Pickup
+4.219s [spawn     ] Spawned Pickup
+4.234s [spawn     ] Spawned Pickup
+4.244s [spawn     ] Spawned Pickup
+4.252s [spawn     ] Spawned Missile
+4.276s [spawn     ] Spawned FlashSq
+4.282s [spawn     ] Spawned FlashSq
+4.338s [important ] Object 1 removed
+4.349s [game      ] Collision callbacks active
+4.383s [important ] Object dbb8ccb8-2426-4c60-8ec6-7f4a55a860ff removed
+4.446s [important ] Object 3967eefb-27e2-450c-b8c2-a87161729a39 removed
+6.416s [spawn     ] Spawned Bullet
+6.476s [spawn     ] Spawned Bullet
+6.524s [spawn     ] Spawned Bullet
+6.535s [spawn     ] Spawned Bullet
+6.587s [spawn     ] Spawned Bullet
+6.626s [spawn     ] Spawned Bullet
+6.653s [important ] beginContact() triggered
+6.675s [collision ] -> Bullet, k: 88f19990-afd3-4557-b10a-014310f9bae8
+6.702s [important ] Object 88f19990-afd3-4557-b10a-014310f9bae8 removed
+6.722s [spawn     ] Spawned Bullet
+6.745s [important ] beginContact() triggered
+6.763s [collision ] -> Bullet, k: 23c5e315-edba-4d53-b8bd-7176b9c61c25
+6.776s [important ] Object 23c5e315-edba-4d53-b8bd-7176b9c61c25 removed
+6.794s [spawn     ] Spawned Bullet
+6.810s [important ] beginContact() triggered
+6.831s [collision ] -> Bullet, k: a72c3cdc-2ea3-48df-b684-942bc2544416
+6.847s [important ] beginContact() triggered
+6.891s [collision ] -> Bullet, k: 2f66ab61-c7fb-4630-847d-a3e7e965c902
+6.907s [important ] Object 2f66ab61-c7fb-4630-847d-a3e7e965c902 removed
+6.930s [important ] Object a72c3cdc-2ea3-48df-b684-942bc2544416 removed
+6.969s [spawn     ] Spawned Bullet
+6.991s [important ] beginContact() triggered
+7.012s [collision ] -> Bullet, k: 6b946daf-e8f8-4589-a27b-0bb128459121
+7.032s [game      ] Asteroid breaking up into 2 parts
+7.050s [spawn     ] Spawned FlashSq
+7.086s [spawn     ] Spawned FlashSq
+7.102s [spawn     ] Spawned FlashSq
+7.133s [spawn     ] Spawned FlashSq
+7.149s [spawn     ] Spawned FlashSq
+7.162s [spawn     ] Spawned FlashSq
+7.183s [spawn     ] Spawned FlashSq
+7.195s [important ] Object 6b946daf-e8f8-4589-a27b-0bb128459121 removed
+7.205s [important ] Object 4a6df8e2-9bf8-4c79-9702-2a1dce41088d removed
+7.230s [spawn     ] Spawned Asteroid
+7.240s [spawn     ] Spawned Asteroid
+7.254s [spawn     ] Spawned Bullet
+7.265s [important ] beginContact() triggered
+7.297s [collision ] -> Asteroid, k: c0285706-2ecb-460b-801c-ef69f67457c2
+7.305s [collision ] -> Asteroid, k: a49d3d23-42a8-4a55-8f37-f1dbdea8bda4
+7.321s [spawn     ] Spawned Bullet
+7.350s [important ] beginContact() triggered
+7.365s [collision ] -> Bullet, k: a0730861-a8ad-4133-b09b-bacb7150f030
+7.391s [important ] Object a0730861-a8ad-4133-b09b-bacb7150f030 removed
+7.405s [important ] beginContact() triggered
+7.435s [collision ] -> Bullet, k: bc2554a7-96c7-4b40-ae47-46c557651089
+7.452s [spawn     ] Spawned FlashSq
+7.486s [spawn     ] Spawned FlashSq
+7.565s [important ] beginContact() triggered
+7.587s [collision ] -> Bullet, k: c16b370b-bd67-4b61-992f-39f3bd60a989
+7.618s [spawn     ] Spawned FlashSq
+7.634s [spawn     ] Spawned FlashSq
+7.650s [important ] beginContact() triggered
+7.670s [collision ] -> Bullet, k: bc2554a7-96c7-4b40-ae47-46c557651089
+7.707s [important ] Object c16b370b-bd67-4b61-992f-39f3bd60a989 removed
+7.739s [important ] Object bc2554a7-96c7-4b40-ae47-46c557651089 removed
+7.792s [important ] Object c0285706-2ecb-460b-801c-ef69f67457c2 removed
+7.845s [important ] beginContact() triggered
+7.890s [collision ] -> Asteroid, k: a49d3d23-42a8-4a55-8f37-f1dbdea8bda4
+7.930s [collision ] -> Player, k: Player
+7.954s [important ] beginContact() triggered
+7.986s [collision ] -> Asteroid, k: a49d3d23-42a8-4a55-8f37-f1dbdea8bda4
+8.008s [collision ] -> Player, k: Player
+8.043s [important ] Object 4464552e-a759-4233-a2d0-cf2406e444a4 removed
+8.052s [important ] Object 30c3aea0-ff6b-4974-a1c3-d92a2f9261d8 removed
+8.060s [important ] Object e7594acb-ef8e-414b-a177-41d9c1305a1b removed
+8.071s [important ] beginContact() triggered
+8.078s [collision ] -> Asteroid, k: a49d3d23-42a8-4a55-8f37-f1dbdea8bda4
+8.092s [collision ] -> Player, k: Player
+8.108s [important ] Object 9d42c472-ca87-4bf3-af62-f4c6bc3c2d2e removed
+8.118s [important ] Object e08da438-46c2-48df-836a-ef69e5ef1726 removed
+8.136s [important ] Object bdafd410-8fb8-400d-bb06-f3d3c07e94fb removed
+8.146s [important ] Object 9ebc172c-2d12-4546-a977-ea7a3b7873b4 removed
+8.166s [important ] Object e2c15dc6-cdf5-4d31-b723-6f7379e8ff3c removed
+8.174s [important ] Object e05448a1-01fa-4f4a-92b1-ee7d422cf1d2 removed
+8.184s [important ] Object e38ba845-8a99-4729-a947-dddbe8515452 removed
+8.206s [important ] Object 529317be-2c9d-4a31-b0a4-4a9a3ecce6ba removed
+8.227s [spawn     ] Spawned FlashSq
+8.243s [important ] Object cda9989f-eea9-46b9-9996-0620a1af384b removed
+8.251s [spawn     ] Spawned FlashSq
+8.270s [important ] Object 30433584-21b2-4bbe-9c15-2b5e68efc457 removed
+8.279s [spawn     ] Spawned FlashSq
+8.310s [important ] Object 92484e6d-d6bc-49e0-ba49-bec3b52d9e9c removed
+8.340s [important ] Object fc604baf-8e3a-4474-86a1-f170e25d1f9b removed
+8.353s [important ] Object ef58a8ff-7a1c-4d74-94db-59d29e013ccf removed
+8.379s [important ] Object 968257eb-6e4d-427a-afa5-23f128362cf9 removed
+8.413s [spawn     ] Spawned Ship
+8.437s [spawn     ] Spawned Enemy
+8.454s [game      ] Updated userData hash from 0f06ce62-14c4-4707-adde-a565fee8d81a to 73caafc6-322d-4fce-a348-e0e7d777d301
+8.470s [spawn     ] Spawned Ship
+8.504s [spawn     ] Spawned Enemy
+8.534s [game      ] Updated userData hash from 9beab551-42a7-44ab-894d-0b844ce378a5 to 2207b23d-b1d9-4bfa-a050-2664c01aeff0
+8.553s [spawn     ] Spawned Ship
+8.564s [spawn     ] Spawned Enemy
+8.599s [game      ] Updated userData hash from f88e329e-9d93-410e-a3f5-a974be222859 to ae659dee-60ec-4765-a3e1-34f33a4e145a
+8.621s [spawn     ] Spawned Ship
+8.660s [spawn     ] Spawned Enemy
+8.679s [game      ] Updated userData hash from 2c2fcc8e-8978-46ee-96b4-5887694506f9 to 80a5840c-6cad-4a68-a66c-6edbb5381cdb
+8.721s [spawn     ] Spawned Ship
+8.728s [spawn     ] Spawned Enemy
+8.734s [game      ] Updated userData hash from d0a2abc2-7f23-4219-acce-0ed4d5b3bd56 to 4a2727cb-6a60-4eac-812c-e35b2c2deb60
+8.744s [spawn     ] Spawned Ship
+8.758s [spawn     ] Spawned Enemy
+8.764s [game      ] Updated userData hash from 609081ca-c518-4b74-9167-b607c5055e0b to 9f704428-834b-467d-8fa0-29aefe8b19bf
+8.783s [spawn     ] Spawned Ship
+8.796s [spawn     ] Spawned Enemy
+8.811s [game      ] Updated userData hash from 75eb60a1-299c-4821-85ad-6ea2ba0dfb65 to cc9f1443-6b7d-46b0-b86d-4e0111ef9815
+8.827s [spawn     ] Spawned Ship
+8.844s [spawn     ] Spawned Enemy
+8.860s [game      ] Updated userData hash from 98bc2546-a049-430f-8c7e-7e8fff70a3fe to 7efd168d-9166-4a53-b729-e803f0f7ae80
+8.890s [spawn     ] Spawned Ship
+8.909s [spawn     ] Spawned Enemy
+8.919s [game      ] Updated userData hash from f7307ffc-cb58-4b6f-8b38-da3013fd4bc5 to 4a8f8e3e-9067-48c8-aecc-7525fcc6ab10
+8.942s [spawn     ] Spawned Ship
+8.966s [spawn     ] Spawned Enemy
+8.973s [game      ] Updated userData hash from 036e6552-90de-4571-876e-ae70df73facc to 2b27d82b-b55b-4806-b4b3-5e4a1119bb51
+8.995s [important ] beginContact() triggered
+9.038s [collision ] -> Enemy, k: 2207b23d-b1d9-4bfa-a050-2664c01aeff0
+9.075s [collision ] -> Asteroid, k: 489d0885-48ef-4ad1-bf63-9f4ccfd86a9f
+9.092s [important ] beginContact() triggered
+9.100s [collision ] -> Enemy, k: cc9f1443-6b7d-46b0-b86d-4e0111ef9815
+9.122s [collision ] -> ChainPhysicsShape, k: f68747e3-4102-411f-9f66-bcbc96c76128
+9.131s [important ] beginContact() triggered
+9.138s [collision ] -> Enemy, k: 9f704428-834b-467d-8fa0-29aefe8b19bf
+9.160s [collision ] -> ChainPhysicsShape, k: f68747e3-4102-411f-9f66-bcbc96c76128
+9.168s [important ] beginContact() triggered
+9.186s [collision ] -> Enemy, k: 9f704428-834b-467d-8fa0-29aefe8b19bf
+9.198s [collision ] -> ChainPhysicsShape, k: f68747e3-4102-411f-9f66-bcbc96c76128
+9.207s [important ] beginContact() triggered
+9.227s [collision ] -> Enemy, k: 73caafc6-322d-4fce-a348-e0e7d777d301
+9.237s [collision ] -> ChainPhysicsShape, k: f68747e3-4102-411f-9f66-bcbc96c76128
+9.260s [important ] beginContact() triggered
+9.270s [collision ] -> Enemy, k: 9f704428-834b-467d-8fa0-29aefe8b19bf
+9.294s [collision ] -> ChainPhysicsShape, k: f68747e3-4102-411f-9f66-bcbc96c76128
+9.305s [important ] beginContact() triggered
+9.328s [collision ] -> Enemy, k: 2b27d82b-b55b-4806-b4b3-5e4a1119bb51
+9.334s [collision ] -> Asteroid, k: 78bfda6f-3fe8-48ab-b77c-559e305e089b
+9.360s [important ] beginContact() triggered
+9.367s [collision ] -> Enemy, k: 80a5840c-6cad-4a68-a66c-6edbb5381cdb
+9.375s [collision ] -> Asteroid, k: 2319b1c3-75f2-4573-a21c-b6050a4854df
+9.404s [important ] beginContact() triggered
+9.429s [collision ] -> Enemy, k: cc9f1443-6b7d-46b0-b86d-4e0111ef9815
+9.438s [collision ] -> Enemy, k: 9f704428-834b-467d-8fa0-29aefe8b19bf
+9.455s [important ] beginContact() triggered
+9.464s [collision ] -> Enemy, k: 2b27d82b-b55b-4806-b4b3-5e4a1119bb51
+9.471s [collision ] -> Enemy, k: ae659dee-60ec-4765-a3e1-34f33a4e145a
+9.498s [important ] beginContact() triggered
+9.510s [collision ] -> Enemy, k: cc9f1443-6b7d-46b0-b86d-4e0111ef9815
+9.525s [collision ] -> Asteroid, k: 0621d6f5-e87d-4101-8230-30cbb90e31a6
+9.546s [important ] beginContact() triggered
+9.584s [collision ] -> Enemy, k: 4a2727cb-6a60-4eac-812c-e35b2c2deb60
+9.602s [collision ] -> Asteroid, k: b92c31d2-cc3f-458b-b1c6-92d45769e8a3
+9.627s [important ] beginContact() triggered
+9.636s [collision ] -> Enemy, k: 73caafc6-322d-4fce-a348-e0e7d777d301
+9.656s [collision ] -> Asteroid, k: b9b8c508-03ae-429f-b796-2959fc68a33b
+9.666s [important ] beginContact() triggered
+9.685s [collision ] -> Enemy, k: 4a8f8e3e-9067-48c8-aecc-7525fcc6ab10
+9.716s [collision ] -> Asteroid, k: 287ea81e-ccdf-4c0e-98da-06e2c7ce8f89
+9.737s [important ] beginContact() triggered
+9.746s [collision ] -> Enemy, k: 9f704428-834b-467d-8fa0-29aefe8b19bf
+9.757s [collision ] -> ChainPhysicsShape, k: f68747e3-4102-411f-9f66-bcbc96c76128
+9.778s [important ] beginContact() triggered
+9.800s [collision ] -> Enemy, k: 9f704428-834b-467d-8fa0-29aefe8b19bf
+9.819s [collision ] -> ChainPhysicsShape, k: f68747e3-4102-411f-9f66-bcbc96c76128
+9.843s [important ] beginContact() triggered
+9.888s [collision ] -> Enemy, k: 9f704428-834b-467d-8fa0-29aefe8b19bf
+9.907s [collision ] -> ChainPhysicsShape, k: f68747e3-4102-411f-9f66-bcbc96c76128
+9.927s [important ] beginContact() triggered
+9.982s [collision ] -> Enemy, k: 9f704428-834b-467d-8fa0-29aefe8b19bf
+10.00s [collision ] -> ChainPhysicsShape, k: f68747e3-4102-411f-9f66-bcbc96c76128
+10.03s [important ] beginContact() triggered
+10.04s [collision ] -> Enemy, k: cc9f1443-6b7d-46b0-b86d-4e0111ef9815
+10.05s [collision ] -> Asteroid, k: c77af81e-bf66-4165-91cf-fb93ee772c40
+10.07s [important ] beginContact() triggered
+10.07s [collision ] -> Enemy, k: 9f704428-834b-467d-8fa0-29aefe8b19bf
+10.08s [collision ] -> ChainPhysicsShape, k: f68747e3-4102-411f-9f66-bcbc96c76128
+10.10s [game      ] Quitting...
+0.032s [inherit   ] Object was inherited by PhysicsObject
+0.050s [inherit   ] PhysicsObject was inherited by PolygonPhysicsShape
+0.075s [inherit   ] PhysicsObject was inherited by CirclePhysicsShape
+0.097s [inherit   ] PhysicsObject was inherited by ChainPhysicsShape
+0.144s [inherit   ] Object was inherited by Particle
+0.265s [inherit   ] Object was inherited by FlashSq
+0.286s [inherit   ] Object was inherited by LineExplosion
+0.309s [inherit   ] Object was inherited by Entity
+0.332s [inherit   ] PolygonPhysicsShape was inherited by Ship
+0.358s [inherit   ] Entity was inherited by Player
+0.387s [inherit   ] PolygonPhysicsShape was inherited by Asteroid
+0.409s [inherit   ] PolygonPhysicsShape was inherited by Projectile
+0.428s [inherit   ] Projectile was inherited by Bullet
+0.446s [inherit   ] CirclePhysicsShape was inherited by Shield
+0.468s [inherit   ] Entity was inherited by Enemy
+0.486s [inherit   ] PolygonPhysicsShape was inherited by Pickup
+0.537s [inherit   ] Projectile was inherited by Missile
+2.773s [game      ] Created Box2D World: 0x028eccd0
+2.798s [game      ] CameraManager created
+2.880s [spawn     ] Spawned ChainPhysicsShape
+2.886s [spawn     ] Spawned Ship
+2.893s [spawn     ] Spawned Player
+2.897s [game      ] Updated userData hash from a1133877-6515-40c7-b055-d69d7b8efe40 to Player
+2.921s [spawn     ] Spawned Shield
+2.932s [game      ] Camera setLockTarget -> Player
+2.944s [spawn     ] Spawned Asteroid
+2.964s [spawn     ] Spawned Asteroid
+2.976s [spawn     ] Spawned Asteroid
+2.987s [spawn     ] Spawned Asteroid
+2.997s [spawn     ] Spawned Asteroid
+3.002s [spawn     ] Spawned Asteroid
+3.006s [spawn     ] Spawned Asteroid
+3.011s [spawn     ] Spawned Asteroid
+3.016s [spawn     ] Spawned Asteroid
+3.022s [spawn     ] Spawned Asteroid
+3.028s [spawn     ] Spawned Asteroid
+3.032s [spawn     ] Spawned Asteroid
+3.040s [spawn     ] Spawned Asteroid
+3.045s [spawn     ] Spawned Asteroid
+3.065s [spawn     ] Spawned Asteroid
+3.078s [spawn     ] Spawned Asteroid
+3.094s [spawn     ] Spawned Asteroid
+3.098s [spawn     ] Spawned Asteroid
+3.117s [spawn     ] Spawned Asteroid
+3.130s [spawn     ] Spawned Asteroid
+3.140s [spawn     ] Spawned Asteroid
+3.150s [spawn     ] Spawned Asteroid
+3.158s [spawn     ] Spawned Asteroid
+3.163s [spawn     ] Spawned Asteroid
+3.172s [spawn     ] Spawned Asteroid
+3.189s [spawn     ] Spawned Asteroid
+3.193s [spawn     ] Spawned Asteroid
+3.199s [spawn     ] Spawned Asteroid
+3.217s [spawn     ] Spawned Asteroid
+3.228s [spawn     ] Spawned Asteroid
+3.243s [spawn     ] Spawned Asteroid
+3.254s [spawn     ] Spawned Asteroid
+3.262s [spawn     ] Spawned Asteroid
+3.273s [spawn     ] Spawned Asteroid
+3.283s [spawn     ] Spawned Asteroid
+3.295s [spawn     ] Spawned Asteroid
+3.306s [spawn     ] Spawned Asteroid
+3.318s [spawn     ] Spawned Asteroid
+3.327s [spawn     ] Spawned Asteroid
+3.339s [spawn     ] Spawned Asteroid
+3.350s [spawn     ] Spawned Asteroid
+3.362s [spawn     ] Spawned Asteroid
+3.370s [spawn     ] Spawned Asteroid
+3.382s [spawn     ] Spawned Asteroid
+3.391s [spawn     ] Spawned Asteroid
+3.401s [spawn     ] Spawned Asteroid
+3.414s [spawn     ] Spawned Asteroid
+3.425s [spawn     ] Spawned Asteroid
+3.436s [spawn     ] Spawned Asteroid
+3.446s [spawn     ] Spawned Asteroid
+3.459s [spawn     ] Spawned Pickup
+3.468s [spawn     ] Spawned Pickup
+3.480s [spawn     ] Spawned Pickup
+3.490s [spawn     ] Spawned Pickup
+3.504s [spawn     ] Spawned Pickup
+3.514s [spawn     ] Spawned Pickup
+3.528s [spawn     ] Spawned Pickup
+3.537s [spawn     ] Spawned Pickup
+3.550s [spawn     ] Spawned Pickup
+3.563s [spawn     ] Spawned Pickup
+3.573s [spawn     ] Spawned Missile
+3.583s [spawn     ] Spawned FlashSq
+3.603s [spawn     ] Spawned FlashSq
+3.620s [important ] Object 1 removed
+3.638s [game      ] Collision callbacks active
+3.653s [important ] Object db8bba25-2d7a-450b-86e0-a1fae3a28c3a removed
+3.669s [important ] Object fa2c64b9-58da-455f-803e-8f4e4c5bed26 removed
+3.686s [important ] beginContact() triggered
+3.695s [collision ] -> Pickup, k: 97de217b-24fc-43ab-b62d-77e8d7652fd5
+3.699s [collision ] -> Asteroid, k: 592b8aed-cfd5-4a16-87da-473714d7f035
+4.477s [important ] beginContact() triggered
+4.489s [collision ] -> Asteroid, k: e548ee76-aee1-4986-b114-0a554fc88461
+4.494s [collision ] -> Player, k: Player
+5.015s [spawn     ] Spawned Bullet
+5.033s [spawn     ] Spawned Bullet
+5.050s [spawn     ] Spawned Bullet
+5.062s [important ] beginContact() triggered
+5.071s [collision ] -> Bullet, k: 87301316-26df-4068-bf72-1e8bbba6a1c9
+5.078s [important ] Object 87301316-26df-4068-bf72-1e8bbba6a1c9 removed
+5.092s [spawn     ] Spawned Bullet
+5.115s [spawn     ] Spawned Bullet
+5.124s [spawn     ] Spawned Bullet
+5.135s [important ] beginContact() triggered
+5.143s [collision ] -> Bullet, k: fd3f1d46-08de-4186-8e32-228aa383eeca
+5.154s [important ] Object fd3f1d46-08de-4186-8e32-228aa383eeca removed
+5.162s [spawn     ] Spawned Bullet
+5.180s [important ] beginContact() triggered
+5.186s [collision ] -> Bullet, k: 7f2471e1-eb09-454a-bc43-1cdfd3f981a4
+5.192s [important ] Object 7f2471e1-eb09-454a-bc43-1cdfd3f981a4 removed
+5.197s [spawn     ] Spawned Bullet
+5.203s [spawn     ] Spawned Bullet
+5.213s [spawn     ] Spawned Bullet
+5.219s [spawn     ] Spawned Bullet
+5.230s [spawn     ] Spawned Bullet
+5.240s [spawn     ] Spawned Bullet
+5.246s [important ] beginContact() triggered
+5.253s [collision ] -> Asteroid, k: e548ee76-aee1-4986-b114-0a554fc88461
+5.257s [collision ] -> Asteroid, k: 1c8d9596-3b6c-473e-aafd-a4c3c7d59b77
+5.263s [spawn     ] Spawned Bullet
+5.277s [spawn     ] Spawned Bullet
+5.289s [spawn     ] Spawned Bullet
+5.299s [spawn     ] Spawned Bullet
+5.315s [spawn     ] Spawned Bullet
+5.324s [important ] beginContact() triggered
+5.329s [collision ] -> Bullet, k: 55a5133e-e281-4df3-a903-dc0b1b9218e9
+5.338s [important ] beginContact() triggered
+5.343s [collision ] -> Bullet, k: 2aa4f6c8-b579-40ab-bb29-8b275e0a1ebd
+5.354s [game      ] Asteroid breaking up into 2 parts
+5.359s [spawn     ] Spawned FlashSq
+5.364s [spawn     ] Spawned FlashSq
+5.370s [spawn     ] Spawned FlashSq
+5.381s [spawn     ] Spawned FlashSq
+5.387s [spawn     ] Spawned FlashSq
+5.393s [spawn     ] Spawned FlashSq
+5.404s [spawn     ] Spawned FlashSq
+5.409s [important ] beginContact() triggered
+5.416s [collision ] -> Bullet, k: 25ba7d95-1c45-4db7-b6ab-0f13ab4949b6
+5.424s [game      ] Asteroid breaking up into 1 parts
+5.430s [spawn     ] Spawned FlashSq
+5.436s [spawn     ] Spawned FlashSq
+5.442s [spawn     ] Spawned FlashSq
+5.449s [spawn     ] Spawned FlashSq
+5.455s [spawn     ] Spawned FlashSq
+5.462s [spawn     ] Spawned FlashSq
+5.471s [spawn     ] Spawned FlashSq
+5.477s [important ] beginContact() triggered
+5.484s [collision ] -> Bullet, k: c6f0dd8b-5927-490e-99c2-23daa119cd2b
+5.492s [game      ] Asteroid breaking up into 1 parts
+5.497s [spawn     ] Spawned FlashSq
+5.507s [spawn     ] Spawned FlashSq
+5.514s [spawn     ] Spawned FlashSq
+5.520s [spawn     ] Spawned FlashSq
+5.529s [spawn     ] Spawned FlashSq
+5.535s [spawn     ] Spawned FlashSq
+5.544s [spawn     ] Spawned FlashSq
+5.549s [important ] Object c6f0dd8b-5927-490e-99c2-23daa119cd2b removed
+5.556s [spawn     ] Spawned Asteroid
+5.565s [important ] Object 25ba7d95-1c45-4db7-b6ab-0f13ab4949b6 removed
+5.571s [spawn     ] Spawned Asteroid
+5.576s [important ] Object 2aa4f6c8-b579-40ab-bb29-8b275e0a1ebd removed
+5.584s [important ] Object e548ee76-aee1-4986-b114-0a554fc88461 removed
+5.600s [spawn     ] Spawned Asteroid
+5.616s [spawn     ] Spawned Asteroid
+5.622s [important ] Object 55a5133e-e281-4df3-a903-dc0b1b9218e9 removed
+5.630s [spawn     ] Spawned Bullet
+5.644s [important ] beginContact() triggered
+5.661s [collision ] -> Asteroid, k: 6197ef14-0386-4887-a563-ffc93e68b8e5
+5.669s [collision ] -> Asteroid, k: 268a0023-d8d2-4bed-ae35-f21d707bc57a
+5.675s [important ] beginContact() triggered
+5.681s [collision ] -> Asteroid, k: 6197ef14-0386-4887-a563-ffc93e68b8e5
+5.688s [collision ] -> Asteroid, k: 20c47214-4a50-4a51-b555-108908542964
+5.694s [important ] beginContact() triggered
+5.701s [collision ] -> Asteroid, k: 268a0023-d8d2-4bed-ae35-f21d707bc57a
+5.710s [collision ] -> Asteroid, k: 20c47214-4a50-4a51-b555-108908542964
+5.717s [important ] beginContact() triggered
+5.723s [collision ] -> Asteroid, k: 6197ef14-0386-4887-a563-ffc93e68b8e5
+5.733s [collision ] -> Asteroid, k: ef99deac-14eb-4a0b-bb08-7bf19bca37cd
+5.747s [important ] beginContact() triggered
+5.756s [collision ] -> Asteroid, k: 268a0023-d8d2-4bed-ae35-f21d707bc57a
+5.766s [collision ] -> Asteroid, k: ef99deac-14eb-4a0b-bb08-7bf19bca37cd
+5.786s [important ] beginContact() triggered
+5.806s [collision ] -> Asteroid, k: 20c47214-4a50-4a51-b555-108908542964
+5.812s [collision ] -> Asteroid, k: ef99deac-14eb-4a0b-bb08-7bf19bca37cd
+5.819s [important ] beginContact() triggered
+5.835s [collision ] -> Bullet, k: ecbdf672-7a55-43e1-bdb4-f67502cff45b
+5.840s [important ] Object ecbdf672-7a55-43e1-bdb4-f67502cff45b removed
+5.847s [important ] beginContact() triggered
+5.853s [collision ] -> Bullet, k: b6a787db-3e6f-43a9-ab9c-92bac825f0a1
+5.859s [spawn     ] Spawned FlashSq
+5.865s [spawn     ] Spawned FlashSq
+5.870s [important ] Object b6a787db-3e6f-43a9-ab9c-92bac825f0a1 removed
+5.878s [important ] Object 268a0023-d8d2-4bed-ae35-f21d707bc57a removed
+5.886s [important ] beginContact() triggered
+5.901s [collision ] -> Bullet, k: 1ff5d96e-80ee-4f89-a5b8-a2859d39db2d
+5.907s [important ] Object 1ff5d96e-80ee-4f89-a5b8-a2859d39db2d removed
+5.915s [important ] Object f63da64c-a5df-4016-9dc1-eb8d50fce1f1 removed
+5.923s [important ] Object 121d66ab-a0cf-4ed7-8b50-10f50111f071 removed
+5.929s [important ] Object 6658b3cf-e0ba-40ec-8e9e-7826d479b3e1 removed
+5.939s [important ] Object ae0dda69-722c-4f17-8be8-12342fc12781 removed
+5.944s [important ] Object 2da56e8b-972a-4bc1-a3cd-1a15bdbf51d9 removed
+5.950s [important ] Object 478855a0-7773-4e07-aa2c-651570726cb5 removed
+5.955s [important ] Object 2090d898-00dc-4123-b339-f7b0668f7919 removed
+5.962s [important ] Object 2ae6ff60-1a3e-4a98-882f-c4aa629268b4 removed
+5.967s [important ] Object d90f7bf1-e660-4777-9b64-c948b38cb849 removed
+5.981s [important ] Object 47f5f30b-0ca7-4544-933b-7f4800ea7878 removed
+6.005s [important ] Object 549844a0-e5a5-4ee6-adba-81511dfb959e removed
+6.013s [important ] Object 6c18c71b-48ea-4203-a054-0e38dddaa771 removed
+6.023s [important ] Object bf7e3660-f3ac-4086-86d7-1d849d1ab4ed removed
+6.028s [important ] Object 1920235e-709a-44a2-82e4-2917196f78db removed
+6.036s [important ] Object 7cae421c-24bf-451f-9289-4b175321e196 removed
+6.046s [important ] Object d27e0ad9-10f1-43bc-a670-a58b22cbf18f removed
+6.052s [important ] Object 6436d5e6-7ccb-4429-851a-6997a9eb8cca removed
+6.059s [spawn     ] Spawned FlashSq
+6.069s [spawn     ] Spawned FlashSq
+6.075s [important ] Object 39d49690-1860-4bcb-a50a-b8f412fc03dd removed
+6.083s [important ] Object 2c089396-284b-4523-9593-bac0a710c599 removed
+6.106s [spawn     ] Spawned FlashSq
+6.125s [important ] Object 1fb96160-8ae4-4637-8e04-53b5c2801954 removed
+6.133s [important ] Object 5ba863d5-a06d-490b-b6ff-a9eaf909dee9 removed
+6.147s [important ] Object 5e241cc9-e5ff-4f07-b63b-4b1f2b65d685 removed
+6.154s [important ] Object 7c8d9e60-fb6e-4f7b-b466-779ae1f7263c removed
+6.161s [important ] Object 9bbe1e57-2cb4-4091-bd4d-ea054db76bb3 removed
+6.171s [spawn     ] Spawned FlashSq
+6.178s [important ] Object d65b2ce2-c8cc-491e-8437-9309a1c5927f removed
+6.185s [spawn     ] Spawned FlashSq
+6.196s [important ] Object e492c080-e15c-468f-a9ec-97c8f1fe290f removed
+6.203s [spawn     ] Spawned FlashSq
+6.211s [important ] Object ab7adc25-284f-4273-b99c-ba93d28a4645 removed
+6.222s [important ] Object bb41d86c-e706-46b1-bea1-1b847bd3c3c1 removed
+6.232s [important ] Object 1ac915ab-fead-4954-9079-719d768e773a removed
+6.240s [spawn     ] Spawned FlashSq
+6.250s [important ] Object 7a505528-ccc7-4aba-835a-3d5e3e3c28b2 removed
+6.257s [spawn     ] Spawned FlashSq
+6.264s [important ] beginContact() triggered
+6.273s [collision ] -> Asteroid, k: ef99deac-14eb-4a0b-bb08-7bf19bca37cd
+6.278s [collision ] -> Player, k: Player
+6.286s [important ] beginContact() triggered
+6.293s [collision ] -> Asteroid, k: ef99deac-14eb-4a0b-bb08-7bf19bca37cd
+6.304s [collision ] -> Player, k: Player
+6.313s [important ] Object 56d77eb8-3f33-4c67-8700-6b6dde581729 removed
+6.323s [important ] beginContact() triggered
+6.330s [collision ] -> Asteroid, k: 6197ef14-0386-4887-a563-ffc93e68b8e5
+6.339s [collision ] -> Player, k: Player
+6.348s [spawn     ] Spawned FlashSq
+6.359s [important ] Object fa424e8a-f10f-44a0-a0ac-e5b9216dbee9 removed
+6.376s [important ] beginContact() triggered
+6.384s [collision ] -> Asteroid, k: ef99deac-14eb-4a0b-bb08-7bf19bca37cd
+6.392s [collision ] -> Player, k: Player
+6.402s [important ] beginContact() triggered
+6.411s [collision ] -> Asteroid, k: ef99deac-14eb-4a0b-bb08-7bf19bca37cd
+6.420s [collision ] -> Player, k: Player
+6.427s [important ] Object 0ca22635-0912-480a-9648-2ec58168d798 removed
+6.447s [important ] beginContact() triggered
+6.452s [collision ] -> Asteroid, k: 6197ef14-0386-4887-a563-ffc93e68b8e5
+6.461s [collision ] -> Player, k: Player
+6.468s [important ] Object 326c4394-a35a-487d-934a-55472eaef4da removed
+6.475s [important ] Object cfde6d13-ace0-4ac8-9059-06af6b891730 removed
+6.485s [important ] Object e91ce938-93b5-45c1-85ae-5b9cf95ae279 removed
+6.496s [important ] Object 790c9de4-5d46-49e3-91af-fcfc62a5bb2a removed
+6.524s [important ] Object 901a1489-b616-4930-b956-0d4116b24a56 removed
+6.537s [important ] Object dc362cef-732f-4d77-b57f-4c9819d76406 removed
+6.548s [important ] Object 41ca08a1-9e58-4a25-bd07-e6c91228548c removed
+6.559s [game      ] Quitting...
+0.032s [inherit   ] Object was inherited by PhysicsObject
+0.052s [inherit   ] PhysicsObject was inherited by PolygonPhysicsShape
+0.073s [inherit   ] PhysicsObject was inherited by CirclePhysicsShape
+0.094s [inherit   ] PhysicsObject was inherited by ChainPhysicsShape
+0.125s [inherit   ] Object was inherited by Particle
+0.251s [inherit   ] Object was inherited by FlashSq
+0.272s [inherit   ] Object was inherited by LineExplosion
+0.290s [inherit   ] Object was inherited by Entity
+0.313s [inherit   ] PolygonPhysicsShape was inherited by Ship
+0.336s [inherit   ] Entity was inherited by Player
+0.357s [inherit   ] PolygonPhysicsShape was inherited by Asteroid
+0.377s [inherit   ] PolygonPhysicsShape was inherited by Projectile
+0.393s [inherit   ] Projectile was inherited by Bullet
+0.416s [inherit   ] CirclePhysicsShape was inherited by Shield
+0.440s [inherit   ] Entity was inherited by Enemy
+0.459s [inherit   ] PolygonPhysicsShape was inherited by Pickup
+0.476s [inherit   ] Projectile was inherited by Missile
+2.470s [game      ] Quitting...

@@ -17,7 +17,7 @@ Debugger.log = (message, genre) ->
   -- time = string.sub(time .. "           ", 1, 5).. "s "
   -- str = time .. "[" .. tostring(genre .. string.rep(" ", 10-#genre)) .. "] " .. message
   -- print(str)
-  -- os.execute("echo '" .. str .. "' >> log.txt")
+  -- -- os.execute("echo '" .. str .. "' >> log.txt")
 
 Debugger.keypressed = (key) ->
 

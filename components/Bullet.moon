@@ -18,7 +18,7 @@ class Bullet extends Projectile
     super\draw()
 
   beginContact: (other) =>
-    -- super\beginContact(other)
+    super\beginContact(other)
     other_object = lssx.objects[other\getBody()\getUserData().hash]
     switch other_object.__class.__name
       -- when "Player"

@@ -23,10 +23,12 @@ Director.gameStart = () ->
   lssx.SHOW_INSTRUCTIONS = true
   Timer.after 5, ->  
     lssx.SHOW_INSTRUCTIONS = false
-    for i=1, 10 do
+    for i=1, 1 do
       Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10) 
+
     Timer.every 0.5, ->
       Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10) 
+    
     Timer.every 2, ->
       Pickup(math.random(2000), math.random(2000))
       Asteroid(100+math.random(1800), 100+math.random(1800))
@@ -66,7 +68,7 @@ Director.draw = () ->
 
 Director.getStats = () ->
   if Director.results.canUpdateStats == false then return
-  lssx.SCORE = lssx.SCORE + (lssx.KILLS*500)
+  lssx.SCORE = lssx.SCORE + (lssx.KILLS*1000)
   Director.results.strings = {
     "A critical system error has occured.  ",
     "TIME SURVIVED : " .. tostring(math.floor(love.timer.getTime()-lssx.INIT_TIME, 3)*(10^(2)+0.5)/10^(2)) ..  " sec",
@@ -87,6 +89,8 @@ Director.getStats = () ->
 Director.calculateRank = () ->
   rank = ""
   if lssx.SCORE > 200000
+    rank = "ACE"
+  elseif lssx.SCORE > 200000
     rank = "SS"
   elseif lssx.SCORE > 150000
     rank = "S"

@@ -55,7 +55,6 @@ Game = {}
 Game.init = () =>
   Physics.load()
   Background.load()
-  -- SPFX.load()
   CameraManager.load(1000, 1000)
 
 Game.enter = (previous) =>
@@ -63,7 +62,6 @@ Game.enter = (previous) =>
   love.graphics.setDefaultFilter("nearest","nearest")
   Director.load()
   Director.gameStart()
-  -- Enemy(Ship(lssx.world, 900, 1000, "dynamic"), 10)  
  
 Game.update = (dt) =>
   if lssx.PAUSE then return
@@ -225,7 +223,7 @@ Splash.update = (dt) =>
 Splash.draw = () =>
   SPFX.effect ->
     splashy.draw()
-    -- love.graphics.print("Press 'space' to skip.", 10, config.h-20)
+    love.graphics.print("Press 'space' to skip.", 10, config.h-20)
 
 Splash.keypressed = (key) =>
   if key == "space"
@@ -244,7 +242,6 @@ love.load = () ->
   Timer.after 1.5, ->
     Gamestate.registerEvents()
     Gamestate.switch(Splash)
-
   -- Gamestate.registerEvents()
   -- Gamestate.switch(Game)
 

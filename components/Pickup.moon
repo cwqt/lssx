@@ -9,19 +9,24 @@ class Pickup extends PolygonPhysicsShape
       "HP"
     }
 
-
     @type = types[math.random(#types)]
 
     @color = {255,255,255}
     switch @type
       when "oxygen"
         @color = {0,0,255}
+        @t = 10
       when "fuel"
         @color = {255,255,0}
+        @t = 5
       when "ammo"
         @color = {255,0,0}
+        @t = 20
       when "HP"
         @color = {0,255,0}
+        @t = 15
+
+    Timer.every @t, -> @remove()
 
     @body\applyAngularImpulse(50)
     @config = {
@@ -53,5 +58,14 @@ class Pickup extends PolygonPhysicsShape
         @fixture\setSensor(true)
         lx, ly = @body\getWorldCenter()
         LineExplosion(lx, ly, 10)
-        other_object[@type] += 10
+        lssx.SCORE += 2500
+        switch @type
+          when "ammo"
+            other_object[@type] += 100
+          when "oxygen"
+            other_object[@type] += 25
+          when "fuel"
+            other_object[@type] += 25
+          when "HP"
+            other_object[@type] += 10
         @remove()
