@@ -1,5 +1,5 @@
 # zephyr
-A Box2D-focused engine for lssx.
+A Box2D wrapper for lssx.
 
 ```moon
 Physics.beginContact = (a, b, coll) ->
