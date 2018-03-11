@@ -1,6 +1,5 @@
 HUD = {}
 HUD.elements = {}
-HUD.elements.active = {}
 HUD.elements.crosses = {
   Cross(40, 30)
   Cross(1060, 30)
@@ -18,6 +17,7 @@ HUD.load = (player) ->
 
   HUD.player = player
   HUD.hash   = player.hash
+  HUD.elements.active = {}
   HUD.elements.bar(0,   lssx.W_HEIGHT-80, HUD.player, "HP",     {0,255,0},   {102,204,0})
   HUD.elements.bar(150, lssx.W_HEIGHT-80, HUD.player, "ammo",   {255,0,0},   {204,0,0})
   HUD.elements.bar(300, lssx.W_HEIGHT-80, HUD.player, "oxygen", {0,0,255},   {102,0,255})
@@ -88,7 +88,8 @@ class HUD.elements.bar
       love.graphics.setFont(lssx.TITLEF)
       love.graphics.print("SYSTEM CRITICAL", -210, 45)
       love.graphics.setFont(lssx.TEXTF)
-      -- love.graphics.print("CODE 102: LOW " .. string.upper(@value), -210, 95)
+      love.graphics.setColor(255,255,255)
+      love.graphics.print("CODE 102: LOW " .. string.upper(@value), -210, 95)
       lssx.camera\shake(1, 0.1)
       HUD.shake(1, 0.1)
       lssx.SPFX.CHROMASEP = math.random(10)

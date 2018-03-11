@@ -53,11 +53,12 @@ export Missile             = require("components/Missile")
 Game = {}
 
 Game.init = () =>
-  Physics.load()
   Background.load()
   CameraManager.load(1000, 1000)
 
 Game.enter = (previous) =>
+  lssx.PLAYER_DEAD = false
+  Physics.load()
   love.graphics.setLineStyle("smooth")
   love.graphics.setDefaultFilter("nearest","nearest")
   Director.load()
@@ -81,7 +82,7 @@ Game.draw = () =>
     Director.draw()
 
   love.graphics.setFont(lssx.TEXTF)
-  love.graphics.print("FPS: " .. love.timer.getFPS(), 10, 10)
+  -- love.graphics.print("FPS: " .. love.timer.getFPS(), 10, 10)
 
 Game.keypressed = (key) =>
   EntityManager.keypressed(key)
@@ -90,6 +91,14 @@ Game.keypressed = (key) =>
 Game.leave = () =>
   EntityManager.clear()
   print("Later alligator")
+
+-- ============================================================]]
+
+export Reset = {}
+Reset.enter = () =>
+  EntityManager.clear()
+  Gamestate.switch(Game)
+  lssx.SPFX.CHROMASEP = 0
 
 -- ============================================================]]
 
@@ -239,11 +248,11 @@ love.load = () ->
   SPFX.load() 
   bootSound = love.audio.newSource("assets/Boot.ogg", "stream")
   love.audio.play(bootSound)
-  Timer.after 1.5, ->
-    Gamestate.registerEvents()
-    Gamestate.switch(Splash)
-  -- Gamestate.registerEvents()
-  -- Gamestate.switch(Game)
+  -- Timer.after 1.5, ->
+  --   Gamestate.registerEvents()
+  --   Gamestate.switch(Splash)
+  Gamestate.registerEvents()
+  Gamestate.switch(Game)
 
 love.update = (dt) ->
   Timer.update(dt)

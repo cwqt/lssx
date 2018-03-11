@@ -3,7 +3,8 @@ EntityManager = {}
 EntityManager.clear = () ->
   for k, object in pairs(lssx.objects) do
     object\remove()
-
+  Physics.runBuffer()
+  
 EntityManager.update = (dt) ->
   for k, object in pairs(lssx.objects) do
     object\update(dt)

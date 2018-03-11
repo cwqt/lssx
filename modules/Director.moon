@@ -15,12 +15,18 @@ Director.gameStart = () ->
   Player(Ship(lssx.world, 1000, 1000, "dynamic"), 20, "Player")
   CameraManager.setLockTarget(lssx.objects["Player"])
   HUD.load(lssx.objects["Player"])
+
+  lssx.PLAYER_DEAD = false
+  lssx.SCORE = 0
+  lssx.KILLS = 0
+
   for i=1, 50
     Asteroid(100+math.random(1800), 100+math.random(1800))
   for i=1, 10 do 
     Pickup(math.random(2000), math.random(2000))
 
-  lssx.SHOW_INSTRUCTIONS = true
+  if lssx.FIRST_TIME 
+    lssx.SHOW_INSTRUCTIONS = true
   Timer.after 5, ->  
     lssx.SHOW_INSTRUCTIONS = false
     for i=1, 1 do
@@ -33,7 +39,7 @@ Director.gameStart = () ->
       Pickup(math.random(2000), math.random(2000))
       Asteroid(100+math.random(1800), 100+math.random(1800))
 
-  Missile(1100, 1000, 2, 1)
+  -- Missile(1100, 1000, 2, 1)
 
 Director.update = (dt) ->
 
@@ -110,7 +116,9 @@ Director.calculateRank = () ->
 
 Director.keypressed = (key) ->
   if Director.canRestart and key == ("kpenter" or "return")
-    love.event.quit( "restart" )
+    -- love.event.quit( "restart" )
+    Gamestate.switch(Reset)
+
   if key == "v"
     for i=1, 10
       LineExplosion(math.random(-100, 100)+1100, math.random(-100, 100)+1000, math.random(10)+4)  

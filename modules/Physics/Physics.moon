@@ -1,9 +1,12 @@
 Physics = {}
 
 Physics.load = () ->
+  Physics.buffer = {}
+  lssx.world = nil
   lssx.world = love.physics.newWorld(0, 0, true)
+  print(lssx.world)
   Debugger.log("Created Box2D " .. tostring(lssx.world))
-  lssx.world\setCallbacks(beginContact, endContact, preSolve, postSolve)
+  -- lssx.world\setCallbacks(beginContact, endContact, preSolve, postSolve)
   -- Prevent erroneous errors on startup.
   Timer.after 0.2, ->
     lssx.world\setCallbacks(Physics.beginContact, Physics.endContact, Physics.preSolve, Physics.postSolve)
@@ -13,7 +16,6 @@ Physics.update = (dt) ->
   lssx.world\update(dt)
   Physics.runBuffer()
 
-Physics.buffer = {}
 Physics.addToBuffer = (func, hash, isDestroyCommand) ->
   hash = hash or UUID()
   Physics.buffer[#Physics.buffer+1] = {func, hash}

@@ -21,6 +21,8 @@ export lssx = {
   SCALE: 1,
   W_HEIGHT: 600,
   W_WIDTH: 1100,
+  SHOW_INSTRUCTIONS: false
+  FIRST_TIME: true,
   PLAYER_DEAD: false
   PAUSE: false,
   TITLEF: love.graphics.newFont("assets/MainMenu/title.ttf", 50)

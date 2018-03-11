@@ -94,6 +94,7 @@ class Player extends Entity
     CameraManager.shake(200, 5, 5)
 
   die: () =>
+    lssx.FIRST_TIME = false
     SoundManager.playRandom("Death", 1)
     @ammo = 0
     @boost = 0
