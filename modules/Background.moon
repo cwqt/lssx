@@ -6,7 +6,6 @@ Background.load = () ->
 
 Background.draw = () ->
   love.graphics.setColor(60, 60, 60)
-
   Background.drawGrid(0, 0)
   Background.drawGrid(1000, 0)
   Background.drawGrid(0, 1000)

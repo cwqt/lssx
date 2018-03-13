@@ -35,5 +35,6 @@ class Bullet extends Projectile
         @remove()
       when "Enemy"
         if other\getCategory() == lssx.categories["Ship"]
+          LineExplosion(other_object.ship.x, other_object.ship.y)
           other_object\takeDamage(@damage)
           @remove()

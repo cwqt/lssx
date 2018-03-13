@@ -1,6 +1,6 @@
 class Pickup extends PolygonPhysicsShape
   new: (x, y, ...) =>
-    super({0,0, 30,0, 30,30, 0,30}, 1, lssx.world, x, y, "dynamic", ...)
+    super({0,0, 50,0, 50,50, 0,50}, 1, lssx.world, x, y, "dynamic", ...)
 
     types = {
       "oxygen",
@@ -33,9 +33,9 @@ class Pickup extends PolygonPhysicsShape
       s: 20
       r: 0
     }
-    flux.to(@config, 2, {s: 40, r:math.random(10)})\after(@config, 2, {s: 30, r: 0})
+    flux.to(@config, 2, {s: 40, r:math.random(10)})\after(@config, 2, {s: 50, r: 0})
     Timer.every 4, ->
-      flux.to(@config, 2, {s: 40, r:math.random(10)})\after(@config, 2, {s: 30, r: 0})
+      flux.to(@config, 2, {s: 40, r:math.random(10)})\after(@config, 2, {s: 50, r: 0})
 
   update: (dt) =>
     super\update()

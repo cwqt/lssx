@@ -18,6 +18,8 @@ class Enemy extends Entity
     -- @fovfix\setCategory(lssx.categories[""])
     @fovfix\setGroupIndex(lssx.groupIndices["Enemy"])
 
+    -- @ship.components["Shield"]  = Shield(10, 0, 0, lssx.groupIndices["Enemy"])
+
     @ship.body\setInertia(2)
 
     @state = "idle"
@@ -118,6 +120,8 @@ class Enemy extends Entity
       @ship\fire(lssx.groupIndices["Enemy"])
 
   die: () =>
+    SoundManager.playRandom("Kill", 1, 0.1)
+    GlitchText("KILL", 0.2, @ship.body\getX(), @ship.body\getY())
     lssx.KILLS += 1
     Physics.addToBuffer ->
       super\die()

@@ -5,6 +5,7 @@ class Shield extends CirclePhysicsShape
     @hp = hp
     @originalHP = hp
     @disabledTime = @originalHP/4
+    @color = {255,0,0}
 
     @fixture\setCategory(lssx.categories["Shield"])
     @fixture\setMask(unpack(lssx.masks["Shield"]))
@@ -18,6 +19,7 @@ class Shield extends CirclePhysicsShape
     @timer\update(dt)
 
   draw: () =>
+    love.graphics.setColor(@color)
     super\draw()
 
   takeDamage: (amount) =>
@@ -28,7 +30,7 @@ class Shield extends CirclePhysicsShape
           @body\setActive(false)
           lx, ly = @body\getPosition()
           for i=1, 40 do
-            Particle({0,205,205}, lx, ly, math.random(-10, 10)+lx,
+            Particle(@color, lx, ly, math.random(-10, 10)+lx,
                                           math.random(-10, 10)+ly,
                                           math.random(2, 5),
                                           math.random(5), 0.4)

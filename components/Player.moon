@@ -15,6 +15,11 @@ class Player extends Entity
     @boost = 10
 
     @ship.components["Shield"]  = Shield(10, 0, 0, lssx.groupIndices["Friendly"])
+    @ship.components["Shield"].color = {0,205,205}
+
+    -- aaahh fucking hell this code is getting spaghettified
+    @trailPositions = {}
+    @mouseTrailPositions = {}
 
   update: (dt) =>
     super\update(dt)
@@ -52,9 +57,10 @@ class Player extends Entity
     @fx = math.clamp(-200, @fx, 200)
     @fy = math.clamp(-200, @fy, 200)
 
-    if not love.mouse.isDown("1")
-      @ship.body\applyForce(@fx*0.8, @fy*1.2)
-      @fuel -= @v*0.0002
+    if not lssx.SHOW_INSTRUCTIONS
+      if not love.mouse.isDown("1") -- stationary
+        @ship.body\applyForce(@fx*0.8, @fy*1.2)
+        @fuel -= @v*0.0002
 
     -- Take some background O2 away, check it
     @oxygen -= 0.01
@@ -69,6 +75,7 @@ class Player extends Entity
       @fire()
 
 
+    -- background resourcing
     @HP += 0.01
     @ammo += 0.1
     @oxygen += 0.01
@@ -78,13 +85,43 @@ class Player extends Entity
     @fuel = math.clamp(0, @fuel, 100)
     @oxygen = math.clamp(0, @oxygen, 100)
 
+    
+    table.insert(@trailPositions, { x: @ship.body\getX(), y: @ship.body\getY()})
+    if #@trailPositions > 20 then
+       table.remove(@trailPositions, 1)
+
+    mx, my = lssx.camera\getMousePosition()
+    table.insert(@mouseTrailPositions, { x: mx, y: my})
+    if #@mouseTrailPositions > 8 then
+       table.remove(@mouseTrailPositions, 1)
+
     if @HP <= 0 @die()
 
 
   draw: () =>
+    love.graphics.setLineWidth(4)
+    for i = 1, #@trailPositions do
+      love.graphics.setColor(148,0,211, (255/(#@trailPositions)^2)*20*i)
+      ax = @trailPositions[i]
+      ay = @trailPositions[i]
+      bx = @trailPositions[i+1] or @trailPositions[i]
+      by = @trailPositions[i+1] or @trailPositions[i]
+      -- love.graphics.circle("fill", @trailPositions[i].x, @trailPositions[i].y, 2)
+      love.graphics.line(ax.x, ay.y, bx.x, by.y)
+    love.graphics.setLineWidth(1)
     love.graphics.setColor(255,255,255)
     super\draw()
     @ship\draw()
+
+    love.graphics.circle("fill", @mouseTrailPositions[#@mouseTrailPositions].x, @mouseTrailPositions[#@mouseTrailPositions].y, 5)
+    for i = 1, #@mouseTrailPositions do
+      love.graphics.setColor(0,205,205, (255/(#@mouseTrailPositions)^2)*20*i)
+      ax = @mouseTrailPositions[i]
+      ay = @mouseTrailPositions[i]
+      bx = @mouseTrailPositions[i+1] or @mouseTrailPositions[i]
+      by = @mouseTrailPositions[i+1] or @mouseTrailPositions[i]
+      -- love.graphics.circle("fill", @mouseTrailPositions[i].x, @mouseTrailPositions[i].y, 2)
+      love.graphics.line(ax.x, ay.y, bx.x, by.y)
 
   takeDamage: (amount) =>
     super\takeDamage(amount)
@@ -96,6 +133,7 @@ class Player extends Entity
   die: () =>
     lssx.FIRST_TIME = false
     SoundManager.playRandom("Death", 1)
+    TEsound.pitch("music", 0.8)
     @ammo = 0
     @boost = 0
     @fuel = 0
@@ -123,6 +161,8 @@ class Player extends Entity
       when "k"
         lssx.KILLS += 1
       when "w"
-        @ship.body\applyAngularImpulse(50)
+        SoundManager.playRandom("Boost", 1, 2)
+        @ship.body\applyLinearImpulse(50*math.cos(@ship.body\getAngle()), 50*math.sin(@ship.body\getAngle()))
+        -- @ship.body\applyAngularImpulse(50)
       -- when "f"
       --   @fire()

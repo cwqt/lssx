@@ -38,7 +38,7 @@ class Ship extends PolygonPhysicsShape
     super\remove()
 
   fire: (groupIndex) =>
-    SoundManager.playRandom("Laser_Shoot", 1)
+    SoundManager.playRandom("Laser_Shoot", 1, 0.3)
     xl, yl = @body\getWorldPoint(20,0)
     v = math.abs(@body\getLinearVelocity())*0.01+5
     a = @body\getAngle()+math.random(-10, 10)/50

@@ -11,8 +11,11 @@ Director.load = () ->
 Director.gameStart = () ->
   EntityManager.clear()
   SoundManager.playLooping("DONBOR.ogg")
+  TEsound.pitch("music", 1)
   ChainPhysicsShape({0,0,2000,0,2000,2000,0,2000}, 1, lssx.world, 0, 0, "static")
+
   Player(Ship(lssx.world, 1000, 1000, "dynamic"), 20, "Player")
+
   CameraManager.setLockTarget(lssx.objects["Player"])
   HUD.load(lssx.objects["Player"])
 
@@ -27,7 +30,7 @@ Director.gameStart = () ->
 
   if lssx.FIRST_TIME 
     lssx.SHOW_INSTRUCTIONS = true
-  Timer.after 5, ->  
+  Timer.after 8, ->  
     lssx.SHOW_INSTRUCTIONS = false
     for i=1, 1 do
       Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10) 
@@ -38,8 +41,6 @@ Director.gameStart = () ->
     Timer.every 2, ->
       Pickup(math.random(2000), math.random(2000))
       Asteroid(100+math.random(1800), 100+math.random(1800))
-
-  -- Missile(1100, 1000, 2, 1)
 
 Director.update = (dt) ->
 
@@ -58,7 +59,7 @@ Director.update = (dt) ->
 
 Director.draw = () ->
   if lssx.SHOW_INSTRUCTIONS
-    love.graphics.printf("'MOUSE' TO MOVE \n 'F' TO FIRE \n MOVE OR DIE. \n GOODLUCK PILOT.", 0, 100, 1100, "center")
+    love.graphics.printf("'MOUSE' TO MOVE \n 'F' TO FIRE \n 'W' TO BOOST \n\n MOVE OR DIE. \n GOODLUCK PILOT.", 0, 100, 1100, "center")
   if lssx.PLAYER_DEAD
     love.graphics.setColor(0,0,0,200)
     love.graphics.rectangle("fill",0,0,1150,600)

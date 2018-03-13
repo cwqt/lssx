@@ -26,6 +26,7 @@ export Background          = require("modules/Background")
 export Particle            = require("modules/Particle")
 export SPFX                = require("modules/SPFX")
 export Director            = require("modules/Director")
+export BackgroundShapes    = require("modules/BackgroundShapes")
 
 export CameraManager       = require("modules/CameraManager")
 export EntityManager       = require("modules/EntityManager")
@@ -35,6 +36,7 @@ export Cross               = require("modules/UI/Cross")
 export HUD                 = require("modules/UI/HUD")
 export FlashSq             = require("modules/UI/FlashSq")
 export LineExplosion       = require("modules/UI/LineExplosion")
+export GlitchText          = require("modules/UI/GlitchText")
 
 export Entity              = require("components/Entity")
 export Ship                = require("components/Ship")
@@ -63,6 +65,7 @@ Game.enter = (previous) =>
   love.graphics.setDefaultFilter("nearest","nearest")
   Director.load()
   Director.gameStart()
+  BackgroundShapes.load()
  
 Game.update = (dt) =>
   if lssx.PAUSE then return
@@ -75,6 +78,7 @@ Game.update = (dt) =>
 Game.draw = () =>
   SPFX.effect ->
     CameraManager.attach()
+    BackgroundShapes.draw()
     Background.draw()
     EntityManager.draw()
     CameraManager.detach()
@@ -244,15 +248,17 @@ Splash.leave = () =>
 -- ============================================================]]
 
 love.load = () ->
+  love.mouse.setVisible(false)
+  love.mouse.setGrabbed(true)
   Debugger.load()
   SPFX.load() 
   bootSound = love.audio.newSource("assets/Boot.ogg", "stream")
   love.audio.play(bootSound)
-  -- Timer.after 1.5, ->
-  --   Gamestate.registerEvents()
-  --   Gamestate.switch(Splash)
-  Gamestate.registerEvents()
-  Gamestate.switch(Game)
+  Timer.after 1.5, ->
+    Gamestate.registerEvents()
+    Gamestate.switch(Splash)
+  -- Gamestate.registerEvents()
+  -- Gamestate.switch(Game)
 
 love.update = (dt) ->
   Timer.update(dt)
