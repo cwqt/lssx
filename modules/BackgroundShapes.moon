@@ -25,7 +25,7 @@ BackgroundShapes = {}
 
 BackgroundShapes.load = () ->
   BackgroundShapes.shapes = {}
-  for i=1, 50
+  for i=1, 100
     u = UUID() 
     BackgroundShapes.shapes[u] = Rect(u)
 

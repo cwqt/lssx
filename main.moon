@@ -49,12 +49,14 @@ export Enemy               = require("components/Enemy")
 export Pickup              = require("components/Pickup")
 -- export AmmoPickup          = require("components/AmmoPickup")
 export Missile             = require("components/Missile")
+export Laser               = require("components/Laser")
 
 -- ============================================================]]
 
 Game = {}
 
 Game.init = () =>
+  SoundManager.playLooping("DONBOR.ogg")
   Background.load()
   CameraManager.load(1000, 1000)
 

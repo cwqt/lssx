@@ -75,7 +75,6 @@ class Player extends Entity
     if love.keyboard.isDown("f")
       @fire()
 
-
     -- background resourcing
     @HP += 0.01
     @ammo += 0.1

@@ -2,5 +2,6 @@ class Cross
   new: (@x, @y) =>
 
   draw: () =>
-    love.graphics.line(@x+0, @y+0, @x+0, @y+20)
-    love.graphics.line(@x+(-10), @y+10, @x+10, @y+10)
+    love.graphics.line(@x-10, @y, @x+10, @y)
+    love.graphics.line(@x, @y-10, @x, @y+10)
+

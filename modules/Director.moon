@@ -10,7 +10,6 @@ Director.load = () ->
 
 Director.gameStart = () ->
   EntityManager.clear()
-  SoundManager.playLooping("DONBOR.ogg")
   TEsound.pitch("music", 1)
   TEsound.pitch("alarm", 1)
   ChainPhysicsShape({0,0,2000,0,2000,2000,0,2000}, 1, lssx.world, 0, 0, "static")
@@ -59,17 +58,17 @@ Director.update = (dt) ->
 
 Director.draw = () ->
   if lssx.SHOW_INSTRUCTIONS
-    love.graphics.printf("'MOUSE' TO MOVE \n 'F' TO FIRE \n 'W' TO BOOST \n\n MOVE OR DIE. \n GOODLUCK PILOT.", 0, 100, 1100, "center")
+    love.graphics.printf("'MOUSE' TO MOVE \n 'F' TO FIRE \n 'W' TO BOOST \n\n MOVE OR DIE. \n GOODLUCK PILOT.", 0, love.graphics.getHeight()/4-20, love.graphics.getWidth(), "center")
   if lssx.PLAYER_DEAD
     love.graphics.setColor(0,0,0,200)
-    love.graphics.rectangle("fill",0,0,1150,600)
+    love.graphics.rectangle("fill",0,0,love.graphics.getWidth(),love.graphics.getHeight())
     love.graphics.setFont(lssx.TITLEF)
     love.graphics.setColor(255,0,0)
-    love.graphics.print("HCF - 0x9D", 350, 200)
+    love.graphics.printf("HCF - 0x9D", 0, 200, love.graphics.getWidth(), "center")
     lssx.TEXTF\setLineHeight(0.9)
     love.graphics.setFont(lssx.TEXTF)
     love.graphics.setColor(255,255,255)
-    love.graphics.print(Director.results.result, 350, 230)
+    love.graphics.print(Director.results.result, love.graphics.getWidth()/2-180, 230)
     love.graphics.setColor(255,0,0)
     lssx.TEXTF\setLineHeight(1)
 
@@ -95,15 +94,15 @@ Director.getStats = () ->
 
 Director.calculateRank = () ->
   rank = ""
-  if lssx.SCORE > 200000
+  if lssx.SCORE > 1000000
     rank = "ACE"
-  elseif lssx.SCORE > 200000
+  elseif lssx.SCORE > 500000
     rank = "SS"
-  elseif lssx.SCORE > 150000
+  elseif lssx.SCORE > 250000
     rank = "S"
   elseif lssx.SCORE > 100000
     rank = "A"
-  elseif lssx.SCORE > 750000
+  elseif lssx.SCORE > 75000
     rank = "B"
   elseif lssx.SCORE > 50000
     rank = "C"
@@ -118,8 +117,5 @@ Director.calculateRank = () ->
 Director.keypressed = (key) ->
   if Director.canRestart and (key == "kpenter" or key == "return")
     Gamestate.switch(Reset)
-  if key == "v"
-    for i=1, 10
-      LineExplosion(math.random(-100, 100)+1100, math.random(-100, 100)+1000, math.random(10)+4)  
 
 return Director

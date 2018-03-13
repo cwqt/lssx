@@ -1,9 +1,10 @@
 class GlitchText extends Object
-  new: (@content, @time, @x, @y, ...) =>
+  new: (@content, @time, @x, @y, @color,...) =>
     super(...)
 
     @k = 0
     @t = {}
+    @color = @color or {255,255,255}
 
     @content = @content or "ERR"
 
@@ -32,7 +33,7 @@ class GlitchText extends Object
 
   draw: () =>
     PushRotateScale(@x, @y, 0, 0.5, 0.5)
-    -- love.graphics.setColor(255,100,100)
+    love.graphics.setColor(@color)
     love.graphics.setFont(lssx.TITLEF)
     love.graphics.print(@content, @x, @y)
     love.graphics.setColor(255,255,255)

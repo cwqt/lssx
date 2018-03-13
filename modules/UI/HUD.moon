@@ -1,14 +1,19 @@
 HUD = {}
+px, py = love.window.getMode()
+wx, wy = px, py
+px = px/8
+py = py/8
 HUD.elements = {}
 HUD.elements.crosses = {
-  Cross(40, 30)
-  Cross(1060, 30)
-  Cross(1060, 550)
-  Cross(40, 550)
-  Cross(540, 30)
-  Cross(1060, 300)
-  Cross(540, 550)
-  Cross(40, 300)
+  Cross(px, py)
+  Cross(wx-px, py)
+  Cross(wx-px, wy-py)
+  Cross(px, wy-py)
+
+  Cross(px+((wx-2*px)/2), py)
+  Cross(px+((wx-2*px)/2), wy-py)
+  Cross(px, py+((wy-2*py)/2))  
+  Cross(wx-px, py+((wy-2*py)/2))  
 }
 
 HUD.load = (player) ->
@@ -18,10 +23,11 @@ HUD.load = (player) ->
   HUD.player = player
   HUD.hash   = player.hash
   HUD.elements.active = {}
-  HUD.elements.bar(0,   lssx.W_HEIGHT-80, HUD.player, "HP",     {0,255,0},   {102,204,0})
-  HUD.elements.bar(150, lssx.W_HEIGHT-80, HUD.player, "ammo",   {255,0,0},   {204,0,0})
-  HUD.elements.bar(300, lssx.W_HEIGHT-80, HUD.player, "oxygen", {0,0,255},   {102,0,255})
-  HUD.elements.bar(450, lssx.W_HEIGHT-80, HUD.player, "fuel",   {255,255,0}, {255,255,255})
+  HUD.elements.bar(0,   0, HUD.player, "HP",     {0,255,0},   {102,204,0})
+  HUD.elements.bar(150, 0, HUD.player, "ammo",   {255,0,0},   {204,0,0})
+  HUD.elements.bar(300, 0, HUD.player, "oxygen", {0,0,255},   {102,0,255})
+  HUD.elements.bar(450, 0, HUD.player, "fuel",   {255,255,0}, {255,255,255})
+  HUD.startTimer = HUD.elements.timer(love.graphics.getWidth()/2-40, love.graphics.getHeight()/4+120, 80, 10, 8)
 
 HUD.update = (dt) ->
   for k, element in pairs(HUD.elements.active) do
@@ -29,15 +35,17 @@ HUD.update = (dt) ->
 
   if lssx.objects[HUD.hash] == nil then return
   x, y = HUD.player.ship.body\getLinearVelocity()
-  HUD.camera\follow(550+x/15, 300+y/15)
+  HUD.camera\follow(love.graphics.getWidth()/2+x/15, love.graphics.getHeight()/2+y/15)
   HUD.camera\update(dt)
 
 HUD.draw = () ->
   HUD.camera\attach()
+  HUD.startTimer\draw()
   
   love.graphics.setLineWidth(0.2)
   love.graphics.setColor(255,255,255,100)
-  love.graphics.line(40, 40, 1060, 40, 1060, 560, 40, 560, 40, 40)
+  love.graphics.line(px,py, wx-px,py, wx-px,wy-py, px,wy-py, px,py)
+  -- love.graphics.line(40, 40, 1060, 40, 1060, 560, 40, 560, 40, 40)
   love.graphics.setLineWidth(2)
   for k, cross in pairs(HUD.elements.crosses) do cross\draw()
 
@@ -47,10 +55,10 @@ HUD.draw = () ->
   love.graphics.print(
     "SCORE: " .. lssx.SCORE .. "\n" .. 
     "KILLS: " .. lssx.KILLS
-    50, 50)
+    px+15, py+15)
 
   love.graphics.push()
-  love.graphics.translate((lssx.W_WIDTH/2)-285, 0)
+  love.graphics.translate(px+((wx-2*px)/2)-275, wy-py*1.5)
   for k, element in pairs(HUD.elements.active) do
     element\draw()
   love.graphics.pop()
@@ -62,6 +70,22 @@ HUD.draw = () ->
 HUD.shake = (intensity, duration, frequency) ->
   frequency = frequency or 60
   HUD.camera\shake(intensity, duration, frequency)
+
+class HUD.elements.timer 
+  new: (@x, @y, @w, @h, @t) =>
+    @wi = @w
+    @o = 255
+    flux.to(@, @t, {w: 0})
+    Timer.after @t, ->
+      flux.to(@, 0.5, {o: 0})
+
+  update: (dt) =>
+
+  draw: () =>
+    love.graphics.setColor(255,255,255,@o)
+    love.graphics.rectangle("line", @x, @y, @wi, @h)
+    love.graphics.rectangle("fill", @x, @y, @w, @h)
+    love.graphics.setColor(255,255,255,255)
 
 class HUD.elements.bar
   new: (@x, @y, @pointer, @value, @color, @bgcolor) =>
@@ -83,16 +107,16 @@ class HUD.elements.bar
       flux.to(@config, 0.5, {lagV: @pointer[@value]})\delay(0.1)
 
   draw: () =>
-    if @config.currentV <= @config.originalV*0.2 and (@value == "HP") --bleeeehh
-      love.graphics.setColor(255,0,0)
-      love.graphics.setFont(lssx.TITLEF)
-      love.graphics.print("SYSTEM CRITICAL", -210, 45)
-      love.graphics.setFont(lssx.TEXTF)
-      love.graphics.setColor(255,255,255)
-      love.graphics.print("CODE 102: LOW " .. string.upper(@value), -210, 95)
+    if @config.currentV <= @config.originalV*0.4 and (@value == "HP") --bleeeehh
       lssx.camera\shake(1, 0.1)
       HUD.shake(1, 0.1)
       lssx.SPFX.CHROMASEP = math.random(10)
+      love.graphics.setColor(255,0,0)
+      love.graphics.setFont(lssx.TITLEF)
+      love.graphics.print("SYSTEM CRITICAL", -1.25*px, -5.25*py)
+      love.graphics.setFont(lssx.TEXTF)
+      love.graphics.setColor(255,255,255)
+      love.graphics.print("CODE 102: LOW " .. string.upper(@value), -1.25*px, -5.25*py+60)
 
     love.graphics.setFont(lssx.TEXTF)
     love.graphics.setColor(unpack(@bgcolor))

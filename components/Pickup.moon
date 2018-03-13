@@ -28,15 +28,17 @@ class Pickup extends PolygonPhysicsShape
 
     @co = @color
 
-    Timer.after @t-@t/6, ->
-      Timer.every 0.2, ->
-        Timer.script (wait) ->
+    @timer = Timer.new()
+
+    @timer\after @t-@t/6, ->
+      @timer\every 0.2, ->
+        @timer\script (wait) ->
           wait(0.1)
           @color = {10,10,10}
           wait(0.1)
           @color = @co
 
-    Timer.after @t, -> @remove()
+    @timer\after @t, -> @remove()
 
     @body\applyAngularImpulse(50)
     @config = {
@@ -44,11 +46,12 @@ class Pickup extends PolygonPhysicsShape
       r: 0
     }
     flux.to(@config, 2, {s: 40, r:math.random(10)})\after(@config, 2, {s: 50, r: 0})
-    Timer.every 4, ->
+    @timer\every 4, ->
       flux.to(@config, 2, {s: 40, r:math.random(10)})\after(@config, 2, {s: 50, r: 0})
 
   update: (dt) =>
     super\update()
+    @timer\update(dt)
 
   draw: () =>
     love.graphics.setColor(@color)
@@ -60,6 +63,7 @@ class Pickup extends PolygonPhysicsShape
     super\draw()
 
   remove: () =>
+    @timer\clear()
     lx, ly = @body\getWorldCenter()
     LineExplosion(lx, ly, 10)
     super\remove()
@@ -69,7 +73,7 @@ class Pickup extends PolygonPhysicsShape
     other_object = lssx.objects[other\getBody()\getUserData().hash]
     switch other_object.__class.__name
       when "Player"
-        GlitchText(@type, 0.1, @x, @y)
+        GlitchText(@type, 0.1, @x, @y, @color)
         SoundManager.playRandom("Pickup", 1)
         @fixture\setSensor(true)
         lssx.SCORE += 2500
