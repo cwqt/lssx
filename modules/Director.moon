@@ -12,6 +12,7 @@ Director.gameStart = () ->
   EntityManager.clear()
   SoundManager.playLooping("DONBOR.ogg")
   TEsound.pitch("music", 1)
+  TEsound.pitch("alarm", 1)
   ChainPhysicsShape({0,0,2000,0,2000,2000,0,2000}, 1, lssx.world, 0, 0, "static")
 
   Player(Ship(lssx.world, 1000, 1000, "dynamic"), 20, "Player")

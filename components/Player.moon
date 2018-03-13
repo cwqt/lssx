@@ -4,6 +4,7 @@ class Player extends Entity
     --Reference ship to top-level player
     @ship.hash = @hash
     @ship\appendUserData("hash", @hash)
+    lssx.LOW_HP = false
 
     -- @ship.body\setInertia(2)
 
@@ -95,6 +96,15 @@ class Player extends Entity
     if #@mouseTrailPositions > 8 then
        table.remove(@mouseTrailPositions, 1)
 
+
+    if @HP <= 10
+      if not lssx.LOW_HP
+        TEsound.play("assets/Game/Sound/LowHP.ogg", "alarm", 5)
+      lssx.LOW_HP = true
+    else
+      lssx.LOW_HP = false
+      TEsound.pause("alarm")
+
     if @HP <= 0 @die()
 
 
@@ -134,6 +144,7 @@ class Player extends Entity
     lssx.FIRST_TIME = false
     SoundManager.playRandom("Death", 1)
     TEsound.pitch("music", 0.8)
+    TEsound.pitch("alarm", 0.8)
     @ammo = 0
     @boost = 0
     @fuel = 0
