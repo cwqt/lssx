@@ -41,11 +41,14 @@ class Shield extends CirclePhysicsShape
               if not lssx.PLAYER_DEAD
                 Debugger.log("Shield restoring")
                 SoundManager.playRandom("ShieldUp", 1)
-                @body\setActive(true)
-                flux.to(self, 0.5, {hp: @originalHP})
+                -- we're in the buffer and mightve been removed already
+                if lssx.objects[@hash] != nil
+                  @body\setActive(true)
+                  flux.to(self, 0.5, {hp: @originalHP})
     Debugger.log("Shield took " .. amount .. " damage", "death")
 
   remove: () =>
+    print("SHIELD DESTROYED")
     @timer\clear()
     super\remove()
 

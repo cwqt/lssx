@@ -26,7 +26,17 @@ class Pickup extends PolygonPhysicsShape
         @color = {0,255,0}
         @t = 15
 
-    Timer.every @t, -> @remove()
+    @co = @color
+
+    Timer.after @t-@t/6, ->
+      Timer.every 0.2, ->
+        Timer.script (wait) ->
+          wait(0.1)
+          @color = {10,10,10}
+          wait(0.1)
+          @color = @co
+
+    Timer.after @t, -> @remove()
 
     @body\applyAngularImpulse(50)
     @config = {
@@ -49,15 +59,19 @@ class Pickup extends PolygonPhysicsShape
     love.graphics.pop()
     super\draw()
 
+  remove: () =>
+    lx, ly = @body\getWorldCenter()
+    LineExplosion(lx, ly, 10)
+    super\remove()
+
   beginContact: (other) =>
     super\beginContact(other)
     other_object = lssx.objects[other\getBody()\getUserData().hash]
     switch other_object.__class.__name
       when "Player"
+        GlitchText(@type, 0.1, @x, @y)
         SoundManager.playRandom("Pickup", 1)
         @fixture\setSensor(true)
-        lx, ly = @body\getWorldCenter()
-        LineExplosion(lx, ly, 10)
         lssx.SCORE += 2500
         switch @type
           when "ammo"
@@ -69,3 +83,4 @@ class Pickup extends PolygonPhysicsShape
           when "HP"
             other_object[@type] += 10
         @remove()
+

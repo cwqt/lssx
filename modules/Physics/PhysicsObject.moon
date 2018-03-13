@@ -9,6 +9,10 @@ class PhysicsObject extends Object
   update: (dt) =>
     @x, @y = @body\getPosition()
 
+
+  draw: () =>
+    -- love.graphics.print(@hash, @x, @y)
+
   appendUserData: (key, data) =>
     t = @body\getUserData()
     old = t[key]

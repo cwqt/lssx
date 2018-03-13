@@ -8,4 +8,5 @@ class PolygonPhysicsShape extends PhysicsObject
     super\update(dt)
 
   draw: () =>
+    -- super\draw()
     love.graphics.polygon("line", @body\getWorldPoints(@shape\getPoints()))

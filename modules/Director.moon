@@ -38,13 +38,12 @@ Director.gameStart = () ->
 
     Timer.every 0.5, ->
       Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10) 
-    
-    Timer.every 2, ->
+    Timer.every 1, ->    
       Pickup(math.random(2000), math.random(2000))
+    Timer.every 2, ->
       Asteroid(100+math.random(1800), 100+math.random(1800))
 
 Director.update = (dt) ->
-
   if lssx.PLAYER_DEAD
     Director.getStats()
     if #Director.results.strings != Director.results.k
@@ -117,14 +116,10 @@ Director.calculateRank = () ->
   return rank
 
 Director.keypressed = (key) ->
-  if Director.canRestart and key == ("kpenter" or "return")
-    -- love.event.quit( "restart" )
+  if Director.canRestart and (key == "kpenter" or key == "return")
     Gamestate.switch(Reset)
-
   if key == "v"
     for i=1, 10
       LineExplosion(math.random(-100, 100)+1100, math.random(-100, 100)+1000, math.random(10)+4)  
-
-Director.spawnEnemies = (x, y, count) ->
 
 return Director

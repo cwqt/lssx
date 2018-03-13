@@ -107,8 +107,8 @@ class Player extends Entity
 
     if @HP <= 0 @die()
 
-
   draw: () =>
+    -- super\draw()
     love.graphics.setLineWidth(4)
     for i = 1, #@trailPositions do
       love.graphics.setColor(148,0,211, (255/(#@trailPositions)^2)*20*i)
@@ -167,10 +167,8 @@ class Player extends Entity
 
   keypressed: (key) =>
     switch key
-      when "s"
+      when "`"
         @takeDamage(1)
-      when "k"
-        lssx.KILLS += 1
       when "w"
         SoundManager.playRandom("Boost", 1, 2)
         @ship.body\applyLinearImpulse(50*math.cos(@ship.body\getAngle()), 50*math.sin(@ship.body\getAngle()))

@@ -19,6 +19,7 @@ class Asteroid extends PolygonPhysicsShape
   update: (dt) =>
 
   draw: () =>
+    super\draw()
     love.graphics.setColor(0,0,0)
     love.graphics.polygon("fill", @body\getWorldPoints(@shape\getPoints()))
     love.graphics.setColor(255,255,255)

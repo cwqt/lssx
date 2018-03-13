@@ -3,7 +3,7 @@
 
 io.stdout\setvbuf("no")
 math.randomseed(os.time())
-require("moonscript")
+-- require("moonscript")
 
 export flux                = require("libs/flux/flux")
 export lovebird            = require("libs/lovebird/lovebird")
@@ -59,6 +59,8 @@ Game.init = () =>
   CameraManager.load(1000, 1000)
 
 Game.enter = (previous) =>
+  collectgarbage("collect")
+  Timer.clear()
   lssx.PLAYER_DEAD = false
   Physics.load()
   love.graphics.setLineStyle("smooth")
@@ -74,6 +76,8 @@ Game.update = (dt) =>
   CameraManager.update(dt)
   HUD.update(dt)
   Director.update(dt)
+  TEsound.cleanup()
+  -- print(collectgarbage("count") .. "MB")
 
 Game.draw = () =>
   SPFX.effect ->

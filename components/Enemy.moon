@@ -30,11 +30,8 @@ class Enemy extends Entity
       "hiding": {0, 0, 255},
     }
 
+    
     -- @ship.components["Shield"]  = Shield(10, 10, 10)
-    -- Timer.every 0.5, ->
-    --   lx, ly = @ship.body\getWorldPoints(15, 0)
-    --   @ship\fire("Bullet", lx, ly, 2, -1)
-
 
   update: (dt) =>
     super\update(dt)
