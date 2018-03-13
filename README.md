@@ -1,4 +1,6 @@
 # zephyr
+Source code for __lssx__, __zephyr__ is the physics wrapper for it, except I just continued development of it in this repo because laziness.
+
 A Box2D wrapper for lssx.
 
 ```moon
