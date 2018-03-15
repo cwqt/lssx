@@ -7,7 +7,7 @@ Debugger.load = () ->
   -- os.execute("touch log.txt")
 
 Debugger.update = (dt) ->
-  lovebird.update(dt)
+  -- lovebird.update(dt)
 
 Debugger.draw = () ->
 

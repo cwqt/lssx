@@ -39,7 +39,7 @@ Director.gameStart = () ->
       Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10) 
     Timer.every 1, ->    
       Pickup(math.random(2000), math.random(2000))
-    Timer.every 2, ->
+    Timer.every 1.5, ->
       Asteroid(100+math.random(1800), 100+math.random(1800))
 
 Director.update = (dt) ->

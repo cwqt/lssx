@@ -44,7 +44,8 @@ class Shield extends CirclePhysicsShape
                 -- we're in the buffer and mightve been removed already
                 if lssx.objects[@hash] != nil
                   @body\setActive(true)
-                  flux.to(self, 0.5, {hp: @originalHP})
+                  if not lssx.PLAYER_DEAD
+                    flux.to(self, 0.5, {hp: @originalHP})
     Debugger.log("Shield took " .. amount .. " damage", "death")
 
   remove: () =>

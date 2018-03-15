@@ -2,6 +2,7 @@ Physics = {}
 
 Physics.load = () ->
   Physics.buffer = {}
+  Physics.removes = {}
   lssx.world = nil
   lssx.world = love.physics.newWorld(0, 0, true)
   print(lssx.world)
@@ -15,10 +16,18 @@ Physics.load = () ->
 Physics.update = (dt) ->
   lssx.world\update(dt)
   Physics.runBuffer()
+  Physics.runRemoves()
+  Physics.buffer = {}
+  Physics.removes = {}
 
 Physics.addToBuffer = (func, hash, isDestroyCommand) ->
-  hash = hash or UUID()
-  Physics.buffer[#Physics.buffer+1] = {func, hash}
+  if isDestroyCommand
+    hash = hash or UUID()
+    Debugger.log("Delete object " .. hash)
+    Physics.removes[#Physics.removes+1] = {func, hash}
+  else
+    hash = hash or UUID()
+    Physics.buffer[#Physics.buffer+1] = {func, hash}
 
 Physics.runBuffer = () ->
   hash = {}
@@ -30,6 +39,18 @@ Physics.runBuffer = () ->
         Physics.buffer[i][1]()
         hash[Physics.buffer[i][2]] = true
         table.remove(Physics.buffer, i)
+
+Physics.runRemoves = () ->
+  hash = {}
+  if #Physics.removes > 0 then
+    Debugger.log("Running removal stack")
+    for i = #Physics.removes, 1, -1  do
+      -- Same as runBuffer except for object deletion only
+      -- ran last after world tick and Physics.runBuffer
+      if (not hash[Physics.removes[i][2]]) then
+        Physics.removes[i][1]()
+        hash[Physics.removes[i][2]] = true
+        table.remove(Physics.removes, i)
 
 Physics.beginContact = (a, b, coll) ->
   Debugger.log("beginContact() triggered", "important")

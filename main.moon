@@ -99,6 +99,9 @@ Game.keypressed = (key) =>
   Director.keypressed(key)
 
 Game.leave = () =>
+  Debugger.log("==================================================")
+  Debugger.log("Leaving gamestate.")
+  Debugger.log("==================================================")
   EntityManager.clear()
   print("Later alligator")
 
@@ -106,6 +109,7 @@ Game.leave = () =>
 
 export Reset = {}
 Reset.enter = () =>
+  Debugger.log("Resetting game.")
   EntityManager.clear()
   Gamestate.switch(Game)
   lssx.SPFX.CHROMASEP = 0
