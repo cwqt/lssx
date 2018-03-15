@@ -2,7 +2,7 @@ SoundManager = {}
 
 SoundManager.playLooping = (track) ->
   TEsound.playLooping("assets/Game/Sound/" .. track, "music")
-  TEsound.volume("music", 10)
+  TEsound.volume("music", 2)
   TEsound.pitch("music", 1.5)
 
 SoundManager.playRandom = (pre, count, volume) ->

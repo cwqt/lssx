@@ -61,6 +61,7 @@ Game.init = () =>
   CameraManager.load(1000, 1000)
 
 Game.enter = (previous) =>
+  lssx.GAME_TIME = love.timer.getTime()
   collectgarbage("collect")
   Timer.clear()
   lssx.PLAYER_DEAD = false
@@ -271,9 +272,10 @@ love.load = () ->
   -- Gamestate.switch(Game)
 
 love.update = (dt) ->
-  Timer.update(dt)
-  SPFX.update(dt)
-  flux.update(dt)
+  if not lssx.PAUSE
+    Timer.update(dt)
+    SPFX.update(dt)
+    flux.update(dt)
   Debugger.update(dt)
 
 love.draw = () ->
@@ -283,7 +285,7 @@ love.keypressed = (key) ->
   switch key
     when "p"
       lssx.PAUSE = not lssx.PAUSE
-    when "esc"
+    when "escape"
       love.quit()
 
 love.keyreleased = (key) ->
@@ -300,6 +302,7 @@ love.textinput = (t) ->
 
 love.quit = () ->
   Debugger.log("Quitting...")
+  love.event.quit()
 
 -- FIXED TIMESTEP ============================================]]
 love.run = () ->

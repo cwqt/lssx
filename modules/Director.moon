@@ -71,13 +71,20 @@ Director.draw = () ->
     love.graphics.print(Director.results.result, love.graphics.getWidth()/2-180, 230)
     love.graphics.setColor(255,0,0)
     lssx.TEXTF\setLineHeight(1)
+  if lssx.PAUSE
+    love.graphics.setColor(0,0,0,200)
+    love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+    love.graphics.setColor(255,255,255,255)
+    love.graphics.setFont(lssx.TITLEF)
+    love.graphics.printf("PAUSED", 0, love.graphics.getHeight()/2-100, love.graphics.getWidth(), "center")
+    love.graphics.setFont(lssx.TEXTF)
 
 Director.getStats = () ->
   if Director.results.canUpdateStats == false then return
   lssx.SCORE = lssx.SCORE + (lssx.KILLS*1000)
   Director.results.strings = {
     "A critical system error has occured.  ",
-    "TIME SURVIVED : " .. tostring(math.floor(love.timer.getTime()-lssx.INIT_TIME, 3)*(10^(2)+0.5)/10^(2)) ..  " sec",
+    "TIME SURVIVED : " .. tostring(math.floor(love.timer.getTime()-lssx.GAME_TIME, 3)*(10^(2)+0.5)/10^(2)) ..  " sec",
     "SOVIETS KIA   : " .. lssx.KILLS,
     "SCORE         : " .. lssx.SCORE,
     "RANKING       : " .. Director.calculateRank(),
@@ -90,6 +97,18 @@ Director.getStats = () ->
     "Press 'Enter' to recover."
     ""
   }
+  do 
+    l = {
+      ["date"]: os.date("%c")
+      ["time_survived"]: tostring(math.floor(love.timer.getTime()-lssx.INIT_TIME, 3)*(10^(2)+0.5)/10^(2)) ..  " sec"
+      ["kills"]: lssx.KILLS
+      ["score"]: lssx.SCORE
+      ["rank"]: Director.calculateRank(),
+    }
+    for column, value in pairs(l)
+      print(column .. " = " .. value)
+  print("----------")
+
   Director.results.canUpdateStats = false
 
 Director.calculateRank = () ->
