@@ -79,7 +79,7 @@ class Pickup extends PolygonPhysicsShape
         lssx.SCORE += 2500
         switch @type
           when "ammo"
-            other_object[@type] += 100
+            other_object[@type] += 150
           when "oxygen"
             other_object[@type] += 25
           when "fuel"
