@@ -49,7 +49,7 @@ class Shield extends CirclePhysicsShape
     Debugger.log("Shield took " .. amount .. " damage", "death")
 
   remove: () =>
-    print("SHIELD DESTROYED")
+    Debugger.log("SHIELD DESTROYED")
     @timer\clear()
     super\remove()
 

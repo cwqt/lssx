@@ -40,7 +40,7 @@ Director.gameStart = () ->
     Timer.every 1, ->    
       Pickup(math.random(2000), math.random(2000))
     Timer.every 1.5, ->
-      Asteroid(100+math.random(1800), 100+math.random(1800))
+      Asteroid(100+math.random(1700), 100+math.random(1700))
 
 Director.update = (dt) ->
   if lssx.PLAYER_DEAD
@@ -99,16 +99,22 @@ Director.getStats = () ->
   }
   do 
     l = {
-      ["date"]: os.date("%c")
-      ["time_survived"]: tostring(math.floor(love.timer.getTime()-lssx.INIT_TIME, 3)*(10^(2)+0.5)/10^(2)) ..  " sec"
+      ["date"]: os.date("%x/%X")
+      ["time_survived"]: tostring(math.floor(love.timer.getTime()-lssx.GAME_TIME, 3)*(10^(2)+0.5)/10^(2))
       ["kills"]: lssx.KILLS
       ["score"]: lssx.SCORE
       ["rank"]: Director.calculateRank(),
     }
+    t = ""
+    y = ""
     for column, value in pairs(l)
-      print(column .. " = " .. value)
-  print("----------")
-
+      if lssx.FIRST_TIME
+        t = t .. column .. " | "
+      y = y .. value .. ","
+    if lssx.FIRST_TIME 
+      print(t)
+    print(y\sub(1, -2))
+  lssx.FIRST_TIME = false
   Director.results.canUpdateStats = false
 
 Director.calculateRank = () ->
@@ -134,7 +140,7 @@ Director.calculateRank = () ->
   return rank
 
 Director.keypressed = (key) ->
-  if Director.canRestart and (key == "kpenter" or key == "return")
+  if Director.canRestart and (key == "kpenter" or key == "return") and lssx.PLAYER_DEAD -- and lssx.PLAYER_DEAD, rm to show PG
     Gamestate.switch(Reset)
 
 return Director

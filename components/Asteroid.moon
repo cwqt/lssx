@@ -2,10 +2,10 @@ class Asteroid extends PolygonPhysicsShape
   new: (x, y, @scale, ...) =>
     v = {}
     for i=1, 16, 2 do
-      v[i] = math.random(100)
-      v[i+1] = math.random(100)
+      v[i] = math.random(-50, 50)
+      v[i+1] = math.random(-50, 50)
 
-    @scale = @scale or math.random(0.2, 1)
+    @scale = @scale or math.random(0.2, 1.5)
     for i=1, #v do v[i] = v[i] * @scale
     super(v, 1, lssx.world, x, y, "dynamic", ...)
     @hp = math.ceil(@body\getMass())
@@ -39,17 +39,20 @@ class Asteroid extends PolygonPhysicsShape
   remove: () =>
     SoundManager.playRandom("AsteroidExp", 2)
     x, y = @body\getWorldCenter()
-    if @body\getMass() > 2
-      c = math.floor(@body\getMass()/math.random(3,6))
+    if @body\getMass() > 4
+      c = math.random(1, 6)
       Debugger.log("Asteroid breaking up into " .. c .. " parts")
+      Physics.addToBuffer ->      
+        for i=1, c do
+          k = Asteroid(x+math.random(-10,10), y+math.random(-10,10), 1.4*@scale/c)
+          -- thanks @ILILIL#2995 ★~(◡‿◡✿)
+          if k.body\getMass() > @body\getMass()
+            k\remove()
+          else
+            k.body\applyAngularImpulse(math.random(-200, 200))
       p = {@body\getWorldPoints(@shape\getPoints())}
       for i=1, #p, 2 do
         FlashSq(p[i], p[i+1])
-      --revisit this
-      Physics.addToBuffer ->      
-        for i=1, c do
-          k = Asteroid(x+math.random(-10,10), y+math.random(-10,10), @scale/2)
-          k.body\applyAngularImpulse(math.random(-200, 200))
     FlashSq(x, y)
     FlashSq(x, y)
     super\remove()

@@ -104,7 +104,6 @@ Game.leave = () =>
   Debugger.log("Leaving gamestate.")
   Debugger.log("==================================================")
   EntityManager.clear()
-  print("Later alligator")
 
 -- ============================================================]]
 
