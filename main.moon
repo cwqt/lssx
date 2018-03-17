@@ -12,6 +12,7 @@ export Timer               = require("libs/hump/timer")
 export Camera              = require("libs/STALKER-X/Camera")
 export moonshine           = require("libs/moonshine")
 export splashy             = require("libs/splashy/splashy")
+export o_ten_one           = require("libs/o-ten-one")
 require("libs/TEsound")
 require("lssx")
 
@@ -214,6 +215,7 @@ MainMenu.update = (dt) =>
 
 MainMenu.draw = () =>
   SPFX.effect ->
+    love.graphics.setColor(255,255,255,255)
     love.graphics.setFont(title.font)
     love.graphics.print(title.printedText, 40, 40)
     love.graphics.setFont(text.font)
@@ -228,6 +230,7 @@ MainMenu.keypressed = (key) =>
   if key == "space" then Gamestate.switch(Game)
 
 -- ============================================================]]
+
 
 export Splash = {}
 
@@ -255,6 +258,27 @@ Splash.keypressed = (key) =>
 Splash.leave = () =>
   config = nil
 
+export LOVESplash = {}
+
+LOVESplash.init = () =>
+  export splash = o_ten_one()
+  Timer.after 2, ->
+    bootSound = love.audio.newSource("assets/Boot.ogg", "stream")
+    love.audio.play(bootSound)
+  splash.onDone = ->
+    Gamestate.switch(Splash)
+
+LOVESplash.update = (dt) =>
+  splash\update(dt)
+
+LOVESplash.draw = () =>
+  splash\draw()
+
+LOVESplash.keypressed = () =>
+  splash\skip()
+
+LOVESplash.leave = () =>
+  splash = nil
 -- ============================================================]]
 
 love.load = () ->
@@ -262,11 +286,9 @@ love.load = () ->
   love.mouse.setGrabbed(true)
   Debugger.load()
   SPFX.load() 
-  bootSound = love.audio.newSource("assets/Boot.ogg", "stream")
-  love.audio.play(bootSound)
-  Timer.after 1.5, ->
+  Timer.after 1,->
     Gamestate.registerEvents()
-    Gamestate.switch(Splash)
+    Gamestate.switch(LOVESplash)
   -- Gamestate.registerEvents()
   -- Gamestate.switch(Game)
 
