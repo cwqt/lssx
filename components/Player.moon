@@ -15,6 +15,11 @@ class Player extends Entity
     @ammo = 1000
     @boost = 10
 
+    @slomo = 100
+    @canSlomo = false
+    Timer.after 0.5, ->
+      @canSlomo = true
+
     @ship.components["Shield"]  = Shield(10, 0, 0, lssx.groupIndices["Friendly"])
     @ship.components["Shield"].color = {0,205,205}
 
@@ -59,7 +64,7 @@ class Player extends Entity
     @fy = math.clamp(-200, @fy, 200)
 
     if not lssx.SHOW_INSTRUCTIONS
-      if not love.mouse.isDown("1") -- stationary
+      if not love.mouse.isDown("2") -- stationary
         @ship.body\applyForce(@fx*0.8, @fy*1.2)
         @fuel -= @v*0.0002
 
@@ -75,6 +80,20 @@ class Player extends Entity
     if love.keyboard.isDown("f")
       @fire()
 
+    if @canSlomo
+      if love.mouse.isDown("1")
+        @slomo -= 1
+        lssx.SLOW_MO = true
+        TEsound.pitch("all", 0.7)
+        if @slomo < 0
+          @canSlomo = false
+    else
+      lssx.SLOW_MO = false
+      TEsound.pitch("all", 1)
+      @slomo += 1
+      if @slomo == 100
+        @canSlomo = true
+
     -- background resourcing
     @HP += 0.01
     @ammo += 0.1
@@ -84,6 +103,7 @@ class Player extends Entity
     @ammo = math.clamp(0, @ammo, 1000)
     @fuel = math.clamp(0, @fuel, 100)
     @oxygen = math.clamp(0, @oxygen, 100)
+    @slomo = math.clamp(0, @slomo, 100)
 
     
     table.insert(@trailPositions, { x: @ship.body\getX(), y: @ship.body\getY()})
@@ -94,7 +114,6 @@ class Player extends Entity
     table.insert(@mouseTrailPositions, { x: mx, y: my})
     if #@mouseTrailPositions > 8 then
        table.remove(@mouseTrailPositions, 1)
-
 
     if @HP <= 10
       if not lssx.LOW_HP
@@ -173,3 +192,8 @@ class Player extends Entity
         -- @ship.body\applyAngularImpulse(50)
       -- when "f"
       --   @fire()
+
+  mousereleased: (x, y, button) =>
+    if button == 1
+      lssx.SLOW_MO = false
+      TEsound.pitch("all", 1)

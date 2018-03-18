@@ -24,6 +24,7 @@ class Shield extends CirclePhysicsShape
 
   takeDamage: (amount) =>
     if @hp > 0
+      SoundManager.playRandom("ShieldHit", 0.5)
       flux.to(self, 0.2, {hp: @hp-amount})\oncomplete ->
         if @hp <= 5
           SoundManager.playRandom("ShieldDown", 1)
@@ -57,5 +58,7 @@ class Shield extends CirclePhysicsShape
     other_object = lssx.objects[other\getBody()\getUserData().hash]
     switch other_object.__class.__name
       when "Bullet"
+        x, y = other_object.body\getWorldCenter()
+        FlashSq(x, y)
         @takeDamage(other_object.damage)
         other_object\remove()

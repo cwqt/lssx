@@ -13,6 +13,8 @@ Physics.load = () ->
     Debugger.log("Collision callbacks active")
 
 Physics.update = (dt) ->
+  if lssx.SLOW_MO
+    dt = dt * 0.1
   lssx.world\update(dt)
   Physics.runBuffer()
   Physics.runRemoves()

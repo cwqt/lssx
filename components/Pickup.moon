@@ -54,13 +54,18 @@ class Pickup extends PolygonPhysicsShape
     @timer\update(dt)
 
   draw: () =>
+    love.graphics.setLineWidth(2)
+    love.graphics.setColor(255,255,255,255)
+    super\draw()
     love.graphics.setColor(@color)
+    love.graphics.polygon("fill", @body\getWorldPoints(@shape\getPoints()))
+    love.graphics.setLineWidth(1)
+    love.graphics.setColor(255,255,255,255)
     lx, ly = @body\getWorldCenter()
     PushRotate(lx, ly, @config.r)
     love.graphics.rectangle("line", lx-@config.s/2, ly-@config.s/2, @config.s, @config.s)
     love.graphics.rectangle("line", lx-@config.s/1.2/2, ly-@config.s/1.2/2, @config.s/1.2, @config.s/1.2)
     love.graphics.pop()
-    super\draw()
 
   remove: () =>
     @timer\clear()

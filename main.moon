@@ -1,5 +1,7 @@
 -- lssx
 -- twentytwoo 2017/18
+-- i pity anyone who attempts to read this
+
 
 io.stdout\setvbuf("no")
 math.randomseed(os.time())
@@ -316,6 +318,8 @@ love.mousemoved = (x, y) ->
 love.mousepressed = (x, y, button) ->
 
 love.mousereleased = (x, y, button) ->
+  if lssx.objects["Player"]
+    lssx.objects["Player"]\mousereleased(x, y, button)
 
 love.wheelmoved = (x, y) ->
 

@@ -119,11 +119,11 @@ Director.getStats = () ->
 
 Director.calculateRank = () ->
   rank = ""
-  if lssx.SCORE > 1000000
+  if lssx.SCORE > 500000
     rank = "ACE"
-  elseif lssx.SCORE > 500000
+  elseif lssx.SCORE > 300000
     rank = "SS"
-  elseif lssx.SCORE > 250000
+  elseif lssx.SCORE > 200000
     rank = "S"
   elseif lssx.SCORE > 100000
     rank = "A"

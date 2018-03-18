@@ -29,7 +29,12 @@ class Bullet extends Projectile
       --   @remove()
       when "Player"
         other_object\takeDamage(@damage)
-        @remove()        
+        @remove()
+        lssx.SLOW_MO = true
+        TEsound.pitch("all", 0.7)
+        Timer.after 0.5, ->        
+          lssx.SLOW_MO = false
+          TEsound.pitch("all", 1)
       when "Asteroid"
         other_object\takeDamage(@damage)
         @remove()

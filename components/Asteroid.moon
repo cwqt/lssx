@@ -39,20 +39,21 @@ class Asteroid extends PolygonPhysicsShape
   remove: () =>
     SoundManager.playRandom("AsteroidExp", 2)
     x, y = @body\getWorldCenter()
-    if @body\getMass() > 4
+    m = @body\getMass()
+    if m > 4
       c = math.random(1, 6)
       Debugger.log("Asteroid breaking up into " .. c .. " parts")
+      p = {@body\getWorldPoints(@shape\getPoints())}
+      for i=1, #p, 2 do
+        FlashSq(p[i], p[i+1])
       Physics.addToBuffer ->      
         for i=1, c do
           k = Asteroid(x+math.random(-10,10), y+math.random(-10,10), 1.4*@scale/c)
           -- thanks @ILILIL#2995 ★~(◡‿◡✿)
-          if k.body\getMass() > @body\getMass()
+          if k.body\getMass() > m
             k\remove()
           else
             k.body\applyAngularImpulse(math.random(-200, 200))
-      p = {@body\getWorldPoints(@shape\getPoints())}
-      for i=1, #p, 2 do
-        FlashSq(p[i], p[i+1])
     FlashSq(x, y)
     FlashSq(x, y)
     super\remove()

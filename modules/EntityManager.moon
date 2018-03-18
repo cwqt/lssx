@@ -19,4 +19,9 @@ EntityManager.keypressed = (key) ->
     if type(object.keypressed) == "function"
       object\keypressed(key)
 
+EntityManager.mousereleased = (x, y, button) ->
+  for k, object in pairs(lssx.objects) do
+    if type(object.mousereleased) == "function"
+      object\mousereleased(x, y, button)
+
 return EntityManager

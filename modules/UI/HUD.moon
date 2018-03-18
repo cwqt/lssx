@@ -24,9 +24,11 @@ HUD.load = (player) ->
   HUD.hash   = player.hash
   HUD.elements.active = {}
   HUD.elements.bar(0,   0, HUD.player, "HP",     {0,255,0},   {102,204,0})
-  HUD.elements.bar(150, 0, HUD.player, "ammo",   {255,0,0},   {204,0,0})
-  HUD.elements.bar(300, 0, HUD.player, "oxygen", {0,0,255},   {102,0,255})
-  HUD.elements.bar(450, 0, HUD.player, "fuel",   {255,255,0}, {255,255,255})
+  HUD.elements.bar(150,   0, HUD.player, "slomo", {255,255,255}, {230, 230, 230})
+  HUD.elements.bar(300, 0, HUD.player, "ammo",   {255,0,0},   {204,0,0})
+  HUD.elements.bar(450, 0, HUD.player, "oxygen", {0,0,255},   {102,0,255})
+  HUD.elements.bar(600, 0, HUD.player, "fuel",   {255,255,0}, {255,255,255})
+
   HUD.startTimer = HUD.elements.timer(love.graphics.getWidth()/2-40, love.graphics.getHeight()/4+120, 80, 10, 8)
 
 HUD.update = (dt) ->
@@ -58,7 +60,7 @@ HUD.draw = () ->
     px+15, py+15)
 
   love.graphics.push()
-  love.graphics.translate(px+((wx-2*px)/2)-275, wy-py*1.5)
+  love.graphics.translate(px+((wx-2*px)/2)-350, wy-py*1.5)
   for k, element in pairs(HUD.elements.active) do
     element\draw()
   love.graphics.pop()
