@@ -4,7 +4,7 @@ class Shield extends CirclePhysicsShape
     super(radius, 0, lssx.world, x, y, "dynamic", ...)
     @hp = hp
     @originalHP = hp
-    @disabledTime = @originalHP/4
+    @disabledTime = 2
     @color = {255,0,0}
 
     @fixture\setCategory(lssx.categories["Shield"])
@@ -15,7 +15,7 @@ class Shield extends CirclePhysicsShape
 
   update: (dt) =>
     super\update(dt)
-    @shape\setRadius(@hp*2)
+    @shape\setRadius(@hp/2)
     @timer\update(dt)
 
   draw: () =>

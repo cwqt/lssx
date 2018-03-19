@@ -49,6 +49,10 @@ lssx.masks = {
     lssx.categories["Asteroid"],
     lssx.categories["Ship"],
   }
+  ["EN_Fov"]: {
+    -- lssx.categories["Ship"],
+    lssx.categories["Projectile"],
+  }
 }
 
 lssx.StringPad = (str, len, char) ->

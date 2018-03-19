@@ -12,11 +12,19 @@ class Enemy extends Entity
     @fovfix = love.physics.newFixture(@ship.body, @fovshp, 0)
 
     -- @fovfix\setCategory(lssx.categories["Enemy_FOV"])
-    -- @fovfix\setMask(lssx.categories["Player"])
     @fovfix\setSensor(true)
     @fovfix\setUserData("fov")
-    -- @fovfix\setCategory(lssx.categories[""])
-    @fovfix\setGroupIndex(lssx.groupIndices["Enemy"])
+
+    @fovfix\setCategory(lssx.categories["EN_Fov"])
+    @fovfix\setMask(lssx.masks["EN_Fov"])
+
+    @hitbxshape = love.physics.newCircleShape(20)
+    @hitbxfix   = love.physics.newFixture(@ship.body, @hitbxshape, 0)
+    @hitbxfix\setGroupIndex(lssx.groupIndices["Enemy"])
+    @hitbxfix\setSensor(true)
+    -- @hitbxfix\setUserData("hitbox")
+
+    -- @fovfix\setGroupIndex(lssx.groupIndices["Enemy"])
 
     -- @ship.components["Shield"]  = Shield(10, 0, 0, lssx.groupIndices["Enemy"])
 
@@ -57,6 +65,10 @@ class Enemy extends Entity
       else
         @state = "chasing"
 
+    if @state == "hiding"
+      FlashSq(@ship.x, @ship.y, 0.1)
+      @HP -= 0.05
+
     -- Save the CPU
     -- Get differential angle between player and body
     @angle = math.atan2(( my - @ship.y ), ( mx - @ship.x ))
@@ -93,8 +105,8 @@ class Enemy extends Entity
     -- Spin out of control
     if @HP <= 2 then
       @ship.body\setAngularVelocity(10)
-      @fx=-@fx*5
-      @fy=-@fy*5
+      @fx=@fx*20
+      @fy= @fy*20
 
     @fx = math.clamp(-200, @fx, 200)
     @fy = math.clamp(-200, @fy, 200)
@@ -108,6 +120,10 @@ class Enemy extends Entity
     super\draw()
     @ship\draw()
     -- love.graphics.polygon("line", @ship.body\getWorldPoints(@fovshp\getPoints()))
+
+    -- lx, ly = @ship.body\getWorldPoints(@hitbxshape\getPoint())
+    -- love.graphics.circle("line", lx, ly, @hitbxshape\getRadius())
+
     -- love.graphics.circle("line", @ship.x, @ship.y, 500)
     -- love.graphics.circle("line", @ship.x, @ship.y, 150)
     love.graphics.setColor(255,255,255)
@@ -127,7 +143,8 @@ class Enemy extends Entity
   beginContact: (other, ourfixture) =>
     @ship\beginContact(other)
     if (ourfixture\getUserData() == "fov") and (lssx.objects[other\getBody()\getUserData().hash].hash == "Player")
-      @fire()
+      if @state != "hiding"
+        @fire()
 
     -- print(selfs\getUserData())
     -- @ship\beginContact(other)

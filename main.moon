@@ -2,7 +2,6 @@
 -- twentytwoo 2017/18
 -- i pity anyone who attempts to read this
 
-
 io.stdout\setvbuf("no")
 math.randomseed(os.time())
 -- require("moonscript")
@@ -288,11 +287,11 @@ love.load = () ->
   love.mouse.setGrabbed(true)
   Debugger.load()
   SPFX.load() 
-  Timer.after 1,->
-    Gamestate.registerEvents()
-    Gamestate.switch(LOVESplash)
-  -- Gamestate.registerEvents()
-  -- Gamestate.switch(Game)
+  -- Timer.after 1,->
+  --   Gamestate.registerEvents()
+  --   Gamestate.switch(LOVESplash)
+  Gamestate.registerEvents()
+  Gamestate.switch(Game)
 
 love.update = (dt) ->
   if not lssx.PAUSE

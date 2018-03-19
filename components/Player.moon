@@ -20,7 +20,7 @@ class Player extends Entity
     Timer.after 0.5, ->
       @canSlomo = true
 
-    @ship.components["Shield"]  = Shield(10, 0, 0, lssx.groupIndices["Friendly"])
+    @ship.components["Shield"]  = Shield(50, 0, 0, lssx.groupIndices["Friendly"])
     @ship.components["Shield"].color = {0,205,205}
 
     -- aaahh fucking hell this code is getting spaghettified
@@ -66,7 +66,7 @@ class Player extends Entity
     if not lssx.SHOW_INSTRUCTIONS
       if not love.mouse.isDown("2") -- stationary
         @ship.body\applyForce(@fx*0.8, @fy*1.2)
-        @fuel -= @v*0.0002
+        @fuel -= @v*0.0001
 
     -- Take some background O2 away, check it
     @oxygen -= 0.01
@@ -176,7 +176,7 @@ class Player extends Entity
     if @ammo > 3
       @ship\fire(lssx.groupIndices["Friendly"])
       @oxygen -= 0.05
-      @ammo -= 1
+      @ammo -= 0.2
 
   -- We're not a physics object, but we should pass on our data to our ship, which is
   beginContact: (other) =>

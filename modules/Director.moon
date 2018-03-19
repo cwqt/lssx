@@ -32,13 +32,9 @@ Director.gameStart = () ->
     lssx.SHOW_INSTRUCTIONS = true
   Timer.after 8, ->  
     lssx.SHOW_INSTRUCTIONS = false
-    for i=1, 1 do
-      Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10) 
-
-    Timer.every 0.5, ->
-      Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10) 
     Timer.every 1, ->    
       Pickup(math.random(2000), math.random(2000))
+      Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10) 
     Timer.every 1.5, ->
       Asteroid(100+math.random(1700), 100+math.random(1700))
 
