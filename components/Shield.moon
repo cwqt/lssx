@@ -1,10 +1,10 @@
 class Shield extends CirclePhysicsShape
   new: (hp, x, y, gindex, ...) =>
-    radius = hp*2
+    radius = hp/2
     super(radius, 0, lssx.world, x, y, "dynamic", ...)
     @hp = hp
     @originalHP = hp
-    @disabledTime = 2
+    @disabledTime = 3.5
     @color = {255,0,0}
 
     @fixture\setCategory(lssx.categories["Shield"])
@@ -24,9 +24,9 @@ class Shield extends CirclePhysicsShape
 
   takeDamage: (amount) =>
     if @hp > 0
-      SoundManager.playRandom("ShieldHit", 0.5)
+      SoundManager.playRandom("ShieldHit", 0.3)
       flux.to(self, 0.2, {hp: @hp-amount})\oncomplete ->
-        if @hp <= 5
+        if @shape\getRadius() < 15
           SoundManager.playRandom("ShieldDown", 1)
           @body\setActive(false)
           lx, ly = @body\getPosition()

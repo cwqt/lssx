@@ -74,7 +74,7 @@ class Player extends Entity
       lssx.CHROMASEP = math.random(5)
       lssx.CHROMASEP_ANGLE = math.random(5)
       CameraManager.shake((@HP-@initalHP)*0.08, 0.2, 40, "XY")
-      @HP -= 0.1
+      @HP -= 0.05
       @oxygen = 0
 
     if love.keyboard.isDown("f")
@@ -84,6 +84,7 @@ class Player extends Entity
       if love.mouse.isDown("1")
         @slomo -= 1
         lssx.SLOW_MO = true
+        @ship.body\applyTorque(10 * difference)
         TEsound.pitch("all", 0.7)
         if @slomo < 0
           @canSlomo = false
@@ -167,6 +168,7 @@ class Player extends Entity
     @fuel = 0
     @hp = 0
     @oxygen = 0
+    @slomo = 0
     Timer.after 2, -> lssx.PLAYER_DEAD = true
     Physics.addToBuffer ->
       super\die()
@@ -175,8 +177,8 @@ class Player extends Entity
   fire: () =>
     if @ammo > 3
       @ship\fire(lssx.groupIndices["Friendly"])
-      @oxygen -= 0.05
-      @ammo -= 0.2
+      @oxygen -= 0.01
+      @ammo -= 0.5
 
   -- We're not a physics object, but we should pass on our data to our ship, which is
   beginContact: (other) =>

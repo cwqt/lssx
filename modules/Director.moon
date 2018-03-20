@@ -31,6 +31,7 @@ Director.gameStart = () ->
   if lssx.FIRST_TIME 
     lssx.SHOW_INSTRUCTIONS = true
   Timer.after 8, ->  
+    SoundManager.playRandom("RoundStart", 1)
     lssx.SHOW_INSTRUCTIONS = false
     Timer.every 1, ->    
       Pickup(math.random(2000), math.random(2000))

@@ -5,7 +5,7 @@ class Asteroid extends PolygonPhysicsShape
       v[i] = math.random(-50, 50)
       v[i+1] = math.random(-50, 50)
 
-    @scale = @scale or math.random(0.2, 1.5)
+    @scale = @scale or math.random(0.2, 1)
     for i=1, #v do v[i] = v[i] * @scale
     super(v, 1, lssx.world, x, y, "dynamic", ...)
     @hp = math.ceil(@body\getMass())
@@ -13,8 +13,12 @@ class Asteroid extends PolygonPhysicsShape
     @fixture\setCategory(lssx.categories["Asteroid"])
 
     @fixture\setFriction(1)
-    @body\setLinearDamping(0.2)
+    @body\setLinearDamping(0.05)
     @body\setAngularDamping(0.2)
+
+    if math.random(2) == 1 
+      k = @body\getMass()/4
+      @body\applyLinearImpulse(math.random(-100,100)*(1+k), math.random(-100,100)*(1+k))
 
   update: (dt) =>
 

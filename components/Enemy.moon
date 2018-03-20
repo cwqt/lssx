@@ -66,7 +66,7 @@ class Enemy extends Entity
         @state = "chasing"
 
     if @state == "hiding"
-      FlashSq(@ship.x, @ship.y, 0.1)
+      FlashSq(@ship.x, @ship.y, 0.4)
       @HP -= 0.05
 
     -- Save the CPU

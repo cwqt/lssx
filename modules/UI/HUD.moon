@@ -28,6 +28,7 @@ HUD.load = (player) ->
   HUD.elements.bar(300, 0, HUD.player, "ammo",   {255,0,0},   {204,0,0})
   HUD.elements.bar(450, 0, HUD.player, "oxygen", {0,0,255},   {102,0,255})
   HUD.elements.bar(600, 0, HUD.player, "fuel",   {255,255,0}, {255,255,255})
+  HUD.elements.Killstreak(-335, 0)
 
   HUD.startTimer = HUD.elements.timer(love.graphics.getWidth()/2-40, love.graphics.getHeight()/4+120, 80, 10, 8)
 
@@ -130,5 +131,52 @@ class HUD.elements.bar
     love.graphics.printf(string.upper(@value), @x, @y+@config.text.h-15, @config.boxW, "center")
 
     love.graphics.rectangle("line", @x, @y, @config.boxW, 10)
+
+class HUD.elements.Killstreak
+  new: (@x, @y) =>
+    @s = ""
+    table.insert(HUD.elements.active, self)
+    @y = -100
+    @done = false
+    @done2 = false
+    @oldKills = 0
+
+  appear: (n) =>
+    @oldKills = n
+    @y = -180
+    @s = n .. " KILLS"
+    Timer.after 0.5, ->
+      SoundManager.playRandom("Killstreak", 1)
+      lssx.SLOW_MO = true
+      flux.to(@, 1, {y: wy/2-50})\ease("cubicout")\oncomplete(-> lssx.SLO_MO = false)\after(@, 0.2, {y: wy})\oncomplete(->
+        @y=-180
+        lssx.SLOW_MO = false)
+
+  update: (dt) =>
+    -- :nauseated:
+    if lssx.KILLS > 0
+      if lssx.KILLS < 11 --first 10 kills
+        if (lssx.KILLS % 10) == 0 and not @done
+          @appear(10)
+          @done = true
+      elseif lssx.KILLS < 26 -- first 25
+        if (lssx.KILLS % 25) == 0 and not @done2
+          @appear(25)
+          @done2 = true
+      else -- then every 50
+        if (lssx.KILLS % 50) == 0 and (lssx.KILLS != @oldKills)
+          @appear(lssx.KILLS)
+
+  draw: () =>
+    love.graphics.push()
+    love.graphics.translate(@x, @y-(wy-py*1.5))
+    love.graphics.setColor(0,0,0,200)
+    love.graphics.rectangle("fill", 0,0, wx, 100)
+
+    love.graphics.setColor(255,0,255,255)
+    love.graphics.setFont(lssx.TITLEF)
+    love.graphics.print(@s, wx/2-lssx.TITLEF\getWidth(@s)/2, 50-lssx.TITLEF\getHeight(@s)/2)
+    love.graphics.pop()
+    love.graphics.setFont(lssx.TEXTF)
 
 return HUD

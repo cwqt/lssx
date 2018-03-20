@@ -39,6 +39,7 @@ export HUD                 = require("modules/UI/HUD")
 export FlashSq             = require("modules/UI/FlashSq")
 export LineExplosion       = require("modules/UI/LineExplosion")
 export GlitchText          = require("modules/UI/GlitchText")
+export Killstreak          = require("modules/UI/Killstreak")
 
 export Entity              = require("components/Entity")
 export Ship                = require("components/Ship")
@@ -73,7 +74,7 @@ Game.enter = (previous) =>
   Director.load()
   Director.gameStart()
   BackgroundShapes.load()
- 
+
 Game.update = (dt) =>
   if lssx.PAUSE then return
   Physics.update(dt)
@@ -113,8 +114,10 @@ export Reset = {}
 Reset.enter = () =>
   Debugger.log("Resetting game.")
   EntityManager.clear()
-  Gamestate.switch(Game)
   lssx.SPFX.CHROMASEP = 0
+  Physics.buffer = {}--just to make FUCKING sure
+  EntityManager.clear()
+  Gamestate.switch(Game)
 
 -- ============================================================]]
 
