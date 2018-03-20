@@ -6,7 +6,7 @@ class Bullet extends Projectile
     --   points[i] = points[i] * 0.5
 
     super(x, y, points, ...)
-    @body\setLinearDamping(5)
+    @body\setLinearDamping(2)
     @body\setInertia(10)
     @fixture\setRestitution(0.1)
 
@@ -28,7 +28,8 @@ class Bullet extends Projectile
       --   other_object\takeDamage(@damage)
       --   @remove()
       when "Player"
-        other_object\takeDamage(@damage)
+        if other_object.ship.components["Shield"].hp > other_object.ship.components["Shield"].originalHP/6  then return
+        other_object\takeDamage(1)
         @remove()
         lssx.SLOW_MO = true
         TEsound.pitch("all", 0.7)

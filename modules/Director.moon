@@ -33,9 +33,25 @@ Director.gameStart = () ->
   Timer.after 8, ->  
     SoundManager.playRandom("RoundStart", 1)
     lssx.SHOW_INSTRUCTIONS = false
-    Timer.every 1, ->    
-      Pickup(math.random(2000), math.random(2000))
-      Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10) 
+    Timer.every 1, -> Pickup(100+math.random(1800), 100+math.random(1800))
+    Timer.every 1.5, ->    
+      -- done:probably should be changed to spawn more enemies when player has more kills
+      -- side note: this is gross
+      if lssx.KILLS > 400
+        Director.spawnEnemies(7)
+      elseif lssx.KILLS > 300
+        Director.spawnEnemies(6)
+      elseif lssx.KILLS > 200
+        Director.spawnEnemies(5)
+      elseif lssx.KILLS > 100
+        Director.spawnEnemies(4)
+      elseif lssx.KILLS > 50
+        Director.spawnEnemies(3)
+      elseif lssx.KILLS > 25
+        Director.spawnEnemies(2)
+      else
+        Director.spawnEnemies(1)
+
     Timer.every 1.5, ->
       Asteroid(100+math.random(1700), 100+math.random(1700))
 
@@ -116,11 +132,11 @@ Director.getStats = () ->
 
 Director.calculateRank = () ->
   rank = ""
-  if lssx.SCORE > 500000
+  if lssx.SCORE > 1000000
     rank = "ACE"
-  elseif lssx.SCORE > 300000
+  elseif lssx.SCORE > 500000
     rank = "SS"
-  elseif lssx.SCORE > 200000
+  elseif lssx.SCORE > 250000
     rank = "S"
   elseif lssx.SCORE > 100000
     rank = "A"
@@ -139,5 +155,11 @@ Director.calculateRank = () ->
 Director.keypressed = (key) ->
   if Director.canRestart and (key == "kpenter" or key == "return") and lssx.PLAYER_DEAD -- and lssx.PLAYER_DEAD, rm to show PG
     Gamestate.switch(Reset)
+
+
+Director.spawnEnemies = (amount) ->
+  for i=1, amount
+    Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10) 
+
 
 return Director

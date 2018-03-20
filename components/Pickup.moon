@@ -30,7 +30,7 @@ class Pickup extends PolygonPhysicsShape
 
     @timer = Timer.new()
 
-    @timer\after @t-@t/6, ->
+    @timer\after @t-(@t/6+1), ->
       @timer\every 0.2, ->
         @timer\script (wait) ->
           wait(0.1)
