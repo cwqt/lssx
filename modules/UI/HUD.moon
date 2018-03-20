@@ -78,7 +78,7 @@ class HUD.elements.timer
   new: (@x, @y, @w, @h, @t) =>
     @wi = @w
     @o = 255
-    flux.to(@, @t, {w: 0})
+    flux.to(@, @t, {w: 0})\ease("linear")
     Timer.after @t, ->
       flux.to(@, 0.5, {o: 0})
 
@@ -173,7 +173,7 @@ class HUD.elements.Killstreak
     love.graphics.setColor(0,0,0,200)
     love.graphics.rectangle("fill", 0,0, wx, 100)
 
-    love.graphics.setColor(255,0,255,255)
+    love.graphics.setColor(255,230,255,255)
     love.graphics.setFont(lssx.TITLEF)
     love.graphics.print(@s, wx/2-lssx.TITLEF\getWidth(@s)/2, 50-lssx.TITLEF\getHeight(@s)/2)
     love.graphics.pop()
