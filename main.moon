@@ -390,3 +390,12 @@ export PushRotateScale = (x, y, r, sx, sy) ->
   love.graphics.rotate(r or 0)
   love.graphics.scale(sx or 1, sy or sx or 1)
   love.graphics.translate(-x, -y)
+
+export ttu = {}
+
+ttu.ConstantLength = (string, length) ->
+  string = tostring(string)
+  return string.sub(string .. string.rep(" ", length-#string), 1, length)
+
+ttu.StringPad = (str, len, char) ->
+  return i .. string.rep(char, len-#str)

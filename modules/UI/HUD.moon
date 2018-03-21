@@ -29,6 +29,7 @@ HUD.load = (player) ->
   HUD.elements.bar(450, 0, HUD.player, "oxygen", {0,0,255},   {102,0,255})
   HUD.elements.bar(600, 0, HUD.player, "fuel",   {255,255,0}, {255,255,255})
   HUD.elements.Killstreak(-335, 0)
+  HUD.t = 0
 
   HUD.startTimer = HUD.elements.timer(love.graphics.getWidth()/2-40, love.graphics.getHeight()/4+120, 80, 10, 8)
 
@@ -55,10 +56,19 @@ HUD.draw = () ->
   love.graphics.setLineWidth(1)
 
   love.graphics.setColor(255,255,255)
+  love.graphics.setFont(lssx.TITLEF)
+  t = "0.00"
+  if Director.canCount
+    if lssx.FIRST_TIME-- AHHHHHHHHHHHHHHHHHHHHHHH
+      t = ttu.ConstantLength(love.timer.getTime()-lssx.GAME_TIME-8, 4)
+    else
+      t = ttu.ConstantLength(love.timer.getTime()-lssx.GAME_TIME, 4)
+  love.graphics.print(t, px+15, py+15)
+  love.graphics.setFont(lssx.TEXTF)
   love.graphics.print(
     "SCORE: " .. lssx.SCORE .. "\n" .. 
     "KILLS: " .. lssx.KILLS
-    px+15, py+15)
+    px+15, py+70)
 
   love.graphics.push()
   love.graphics.translate(px+((wx-2*px)/2)-350, wy-py*1.5)

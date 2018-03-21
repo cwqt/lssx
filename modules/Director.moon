@@ -6,6 +6,7 @@ Director.load = () ->
     typeTimer: 0.8
     k: 1
     canRestart: false
+    canCount:   false
   }
 
 Director.gameStart = () ->
@@ -31,29 +32,34 @@ Director.gameStart = () ->
   if lssx.FIRST_TIME 
     lssx.SHOW_INSTRUCTIONS = true
   Timer.after 8, ->  
+    Director.canCount = true
     SoundManager.playRandom("RoundStart", 1)
     lssx.SHOW_INSTRUCTIONS = false
-    Timer.every 1, -> Pickup(100+math.random(1800), 100+math.random(1800))
+    Timer.every 1, ->
+      if not lssx.PLAYER_DEAD
+        Pickup(100+math.random(1800), 100+math.random(1800))
     Timer.every 1.5, ->    
-      -- done:probably should be changed to spawn more enemies when player has more kills
-      -- side note: this is gross
-      if lssx.KILLS > 400
-        Director.spawnEnemies(7)
-      elseif lssx.KILLS > 300
-        Director.spawnEnemies(6)
-      elseif lssx.KILLS > 200
-        Director.spawnEnemies(5)
-      elseif lssx.KILLS > 100
-        Director.spawnEnemies(4)
-      elseif lssx.KILLS > 50
-        Director.spawnEnemies(3)
-      elseif lssx.KILLS > 25
-        Director.spawnEnemies(2)
-      else
-        Director.spawnEnemies(1)
+      if not lssx.PLAYER_DEAD
+        -- probably should be changed to spawn more enemies when player has more kills
+        -- side note: this is gross
+        if lssx.KILLS > 400
+          Director.spawnEnemies(7)
+        elseif lssx.KILLS > 300
+          Director.spawnEnemies(6)
+        elseif lssx.KILLS > 200
+          Director.spawnEnemies(5)
+        elseif lssx.KILLS > 100
+          Director.spawnEnemies(4)
+        elseif lssx.KILLS > 50
+          Director.spawnEnemies(3)
+        elseif lssx.KILLS > 25
+          Director.spawnEnemies(2)
+        else
+          Director.spawnEnemies(1)
 
     Timer.every 1.5, ->
-      Asteroid(100+math.random(1700), 100+math.random(1700))
+      if not lssx.PLAYER_DEAD
+        Asteroid(100+math.random(1700), 100+math.random(1700))
 
 Director.update = (dt) ->
   if lssx.PLAYER_DEAD
@@ -67,7 +73,8 @@ Director.update = (dt) ->
     else
       Director.canRestart = true
   else --player alive
-    lssx.SCORE = lssx.SCORE + 1
+    if Director.canCount
+      lssx.SCORE = lssx.SCORE + 1
 
 Director.draw = () ->
   if lssx.SHOW_INSTRUCTIONS
@@ -110,7 +117,8 @@ Director.getStats = () ->
     "Press 'Enter' to recover."
     ""
   }
-  do 
+  do -- could possibly export to some file format
+     -- for autistic stat tracking
     l = {
       ["date"]: os.date("%x/%X")
       ["time_survived"]: tostring(math.floor(love.timer.getTime()-lssx.GAME_TIME, 3)*(10^(2)+0.5)/10^(2))
@@ -156,10 +164,8 @@ Director.keypressed = (key) ->
   if Director.canRestart and (key == "kpenter" or key == "return") and lssx.PLAYER_DEAD -- and lssx.PLAYER_DEAD, rm to show PG
     Gamestate.switch(Reset)
 
-
 Director.spawnEnemies = (amount) ->
   for i=1, amount
     Enemy(Ship(lssx.world, math.random(2000), math.random(2000), "dynamic"), 10) 
-
 
 return Director
