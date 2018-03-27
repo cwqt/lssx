@@ -23,4 +23,4 @@ beginContact: (other) =>
       @Die()
 ``` 
 
-Documentation included in whitepaper (to be released.)
+Documentation included in whitepaper <https://ftp.ttxi.gq/==QMwAzN3g.pdf>
