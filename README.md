@@ -1,8 +1,9 @@
-# zephyr
+# lssx
 Source code for __lssx__, __zephyr__ is the physics wrapper for it, except I just continued development of it in this repo because laziness.
 <https://ttxi.gq/blog/lssx-and-lessons-learned>
 
-A Box2D wrapper for lssx.
+### zephyr
+A Box2D wrapper for lssx with entity management.
 
 ```moon
 Physics.beginContact = (a, b, coll) ->
