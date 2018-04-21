@@ -1,6 +1,6 @@
 # lssx
 Source code for __lssx__, __zephyr__ is the physics wrapper for it, except I just continued development of it in this repo because laziness.
-<https://ttxi.gq/blog/lssx-and-lessons-learned>
+<https://ttxi.gq/posts/lssx-and-lessons-learned>
 
 ### zephyr
 A Box2D wrapper for lssx with entity management.
