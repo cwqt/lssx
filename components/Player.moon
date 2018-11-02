@@ -189,8 +189,9 @@ class Player extends Entity
       when "`"
         @takeDamage(1)
       when "w"
-        SoundManager.playRandom("Boost", 1, 2)
-        @ship.body\applyLinearImpulse(50*math.cos(@ship.body\getAngle()), 50*math.sin(@ship.body\getAngle()))
+        if @fuel > 5
+          SoundManager.playRandom("Boost", 1, 2)
+          @ship.body\applyLinearImpulse(50*math.cos(@ship.body\getAngle()), 50*math.sin(@ship.body\getAngle()))
         -- @ship.body\applyAngularImpulse(50)
       -- when "f"
       --   @fire()
