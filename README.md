@@ -1,6 +1,10 @@
 # lssx
-Source code for __lssx__, __zephyr__ is the physics wrapper for it, except I just continued development of it in this repo because laziness.
-<https://ttxi.gq/posts/lssx-and-lessons-learned>
+lssx is an attempt at creating a short yet re-playable experience that simulates the paranoia and anxiety from the Cold War by imposing upon the player an increasingly difficult challenge, to stay alive.
+
+
+* post: <https://cass.si/posts/lssx-and-lessons-learned>
+* paper: <https://ftp.cass.si/==QMwAzN3g.pdf>
+* presentation: <https://ftp.cass.si/=czM0YjM0A.pdf>
 
 ### zephyr
 A Box2D wrapper for lssx with entity management.
@@ -23,5 +27,3 @@ beginContact: (other) =>
     when 'spikes'
       @Die()
 ``` 
-
-Documentation included in whitepaper <https://ftp.ttxi.gq/==QMwAzN3g.pdf>
